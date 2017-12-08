@@ -1,0 +1,14 @@
+<md-content flex layout="column" layout-fill>
+    <ui-gmap-google-map center='startMapVm.map.center' options='startMapVm.mapOptions' zoom='startMapVm.map.zoom'>
+        <ui-gmap-markers
+            models="startMapVm.markers"
+            type="'cluster'"
+            coords="'self'"
+            icon="'icon'"
+            idkey="'key'"
+            options="'options'"
+            typeOptions="startMapVm.clusterOptions"
+            fit="true">
+        </ui-gmap-markers>
+    </ui-gmap-google-map>
+</md-content>
