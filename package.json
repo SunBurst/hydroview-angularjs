@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init": "npm install",
+    "install": "bower install",
+    "start": "node src/server/app.js",
+    "test": "gulp test",
+    "postinstall": "bower install && gulp build"
   },
   "engines": {
     "node": "8.9.1"
