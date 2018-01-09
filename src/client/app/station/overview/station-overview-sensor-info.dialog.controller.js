@@ -32,7 +32,7 @@
         
         function cancel() {
             $mdDialog.cancel();
-        };
+        }
         
         function getGroupsBySensor() {
             return StationSensorsFactory.getSensorGroups(vm.sensor.sensor_id)

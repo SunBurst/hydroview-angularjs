@@ -41,7 +41,7 @@
         
         function cancel() {
             $mdDialog.cancel();
-        };
+        }
         
         function checkAllInfoFields() {
             for (var infoField in vm.selectedInfoFields) {
@@ -65,21 +65,21 @@
         
         function hide() {
             $mdDialog.hide();
-        };
+        }
 
         function isChecked() {
             var selectedLength = selectedInfoFieldsLength();
             var totalLength = selectedInfoFieldsTotalLength();
 
             return selectedLength === totalLength;
-        };
+        }
 
         function isIndeterminate() {
             var selectedLength = selectedInfoFieldsLength();
             var totalLength = selectedInfoFieldsTotalLength();
             return (selectedLength !== 0 &&
                 selectedLength !== totalLength);
-        };
+        }
         
         function prepareCSVExport() {
             var dataExport = [{}];
@@ -87,7 +87,7 @@
             
             for (var i = 0; i < header.length; i++) {
                 var infoField = header[i];
-                var value = undefined;
+                var value;
                 if (infoField === 'ID') {
                     value = vm.station.id;
                 }

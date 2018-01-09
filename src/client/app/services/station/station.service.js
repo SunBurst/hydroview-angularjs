@@ -5,10 +5,11 @@
         .module('app.services')
         .factory('StationFactory', StationFactory);
     
-    StationFactory.$inject = ['$resource'];
+    StationFactory.$inject = ['$resource', 'EnvironmentConfig'];
     
-    function StationFactory($resource) {
+    function StationFactory($resource, EnvironmentConfig) {
 
+        var restApiBaseUrl = EnvironmentConfig.API;
         var customInterceptor = {
             response: function(response) {
                 return response;
@@ -20,7 +21,7 @@
         };
         
         function getStation(stationId) {
-            var resource = $resource('api/station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/station/:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId, 

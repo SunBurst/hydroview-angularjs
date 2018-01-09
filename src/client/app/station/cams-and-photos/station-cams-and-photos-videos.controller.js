@@ -74,14 +74,14 @@
         };
             
         VideoItems.prototype.noVideos = function() {
-            if (this.items.length == 0) {
+            if (this.items.length === 0) {
                 return true;
             }
             return false;
         };
             
         VideoItems.prototype.fetchMoreItems_ = function() {
-            if (this.busy) return;
+            if (this.busy) { return; }
             this.busy = true;
             this.getVideoUrls().then(angular.bind(this, function(data) {
                 for (var i = 0; i < data.length; i++) {

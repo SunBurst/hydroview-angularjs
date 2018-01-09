@@ -8,27 +8,14 @@
     <meta name="author" content="">
     <title>Erken Laboratory Monitoring</title>
     
-    <link href="/static/images/favicon.ico" rel="shortcut icon">
+    <link href="/images/favicon.ico" rel="shortcut icon">
 
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" 
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" rel="stylesheet"> -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="/static/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet"> -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.css" rel="stylesheet"/> -->
-    <!-- <link href="/static/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"> -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <!-- <link href="/static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
-    <!-- <link href="/static/bower_components/angular-rangeslider/angular.rangeSlider.css" rel="stylesheet"> -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-lightbox/0.12.0/angular-bootstrap-lightbox.css" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
-    <!-- <link href="/static/bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css" rel="stylesheet"> -->
     <link href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.css" rel="stylesheet">
-    <link href="/static/bower_components/angular-material-datetimepicker/css/material-datetimepicker.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.css" rel="stylesheet">
-    <!-- <link href="/static/bower_components/angular-material-data-table/dist/md-data-table.css" rel="stylesheet"> -->
-    <!-- <link href="/static/css/style.min.css" rel="stylesheet"> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highcharts-ng/1.1.0/highcharts-ng.css" rel="stylesheet">
-    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/content/style.css" rel="stylesheet">
 </head>
     
 <body layout="column" layout-fill ng-controller="Shell as shellVm" ng-cloak>
@@ -36,7 +23,7 @@
     <md-toolbar class="md-hue-2" layout="row">
         <div class="md-toolbar-tools">
             <md-button class="menu" ng-click="shellVm.toggleList()" aria-label="Show app navigation menu">
-                <md-icon md-svg-src="/static/images/svg/menu.svg"></md-icon>
+                <md-icon md-svg-src="/images/svg/menu.svg"></md-icon>
             </md-button>
             <md-button ui-sref="start">HydroView</md-button>
         </div>
@@ -87,168 +74,125 @@
     </div>
     
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN193fgB-M7MdBiaxqwi2h9i_-2_MAWsk"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.1.1.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous">
-    </script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <!-- <script src="/static/bower_components/jquery/dist/jquery.js"></script> -->
-    <!-- <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script> -->
-    <!-- <script src="/static/bower_components/datatables/media/js/jquery.dataTables.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.1/angular-sanitize.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-csv/0.3.6/ng-csv.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script> --> <!-- Minified -->
-    <!-- <script src="/static/bower_components/angular/angular.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.min.js"></script> -->
-    <!-- <script src="/static/bower_components/angular-animate/angular-animate.js"></script> -->
-    <!-- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script> -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-aria.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.js"></script> -->
-    <!-- <script src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
-    <!-- <script src="/static/bower_components/angular-ui-router/release/angular-ui-router.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.js"></script>
-    <!-- <script src="/static/bower_components/angular-resource/angular-resource.min.js"></script> -->
-    <script src="/static/bower_components/gmap-clusterer/markerclusterer/src/markerclusterer.js "></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.1/angular-datatables.js"></script> -->
-    <!-- <script src="/static/bower_components/angular-datatables/demo/src/archives/dist/angular-datatables.js"></script> -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.1/css/angular-datatables.css"> -->
-    <!-- <link href="/static/bower_components/angular-datatables/demo/src/archives/dist/css/angular-datatables.css" rel="stylesheet"> -->
-    <!-- <script src="/static/bower_components/moment/moment.js"></script> -->
+    <script src="/bower_components/gmap-clusterer/markerclusterer/src/markerclusterer.js "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
-    <!-- <script src="/static/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.js"></script>
-    <script src="/static/bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script> -->
-    
-    <!-- <script src="/static/bower_components/angular-rangeslider/angular.rangeSlider.js"></script> -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js" 
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
-    </script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-    <!-- <script src="/static/bower_components/bootstrap/dist/js/bootstrap.js"></script> -->
-    <!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
-    <!-- <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/data.js"></script>
-    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
-    <!-- <script src="https://code.highcharts.com/modules/boost.js"></script> -->
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts-ng/1.0.1/highcharts-ng.js"></script>
-    <!-- <script src="/static/bower_components/highcharts-ng/dist/highcharts-ng.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
-    <!-- <script src="/static/bower_components/lodash/dist/lodash.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-simple-logger/0.1.7/angular-simple-logger.js"></script>
-    <!-- <script src="/static/bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-maps/2.4.1/angular-google-maps.js"></script>
-    <!-- <script src="/static/bower_components/angular-google-maps/dist/angular-google-maps.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-lightbox/0.12.0/angular-bootstrap-lightbox.js"></script> -->
-    <!-- <script src="/static/bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script> -->
-    <!-- <script src="/static/bower_components/angular-material-datetimepicker/js/angular-material-datetimepicker.js"></script> -->
-    <script src="/static/bower_components/angular-material-data-table/dist/md-data-table.js"></script>
-    <script src="/static/bower_components/angular-material-icons/angular-material-icons.js"></script> 
+    <script src="/bower_components/angular-material-data-table/dist/md-data-table.js"></script>
+    <script src="/bower_components/angular-material-icons/angular-material-icons.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/ng-youtube-embed@1.7.11/build/ng-youtube-embed.min.js"></script>
     
-    <script src="/static/js/app.js"></script>
+    <script src="/src/client/app/src/client/app.js"></script>
+    <script src="/src/client/app/envconfig.js"></script>    
+
+    <script src="/src/client/app/services/services.module.js"></script>
+    <script src="/src/client/app/services/stations.service.js"></script>
+    <!-- <script src="/src/client/app/services/locations.service.js"></script>
+    <script src="/src/client/app/services/networks.service.js"></script> 
+    <script src="/src/client/app/services/location/location.service.js"></script>
+    <script src="/src/client/app/services/location/location-measurements.service.js"></script>
+    <script src="/src/client/app/services/location/location-parameters.service.js"></script>
+    <script src="/src/client/app/services/location/location-stations.service.js"></script>
+    <script src="/src/client/app/services/location/location-videos.service.js"></script>
+    <script src="/src/client/app/services/location/location-webcams.service.js"></script> -->
+    <script src="/src/client/app/services/sensors/sensors.service.js"></script>
+    <script src="/src/client/app/services/station/station.service.js"></script>
+    <script src="/src/client/app/services/station/station-groups.service.js"></script>
+    <script src="/src/client/app/services/station/station-groups-measurements.service.js"></script>
+    <script src="/src/client/app/services/station/station-parameters.service.js"></script>
+    <script src="/src/client/app/services/station/station-profile-measurements.service.js"></script>
+    <script src="/src/client/app/services/station/station-sensors.service.js"></script>
+    <script src="/src/client/app/services/station/station-single-parameter-measurements.service.js"></script>
+    <script src="/src/client/app/services/station/station-videos.service.js"></script>
+    <script src="/src/client/app/services/station/station-videos-infinite-scrolling.service.js"></script>
+    <script src="/src/client/app/services/station/station-webcams.service.js"></script>
     
-    <script src="/static/js/services/services.module.js"></script>
-    <script src="/static/js/services/stations.service.js"></script>
-    <!-- <script src="/static/js/services/locations.service.js"></script>
-    <script src="/static/js/services/networks.service.js"></script> 
-    <script src="/static/js/services/location/location.service.js"></script>
-    <script src="/static/js/services/location/location-measurements.service.js"></script>
-    <script src="/static/js/services/location/location-parameters.service.js"></script>
-    <script src="/static/js/services/location/location-stations.service.js"></script>
-    <script src="/static/js/services/location/location-videos.service.js"></script>
-    <script src="/static/js/services/location/location-webcams.service.js"></script> -->
-    <script src="/static/js/services/sensors/sensors.service.js"></script>
-    <script src="/static/js/services/station/station.service.js"></script>
-    <script src="/static/js/services/station/station-groups.service.js"></script>
-    <script src="/static/js/services/station/station-groups-measurements.service.js"></script>
-    <script src="/static/js/services/station/station-parameters.service.js"></script>
-    <script src="/static/js/services/station/station-profile-measurements.service.js"></script>
-    <script src="/static/js/services/station/station-sensors.service.js"></script>
-    <script src="/static/js/services/station/station-single-parameter-measurements.service.js"></script>
-    <script src="/static/js/services/station/station-videos.service.js"></script>
-    <script src="/static/js/services/station/station-videos-infinite-scrolling.service.js"></script>
-    <script src="/static/js/services/station/station-webcams.service.js"></script>
+    <script src="/src/client/app/core/core.module.js"></script>
+    <script src="/src/client/app/core/core.config.js"></script>
+    <script src="/src/client/app/core/core.fallbacksrc.directive.js"></script>
+    <script src="/src/client/app/core/core.rootscopebinder.service.js"></script>
+    <script src="/src/client/app/core/core.constants.js"></script>
+    <script src="/src/client/app/core/core.service.js"></script>
+    <script src="/src/client/app/core/core.trustasresourceurl.filter.js"></script>
     
-    <script src="/static/js/core/core.module.js"></script>
-    <script src="/static/js/core/core.config.js"></script>
-    <script src="/static/js/core/core.fallbacksrc.directive.js"></script>
-    <script src="/static/js/core/core.rootscopebinder.service.js"></script>
-    <script src="/static/js/core/core.constants.js"></script>
-    <script src="/static/js/core/core.service.js"></script>
-    <script src="/static/js/core/core.trustasresourceurl.filter.js"></script>
+    <script src="/src/client/app/layout/layout.module.js"></script>
+    <script src="/src/client/app/layout/shell.controller.js"></script>
+    <script src="/src/client/app/layout/sidebar.controller.js"></script>
     
-    <script src="/static/js/layout/layout.module.js"></script>
-    <script src="/static/js/layout/shell.controller.js"></script>
-    <script src="/static/js/layout/sidebar.controller.js"></script>
+    <!-- <script src="/src/client/app/location/location.module.js"></script>
+    <script src="/src/client/app/location/location.config.js"></script>
+    <script src="/src/client/app/location/location.config.route.js"></script>
+    <script src="/src/client/app/location/location.controller.js"></script>
+    <script src="/src/client/app/location/location-storage.service.js"></script>
+    <script src="/src/client/app/location/cams-and-photos/location-cams-and-photos.controller.js"></script>
+    <script src="/src/client/app/location/data/location-data.controller.js"></script>
+    <script src="/src/client/app/location/data/location-data-storage.service.js"></script>
+    <script src="/src/client/app/location/data/location-data-datasource.service.js"></script>
+    <script src="/src/client/app/location/data/location-data-datepicker.service.js"></script>
+    <script src="/src/client/app/location/data/location-data-charts.controller.js"></script>
+    <script src="/src/client/app/location/data/location-data-charts-group.controller.js"></script>
+    <script src="/src/client/app/location/data/location-data-charts-parameter.controller.js"></script>
+    <script src="/src/client/app/location/data/location-data-charts-profile.controller.js"></script>
+    <script src="/src/client/app/location/data/location-data-tables.controller.js"></script>
+    <script src="/src/client/app/location/data/location-data-tables-group.controller.js"></script>
+    <script src="/src/client/app/location/data/location-data-tables-parameter.controller.js"></script>
+    <script src="/src/client/app/location/data/location-data-tables-profile.controller.js"></script>
+    <script src="/src/client/app/location/overview/location-overview.controller.js"></script> -->
     
-    <!-- <script src="/static/js/location/location.module.js"></script>
-    <script src="/static/js/location/location.config.js"></script>
-    <script src="/static/js/location/location.config.route.js"></script>
-    <script src="/static/js/location/location.controller.js"></script>
-    <script src="/static/js/location/location-storage.service.js"></script>
-    <script src="/static/js/location/cams-and-photos/location-cams-and-photos.controller.js"></script>
-    <script src="/static/js/location/data/location-data.controller.js"></script>
-    <script src="/static/js/location/data/location-data-storage.service.js"></script>
-    <script src="/static/js/location/data/location-data-datasource.service.js"></script>
-    <script src="/static/js/location/data/location-data-datepicker.service.js"></script>
-    <script src="/static/js/location/data/location-data-charts.controller.js"></script>
-    <script src="/static/js/location/data/location-data-charts-group.controller.js"></script>
-    <script src="/static/js/location/data/location-data-charts-parameter.controller.js"></script>
-    <script src="/static/js/location/data/location-data-charts-profile.controller.js"></script>
-    <script src="/static/js/location/data/location-data-tables.controller.js"></script>
-    <script src="/static/js/location/data/location-data-tables-group.controller.js"></script>
-    <script src="/static/js/location/data/location-data-tables-parameter.controller.js"></script>
-    <script src="/static/js/location/data/location-data-tables-profile.controller.js"></script>
-    <script src="/static/js/location/overview/location-overview.controller.js"></script> -->
+    <script src="/src/client/app/station/station.module.js"></script>
+    <script src="/src/client/app/station/station.config.js"></script>
+    <script src="/src/client/app/station/station.config.route.js"></script>
+    <script src="/src/client/app/station/station.controller.js"></script>
+    <script src="/src/client/app/station/station-storage.service.js"></script>
+    <script src="/src/client/app/station/cams-and-photos/station-cams-and-photos.controller.js"></script>
+    <script src="/src/client/app/station/cams-and-photos/station-cams-and-photos-livewebcams.controller.js"></script>
+    <script src="/src/client/app/station/cams-and-photos/station-cams-and-photos-photos.controller.js"></script>
+    <script src="/src/client/app/station/cams-and-photos/station-cams-and-photos-videos.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data.controller.js"></script>
+    <!-- <script src="/src/client/app/station/data/station-data-sidenav.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-storage.service.js"></script>
+    <script src="/src/client/app/station/data/station-data-datasource.service.js"></script>
+    <script src="/src/client/app/station/data/station-data-datepicker.service.js"></script>
+    <script src="/src/client/app/station/data/station-data-charts.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-charts-group.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-charts-parameter.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-charts-profile.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-frequency.controller.js"></script> -->
+    <script src="/src/client/app/station/data/station-data-groups.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-parameters.controller.js"></script>
+    <!-- <script src="/src/client/app/station/data/station-data-frequency-parameters.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-frequency-sensors.controller.js"></script> -->
+    <script src="/src/client/app/station/data/station-data-group-item.directive.js"></script>
+    <script src="/src/client/app/station/data/station-data-parameter-item.directive.js"></script>
+    <!-- <script src="/src/client/app/station/data/station-data-tables.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-tables-group.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-tables-parameter.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-tables-profile.controller.js"></script> -->
+    <script src="/src/client/app/station/overview/station-overview.controller.js"></script>
+    <script src="/src/client/app/station/overview/station-overview-download-item.dialog.controller.js"></script>
+    <script src="/src/client/app/station/overview/station-overview-sensor-info.dialog.controller.js"></script>
     
-    <script src="/static/js/station/station.module.js"></script>
-    <script src="/static/js/station/station.config.js"></script>
-    <script src="/static/js/station/station.config.route.js"></script>
-    <script src="/static/js/station/station.controller.js"></script>
-    <script src="/static/js/station/station-storage.service.js"></script>
-    <script src="/static/js/station/cams-and-photos/station-cams-and-photos.controller.js"></script>
-    <script src="/static/js/station/cams-and-photos/station-cams-and-photos-livewebcams.controller.js"></script>
-    <script src="/static/js/station/cams-and-photos/station-cams-and-photos-photos.controller.js"></script>
-    <script src="/static/js/station/cams-and-photos/station-cams-and-photos-videos.controller.js"></script>
-    <script src="/static/js/station/data/station-data.controller.js"></script>
-    <!-- <script src="/static/js/station/data/station-data-sidenav.controller.js"></script>
-    <script src="/static/js/station/data/station-data-storage.service.js"></script>
-    <script src="/static/js/station/data/station-data-datasource.service.js"></script>
-    <script src="/static/js/station/data/station-data-datepicker.service.js"></script>
-    <script src="/static/js/station/data/station-data-charts.controller.js"></script>
-    <script src="/static/js/station/data/station-data-charts-group.controller.js"></script>
-    <script src="/static/js/station/data/station-data-charts-parameter.controller.js"></script>
-    <script src="/static/js/station/data/station-data-charts-profile.controller.js"></script>
-    <script src="/static/js/station/data/station-data-frequency.controller.js"></script> -->
-    <script src="/static/js/station/data/station-data-groups.controller.js"></script>
-    <script src="/static/js/station/data/station-data-parameters.controller.js"></script>
-    <!-- <script src="/static/js/station/data/station-data-frequency-parameters.controller.js"></script>
-    <script src="/static/js/station/data/station-data-frequency-sensors.controller.js"></script> -->
-    <script src="/static/js/station/data/station-data-group-item.directive.js"></script>
-    <script src="/static/js/station/data/station-data-parameter-item.directive.js"></script>
-    <!-- <script src="/static/js/station/data/station-data-tables.controller.js"></script>
-    <script src="/static/js/station/data/station-data-tables-group.controller.js"></script>
-    <script src="/static/js/station/data/station-data-tables-parameter.controller.js"></script>
-    <script src="/static/js/station/data/station-data-tables-profile.controller.js"></script> -->
-    <script src="/static/js/station/overview/station-overview.controller.js"></script>
-    <script src="/static/js/station/overview/station-overview-download-item.dialog.controller.js"></script>
-    <script src="/static/js/station/overview/station-overview-sensor-info.dialog.controller.js"></script>
-    
-    <script src="/static/js/start/start.module.js"></script>
-    <script src="/static/js/start/start.config.route.js"></script>
-    <script src="/static/js/start/start.controller.js"></script>
-    <script src="/static/js/start/start-map.controller.js"></script>
-    <script src="/static/js/start/start-storage.service.js"></script>
+    <script src="/src/client/app/start/start.module.js"></script>
+    <script src="/src/client/app/start/start.config.route.js"></script>
+    <script src="/src/client/app/start/start.controller.js"></script>
+    <script src="/src/client/app/start/start-map.controller.js"></script>
+    <script src="/src/client/app/start/start-storage.service.js"></script>
 
 </body>
 

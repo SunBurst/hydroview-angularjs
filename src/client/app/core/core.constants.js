@@ -38,7 +38,7 @@
         .constant('HeatMapOptions', getHeatMapOptions())
         .constant('HighChartOptions', getHighChartOptions())
         .constant('HighchartsDefaultOptions', getHighchartsDefaultOptions());
-    
+
     function getHighchartsDefaultOptions() {
         return Highcharts.setOptions({
             global: {
@@ -51,10 +51,10 @@
         return {
             applyClass: 'btn-success',
             locale: {
-                applyLabel: "Apply",
-                fromLabel: "From",
-                format: "YYYY-MM-DD HH:mm:ss",
-                toLabel: "To",
+                applyLabel: 'Apply',
+                fromLabel: 'From',
+                format: 'YYYY-MM-DD HH:mm:ss',
+                toLabel: 'To',
                 cancelLabel: 'Cancel',
                 customRangeLabel: 'Custom Range'
             }
@@ -63,7 +63,7 @@
     
     function getGoogleMapClusterOptions() {
         return {
-            imagePath: '/static/images/google-maps/cluster/m'
+            imagePath: '/images/google-maps/cluster/m'
         };
     }
     
@@ -79,80 +79,80 @@
             },
             styles: [
                 {
-                    "featureType": "administrative",
-                    "elementType": "labels.text.fill",
-                    "stylers": [
+                    'featureType': 'administrative',
+                    'elementType': 'labels.text.fill',
+                    'stylers': [
                         {
-                            "color": "#444444"
+                            'color': '#444444'
                         }
                     ]
                 },
                 {
-                    "featureType": "landscape",
-                    "elementType": "all",
-                    "stylers": [
+                    'featureType': 'landscape',
+                    'elementType': 'all',
+                    'stylers': [
                         {
-                            "color": "#f2f2f2"
+                            'color': '#f2f2f2'
                         }
                     ]
                 },
                 {
-                    "featureType": "poi",
-                    "elementType": "all",
-                    "stylers": [
+                    'featureType': 'poi',
+                    'elementType': 'all',
+                    'stylers': [
                         {
-                            "visibility": "off"
+                            'visibility': 'off'
                         }
                     ]
                 },
                 {
-                    "featureType": "road",
-                    "elementType": "all",
-                    "stylers": [
+                    'featureType': 'road',
+                    'elementType': 'all',
+                    'stylers': [
                         {
-                            "saturation": -100
+                            'saturation': -100
                         },
                         {
-                            "lightness": 45
+                            'lightness': 45
                         }
                     ]
                 },
                 {
-                    "featureType": "road.highway",
-                    "elementType": "all",
-                    "stylers": [
+                    'featureType': 'road.highway',
+                    'elementType': 'all',
+                    'stylers': [
                         {
-                            "visibility": "simplified"
+                            'visibility': 'simplified'
                         }
                     ]
                 },
                 {
-                    "featureType": "road.arterial",
-                    "elementType": "labels.icon",
-                    "stylers": [
+                    'featureType': 'road.arterial',
+                    'elementType': 'labels.icon',
+                    'stylers': [
                         {
-                            "visibility": "off"
+                            'visibility': 'off'
                         }
                     ]
                 },
                 {
-                    "featureType": "transit",
-                    "elementType": "all",
-                    "stylers": [
+                    'featureType': 'transit',
+                    'elementType': 'all',
+                    'stylers': [
                         {
-                            "visibility": "off"
+                            'visibility': 'off'
                         }
                     ]
                 },
                 {
-                    "featureType": "water",
-                    "elementType": "all",
-                    "stylers": [
+                    'featureType': 'water',
+                    'elementType': 'all',
+                    'stylers': [
                         {
-                            "color": "#46bcec"
+                            'color': '#46bcec'
                         },
                         {
-                            "visibility": "on"
+                            'visibility': 'on'
                         }
                     ]
                 }
@@ -162,9 +162,9 @@
     
     function getGoogleMapIcons() {
         return {
-            blueicon: '/static/images/google-maps/icons/blue-dot.png',
-            greenicon: '/static/images/google-maps/icons/green-dot.png',
-            redicon: '/static/images/google-maps/icons/red-dot.png'
+            blueicon: '/images/google-maps/icons/blue-dot.png',
+            greenicon: '/images/google-maps/icons/green-dot.png',
+            redicon: '/images/google-maps/icons/red-dot.png'
         };
     }
     

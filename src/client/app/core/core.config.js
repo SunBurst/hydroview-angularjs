@@ -4,10 +4,10 @@
     angular
         .module('app.core')
         .config(config);
-    
+
     function config($qProvider, $interpolateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
 
-        $qProvider.errorOnUnhandledRejections(false)
+        $qProvider.errorOnUnhandledRejections(false);
         
         $interpolateProvider.startSymbol('{['); // Required in order to work with Jinja2
         $interpolateProvider.endSymbol(']}');   // Required in order to work with Jinja2
@@ -33,7 +33,7 @@
             .accentPalette('pink');
         
         $mdThemingProvider.theme('input', 'default')
-            .primaryPalette('grey')
+            .primaryPalette('grey');
         
     }
     

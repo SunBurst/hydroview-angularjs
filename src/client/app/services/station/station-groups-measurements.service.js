@@ -5,10 +5,11 @@
         .module('app.services')
         .factory('stationGroupMeasurements', stationGroupMeasurements);
     
-    stationGroupMeasurements.$inject = ['$resource'];
+    stationGroupMeasurements.$inject = ['$resource', 'EnvironmentConfig'];
     
-    function stationGroupMeasurements($resource) {
-
+    function stationGroupMeasurements($resource, EnvironmentConfig) {
+        
+        var restApiBaseUrl = EnvironmentConfig.API;
         var customInterceptor = {
             response: function(response) {
                 return response;
@@ -41,7 +42,7 @@
         };
         
         function getDynamicGroupMeasurementsChart(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/dynamic_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/dynamic_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -76,7 +77,7 @@
         }
         
         function getDynamicGroupMeasurementsTimeGrouped(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/dynamic_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/dynamic_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -111,7 +112,7 @@
         }
         
         function getDailyGroupMeasurementsChart(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/daily_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/daily_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -146,7 +147,7 @@
         }
         
         function getDailyGroupMeasurements(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/daily_group_measurements_by_station/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/daily_group_measurements_by_station/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -181,7 +182,7 @@
         }
         
         function getDailyGroupMeasurementsTimeGrouped(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/daily_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/daily_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -216,7 +217,7 @@
         }
         
         function getHourlyGroupMeasurementsChart(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/hourly_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/hourly_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -251,7 +252,7 @@
         }
         
         function getHourlyGroupMeasurementsTimeGrouped(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/hourly_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/hourly_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -286,7 +287,7 @@
         }
         
         function getThirtyMinGroupMeasurementsChart(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/thirty_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/thirty_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -321,7 +322,7 @@
         }
         
         function getThirtyMinGroupMeasurementsTimeGrouped(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/thirty_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/thirty_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -356,7 +357,7 @@
         }
         
         function getTwentyMinGroupMeasurementsChart(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/twenty_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/twenty_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -391,7 +392,7 @@
         }
         
         function getTwentyMinGroupMeasurementsTimeGrouped(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/twenty_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/twenty_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -426,7 +427,7 @@
         }
         
         function getFifteenMinGroupMeasurementsChart(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/fifteen_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/fifteen_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -461,7 +462,7 @@
         }
         
         function getFifteenMinGroupMeasurementsTimeGrouped(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/fifteen_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/fifteen_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -496,7 +497,7 @@
         }
         
         function getTenMinGroupMeasurementsChart(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/ten_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/ten_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -531,7 +532,7 @@
         }
         
         function getTenMinGroupMeasurementsTimeGrouped(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/ten_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/ten_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -566,7 +567,7 @@
         }
         
         function getFiveMinGroupMeasurementsChart(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/five_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/five_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -601,7 +602,7 @@
         }
         
         function getFiveMinGroupMeasurements(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/five_min_group_measurements_by_station/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/five_min_group_measurements_by_station/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -636,7 +637,7 @@
         }
         
         function getFiveMinGroupMeasurementsTimeGrouped(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/five_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/five_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -671,7 +672,7 @@
         }
         
         function getOneMinGroupMeasurementsChart(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/one_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/one_min_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -706,7 +707,7 @@
         }
         
         function getOneMinGroupMeasurementsTimeGrouped(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/one_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/one_min_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -741,7 +742,7 @@
         }
         
         function getOneSecGroupMeasurementsChart(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/one_sec_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/one_sec_group_measurements_by_station_chart/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -776,7 +777,7 @@
         }
         
         function getOneSecGroupMeasurementsTimeGrouped(stationId, groupId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/one_sec_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/one_sec_group_measurements_by_station_time_grouped/:station_id/:group_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,

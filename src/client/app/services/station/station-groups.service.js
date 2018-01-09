@@ -5,10 +5,11 @@
         .module('app.services')
         .factory('StationGroupsFactory', StationGroupsFactory);
     
-    StationGroupsFactory.$inject = ['$resource'];
+    StationGroupsFactory.$inject = ['$resource', 'EnvironmentConfig'];
     
-    function StationGroupsFactory($resource) {
+    function StationGroupsFactory($resource, EnvironmentConfig) {
 
+        var restApiBaseUrl = EnvironmentConfig.API;
         var customInterceptor = {
             response: function(response) {
                 return response;
@@ -24,7 +25,7 @@
         };
         
         function getGroups(stationId) {
-            var resource = $resource('/api/groups_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/groups_by_station/:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId
@@ -49,7 +50,7 @@
         }
         
         function getGroupParameters(stationId, groupId) {
-            var resource = $resource('/api/group_parameters_by_station_group/:station_id/:group_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/group_parameters_by_station_group/:station_id/:group_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -75,7 +76,7 @@
         }
         
         function getGroupsParameters(stationId) {
-            var resource = $resource('/api/group_parameters_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/group_parameters_by_station/:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId
@@ -100,7 +101,7 @@
         }
         
         function getGroupMeasurementFrequencies(stationId) {
-            var resource = $resource('/api/group_measurement_frequencies_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/group_measurement_frequencies_by_station/:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId
@@ -125,7 +126,7 @@
         }
         
         function getGroupsQCLevels(stationId) {
-            var resource = $resource('/api/group_qc_levels_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/group_qc_levels_by_station/:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId

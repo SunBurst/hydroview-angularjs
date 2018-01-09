@@ -5,10 +5,11 @@
         .module('app.services')
         .factory('stationProfileMeasurements', stationProfileMeasurements);
     
-    stationProfileMeasurements.$inject = ['$resource'];
+    stationProfileMeasurements.$inject = ['$resource', 'EnvironmentConfig'];
     
-    function stationProfileMeasurements($resource) {
+    function stationProfileMeasurements($resource, EnvironmentConfig) {
 
+        var restApiBaseUrl = EnvironmentConfig.API;
         var customInterceptor = {
             response: function(response) {
                 return response;
@@ -41,7 +42,7 @@
         };
         
         function getDynamicProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/dynamic_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/dynamic_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -76,7 +77,7 @@
         }
         
         function getDynamicProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/dynamic_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/dynamic_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -111,7 +112,7 @@
         }
         
         function getDailyProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/daily_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/daily_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -146,7 +147,7 @@
         }
         
         function getDailyProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/daily_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/daily_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -181,7 +182,7 @@
         }
         
         function getHourlyProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/hourly_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/hourly_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -216,7 +217,7 @@
         }
         
         function getHourlyProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/hourly_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/hourly_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -251,7 +252,7 @@
         }
         
         function getThirtyMinProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/thirty_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/thirty_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -286,7 +287,7 @@
         }
         
         function getThirtyMinProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/thirty_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/thirty_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -321,7 +322,7 @@
         }
         
         function getTwentyMinProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/twenty_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/twenty_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -356,7 +357,7 @@
         }
         
         function getTwentyMinProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/twenty_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/twenty_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -391,7 +392,7 @@
         }
         
         function getFifteenMinProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/fifteen_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/fifteen_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -426,7 +427,7 @@
         }
         
         function getFifteenMinProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/fifteen_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/fifteen_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -461,7 +462,7 @@
         }
         
         function getTenMinProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/ten_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/ten_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -496,7 +497,7 @@
         }
         
         function getTenMinProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/ten_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/ten_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -531,7 +532,7 @@
         }
         
         function getFiveMinProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/five_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/five_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -566,7 +567,7 @@
         }
         
         function getFiveMinProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/five_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/five_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -601,7 +602,7 @@
         }
         
         function getOneMinProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/one_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/one_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -636,7 +637,7 @@
         }
         
         function getOneMinProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/one_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/one_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -671,7 +672,7 @@
         }
         
         function getOneSecProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/one_sec_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/one_sec_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -706,7 +707,7 @@
         }
         
         function getOneSecProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/one_sec_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/one_sec_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,

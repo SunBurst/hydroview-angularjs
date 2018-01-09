@@ -5,10 +5,11 @@
         .module('app.services')
         .factory('StationWebcamsFactory', StationWebcamsFactory);
     
-    StationWebcamsFactory.$inject = ['$resource'];
+    StationWebcamsFactory.$inject = ['$resource', 'EnvironmentConfig'];
     
-    function StationWebcamsFactory($resource) {
+    function StationWebcamsFactory($resource, EnvironmentConfig) {
 
+        var restApiBaseUrl = EnvironmentConfig.API;
         var customInterceptor = {
             response: function(response) {
                 return response;
@@ -23,7 +24,7 @@
         };
         
         function getLiveWebcams(stationId) {
-            var resource = $resource('/api/webcam_live_urls_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/webcam_live_urls_by_station/:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId, 
@@ -47,7 +48,7 @@
         }
         
         function getHourlyWebcamPhotosOnDate(stationId, onDate) {
-            var resource = $resource('/api/hourly_webcam_photos_by_station/:station_id/:on_date', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/hourly_webcam_photos_by_station/:station_id/:on_date', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -75,7 +76,7 @@
         }
         
         function getHourlyWebcamPhotos(stationId, fromTimestamp, toTimestamp) {
-            var resource = $resource('/api/hourly_webcam_photos_by_station/:station_id/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/hourly_webcam_photos_by_station/:station_id/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -106,7 +107,7 @@
         }
         
         function getHourlyWebcamPhotosByLimit(stationId, limit) {
-            var resource = $resource('/api/hourly_webcam_photos_by_station_by_limit/:station_id/:limit/', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/hourly_webcam_photos_by_station_by_limit/:station_id/:limit/', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,

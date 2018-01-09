@@ -15,7 +15,7 @@
         vm.noLiveWebcams = noLiveWebcams;
         
         function noLiveWebcams() {
-            if (vm.liveWebcams.length == 0) {
+            if (vm.liveWebcams.length === 0) {
                 return true;
             }
             return false;

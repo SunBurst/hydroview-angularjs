@@ -8,7 +8,7 @@
     function stationDataGroup() {
         var directive = {
             restrict: 'EA',
-            templateUrl: 'static/partials/station/station-data-group.directive.html',
+            templateUrl: 'station/station-data-group.directive.html',
             scope: {
                 station: '=',
                 group: '='
@@ -195,7 +195,7 @@
                     for (var k = 0; k < data.length; k++) {
                         if (parameterId in data[k]) {
                             var dataQcLevel = data[k][parameterId].qc_level;
-                            if (qcLevel == dataQcLevel) {
+                            if (qcLevel === dataQcLevel) {
                                 qcLevelDataFound = true;
                                 averageSeries.setData(data[k][parameterId].averages);
                                 rangeSeries.setData(data[k][parameterId].ranges);
@@ -216,7 +216,7 @@
         }
         
         function afterSetExtremes(e) {
-            if (e.trigger != undefined) {
+            if (e.trigger !== undefined) {
                 var min = Math.round(e.min);
                 var max = Math.round(e.max);
                 chart.showLoading('Loading data from server...');
@@ -447,12 +447,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getDynamicChartDataByQCLevel(qcLevel, start, end)
+                var resource = getDynamicChartDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
 
         }
         
@@ -488,12 +488,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getDailyChartDataByQCLevel(qcLevel, start, end)
+                var resource = getDailyChartDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         function getDailyTableDataByQCLevel(qcLevel, start, end) {
@@ -507,12 +507,12 @@
             var promiseArray = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getDailyTableDataByQCLevel(qcLevel, start, end)
+                var resource = getDailyTableDataByQCLevel(qcLevel, start, end);
                 promiseArray.push(resource);
             }
             return $q.all(promiseArray).then(function(data) {
                 return data;
-            })
+            });
         }
         
         // Hourly
@@ -528,12 +528,12 @@
             var promiseArray = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getHourlyChartDataByQCLevel(qcLevel, start, end)
+                var resource = getHourlyChartDataByQCLevel(qcLevel, start, end);
                 promiseArray.push(resource);
             }
             return $q.all(promiseArray).then(function(data) {
                 return data;
-            })
+            });
         }
         
         function getHourlyTableDataByQCLevel(qcLevel, start, end) {
@@ -547,12 +547,12 @@
             var promiseArray = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getHourlyTableDataByQCLevel(qcLevel, start, end)
+                var resource = getHourlyTableDataByQCLevel(qcLevel, start, end);
                 promiseArray.push(resource);
             }
             return $q.all(promiseArray).then(function(data) {
                 return data;
-            })
+            });
         }
         
         // 30 Min
@@ -568,12 +568,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getThirtyMinChartDataByQCLevel(qcLevel, start, end)
+                var resource = getThirtyMinChartDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         function getThirtyMinTableDataByQCLevel(qcLevel, start, end) {
@@ -587,12 +587,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getThirtyMinTableDataByQCLevel(qcLevel, start, end)
+                var resource = getThirtyMinTableDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         // 20 Min
@@ -608,12 +608,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getTwentyMinChartDataByQCLevel(qcLevel, start, end)
+                var resource = getTwentyMinChartDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         function getTwentyMinTableDataByQCLevel(qcLevel, start, end) {
@@ -627,12 +627,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getTwentyMinTableDataByQCLevel(qcLevel, start, end)
+                var resource = getTwentyMinTableDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         // 15 Min
@@ -648,12 +648,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getFifteenMinChartDataByQCLevel(qcLevel, start, end)
+                var resource = getFifteenMinChartDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         function getFifteenMinTableDataByQCLevel(qcLevel, start, end) {
@@ -667,12 +667,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getFifteenMinTableDataByQCLevel(qcLevel, start, end)
+                var resource = getFifteenMinTableDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         // 10 Min
@@ -688,12 +688,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getTenMinChartDataByQCLevel(qcLevel, start, end)
+                var resource = getTenMinChartDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         function getTenMinTableDataByQCLevel(qcLevel, start, end) {
@@ -707,12 +707,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getTenMinTableDataByQCLevel(qcLevel, start, end)
+                var resource = getTenMinTableDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         // 5 Min
@@ -728,12 +728,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getFiveMinChartDataByQCLevel(qcLevel, start, end)
+                var resource = getFiveMinChartDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         function getFiveMinTableDataByQCLevel(qcLevel, start, end) {
@@ -747,12 +747,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getFiveMinTableDataByQCLevel(qcLevel, start, end)
+                var resource = getFiveMinTableDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         // 1 Min
@@ -768,12 +768,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getOneMinChartDataByQCLevel(qcLevel, start, end)
+                var resource = getOneMinChartDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         function getOneMinTableDataByQCLevel(qcLevel, start, end) {
@@ -787,12 +787,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getOneMinTableDataByQCLevel(qcLevel, start, end)
+                var resource = getOneMinTableDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         // 1 Second
@@ -801,12 +801,12 @@
             var promises = [];
             for (var i = 0; i < vm.group.qc_levels.selected.length; i++) {
                 var qcLevel = vm.group.qc_levels.selected[i];
-                var resource = getOneSecChartDataByQCLevel(qcLevel, start, end)
+                var resource = getOneSecChartDataByQCLevel(qcLevel, start, end);
                 promises.push(resource);
             }
             return $q.all(promises).then(function(data) {
                 return data;
-            })
+            });
         }
         
         function getOneSecChartDataByQCLevel(qcLevel, start, end) {

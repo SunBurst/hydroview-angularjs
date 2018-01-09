@@ -5,10 +5,11 @@
         .module('app.services')
         .factory('StationSensorsFactory', StationSensorsFactory);
     
-    StationSensorsFactory.$inject = ['$resource'];
+    StationSensorsFactory.$inject = ['$resource', 'EnvironmentConfig'];
     
-    function StationSensorsFactory($resource) {
+    function StationSensorsFactory($resource, EnvironmentConfig) {
 
+        var restApiBaseUrl = EnvironmentConfig.API;
         var customInterceptor = {
             response: function(response) {
                 return response;
@@ -22,7 +23,7 @@
         };
         
         function getSensorGroups(sensorId) {
-            var resource = $resource('/api/groups_by_sensor/:sensor_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/groups_by_sensor/:sensor_id', {}, {
                 query: {
                     method: 'GET', params: {
                         sensor_id: sensorId, 
@@ -46,7 +47,7 @@
         }
         
         function getSensorParameters(sensorId) {
-            var resource = $resource('/api/parameters_by_sensor/:sensor_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/parameters_by_sensor/:sensor_id', {}, {
                 query: {
                     method: 'GET', params: {
                         sensor_id: sensorId, 
@@ -70,7 +71,7 @@
         }
         
         function getSensors(stationId) {
-            var resource = $resource('/api/sensors_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/sensors_by_station/:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId, 

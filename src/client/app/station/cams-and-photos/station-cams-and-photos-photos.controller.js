@@ -38,7 +38,7 @@
         }
         
         function noWebcamPhotos() {
-            if (vm.webcamPhotos.length == 0) {
+            if (vm.webcamPhotos.length === 0) {
                 return true;
             }
             return false;
@@ -51,7 +51,7 @@
         function showPhoto(ev, index) {
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
             $mdDialog.show({
-                templateUrl: '/static/partials/station/station-cams-and-photos-dialog.html',
+                templateUrl: 'station/station-cams-and-photos-dialog.html',
                 locals: {photoData: vm.webcamPhotos[index]},   
                 targetEvent: ev,
                 clickOutsideToClose: true,
@@ -69,7 +69,7 @@
             }, function(wantsFullScreen) {
                 vm.customFullscreen = (wantsFullScreen === true);
             });
-          };
+        }
         
         function updateWebcamPhotos() {
             vm.getWebcamPhotosOnDate().then(function(data) {

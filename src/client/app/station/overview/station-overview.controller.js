@@ -56,7 +56,7 @@
             $mdDialog.show({
                 controller: 'StationDownloadInfoDialogController',
                 controllerAs: 'StationDownloadInfoDialogControllerVm',
-                templateUrl: '/static/partials/station/station-overview-download-info.dialog.html',
+                templateUrl: 'station/station-overview-download-info.dialog.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
@@ -73,7 +73,7 @@
             $mdDialog.show({
                 controller: 'StationSensorInfoDialogController',
                 controllerAs: 'StationSensorInfoDialogControllerVm',
-                templateUrl: '/static/partials/station/station-overview-sensor-info.dialog.html',
+                templateUrl: 'station/station-overview-sensor-info.dialog.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,

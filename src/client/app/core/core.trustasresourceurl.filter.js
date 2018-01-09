@@ -22,7 +22,7 @@
             else {
                 ID = url;
             }
-            return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + ID);
+            return $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + ID);
         };
     }
 

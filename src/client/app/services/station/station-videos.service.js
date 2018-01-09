@@ -5,10 +5,11 @@
         .module('app.services')
         .factory('stationVideos', stationVideos);
     
-    stationVideos.$inject = ['$resource'];
+    stationVideos.$inject = ['$resource', 'EnvironmentConfig'];
     
-    function stationVideos($resource) {
+    function stationVideos($resource, EnvironmentConfig) {
         
+        var restApiBaseUrl = EnvironmentConfig.API;
         var customInterceptor = {
             response: function(response) {
                 return response;
@@ -22,7 +23,7 @@
         };
         
         function getVideoUrls(stationId, fromTimestamp, toTimestamp, limit) {
-            var resource = $resource('/api/video_urls_by_station/:station_id/:from_timestamp/:to_timestamp/:limit', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/video_urls_by_station/:station_id/:from_timestamp/:to_timestamp/:limit', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -54,7 +55,7 @@
         }
         
         function getVideoUrlsToTimestamp(stationId, toTimestamp, limit) {
-            var resource = $resource('/api/video_urls_by_station/:station_id/:to_timestamp/:limit', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/video_urls_by_station/:station_id/:to_timestamp/:limit', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -84,7 +85,7 @@
         }
         
         function getVideoUrlsAscendingByLimit(stationId, limit) {
-            var resource = $resource('/api/video_urls_by_station_asc_limit/:station_id/:limit', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/video_urls_by_station_asc_limit/:station_id/:limit', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -112,7 +113,7 @@
         }
         
         function getVideoUrlsDescendingByLimit(stationId, limit) {
-            var resource = $resource('/api/video_urls_by_station_desc_limit/:station_id/:limit', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/video_urls_by_station_desc_limit/:station_id/:limit', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,

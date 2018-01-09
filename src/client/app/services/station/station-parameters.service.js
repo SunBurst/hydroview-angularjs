@@ -5,10 +5,11 @@
         .module('app.services')
         .factory('StationParametersFactory', StationParametersFactory);
     
-    StationParametersFactory.$inject = ['$resource'];
+    StationParametersFactory.$inject = ['$resource', 'EnvironmentConfig'];
     
-    function StationParametersFactory($resource) {
+    function StationParametersFactory($resource, EnvironmentConfig) {
 
+        var restApiBaseUrl = EnvironmentConfig.API;
         var customInterceptor = {
             response: function(response) {
                 return response;
@@ -24,7 +25,7 @@
         };
         
         function getParameterMeasurementFrequencies(stationId) {
-            var resource = $resource('/api/parameter_measurement_frequencies_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/parameter_measurement_frequencies_by_station/:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId
@@ -49,7 +50,7 @@
         }
         
         function getParameterQCLevels(stationId) {
-            var resource = $resource('/api/parameter_qc_levels_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/parameter_qc_levels_by_station/:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId
@@ -74,7 +75,7 @@
         }
         
         function getParameters(stationId) {
-            var resource = $resource('/api/parameters_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/parameters_by_station/:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId, 
@@ -99,7 +100,7 @@
         }
         
         function getParameterSensors(stationId) {
-            var resource = $resource('/api/parameter_sensors_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/parameter_sensors_by_station/:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId
@@ -124,7 +125,7 @@
         }
         
         function getProfileParameterVerticalPositions(stationId, parameterId) {
-            var resource = $resource('/api/profile_vertical_positions_by_station_parameter/:station_id/:parameter_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/profile_vertical_positions_by_station_parameter/:station_id/:parameter_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,

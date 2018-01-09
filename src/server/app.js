@@ -5,7 +5,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var cors = require('cors');
-var errorHandler = require('./routes/utils/errorHandler')();
+var errorHandler = require('./utils/errorHandler')();
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var port = process.env.PORT || 7200;
@@ -45,7 +45,7 @@ switch (environment){
     default:
         console.log('** DEV **');
         console.log('serving from ' + './src/client/ and ./');
-        app.use('/', express.static('./src/client/'));
+        app.use('/', express.static(__dirname + '/../client'));
         app.use('/', express.static('./'));
         break;
 }

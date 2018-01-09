@@ -2,6 +2,7 @@
     'use strict';
 
     angular.module('app.core', [
+        'app.envconfig',
         'ui.router',
         'ngMaterial',
         'ngResource',

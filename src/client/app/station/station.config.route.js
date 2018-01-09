@@ -10,7 +10,7 @@
         $stateProvider
             .state('station', {
                 url: '/station/:station_id',
-                templateUrl: 'static/partials/station/station.html',
+                templateUrl: 'station/station.html',
                 abstract: true,
                 controller: 'StationCtrl',
                 controllerAs: 'stationVm',
@@ -29,7 +29,7 @@
             })
             .state('station.overview', {
                 url: '/overview',
-                templateUrl: '/static/partials/station/station-overview.html',
+                templateUrl: 'station/station-overview.html',
                 controller: 'StationOverviewCtrl',
                 controllerAs: 'stationOverviewVm',
                 resolve: {
@@ -61,14 +61,14 @@
             })
             .state('station.data', {
                 url: '/data',
-                templateUrl: '/static/partials/station/station-data.html',
+                templateUrl: 'station/station-data.html',
                 abstract: true,
                 controller: 'StationDataCtrl',
                 controllerAs: 'stationDataVm'
             })
             .state('station.data.groups', {
                 url: '/groups',
-                templateUrl: '/static/partials/station/station-data-groups.html',
+                templateUrl: 'station/station-data-groups.html',
                 controller: 'StationDataGroupsCtrl',
                 controllerAs: 'stationDataGroupsVm',
                 resolve: {
@@ -237,7 +237,7 @@
             })
             .state('station.data.parameters', {
                 url: '/parameters',
-                templateUrl: '/static/partials/station/station-data-parameters.html',
+                templateUrl: 'station/station-data-parameters.html',
                 controller: 'StationDataParametersCtrl',
                 controllerAs: 'stationDataParametersVm',
                 resolve: {
@@ -452,7 +452,7 @@
             })
             .state('station.cams-and-photos', {
                 url: '/cams-and-photos',
-                templateUrl: '/static/partials/station/station-cams-and-photos.html',
+                templateUrl: 'station/station-cams-and-photos.html',
                 abstract: true,
                 controller: 'StationCamsAndPhotosCtrl',
                 controllerAs: 'stationCamsAndPhotosVm',
@@ -462,7 +462,7 @@
             })
             .state('station.cams-and-photos.livewebcams', {
                 url: '/livewebcams',
-                templateUrl: '/static/partials/station/station-cams-and-photos-livewebcams.html',
+                templateUrl: 'station/station-cams-and-photos-livewebcams.html',
                 controller: 'StationCamsAndPhotosLiveWebcamsCtrl',
                 controllerAs: 'stationCamsAndPhotosLiveWebcamsCtrlVm',
                 resolve: {
@@ -480,7 +480,7 @@
             })
             .state('station.cams-and-photos.videos', {
                 url: '/videos',
-                templateUrl: '/static/partials/station/station-cams-and-photos-videos.html',
+                templateUrl: 'station/station-cams-and-photos-videos.html',
                 controller: 'StationCamsAndPhotosVideosCtrl',
                 controllerAs: 'stationCamsAndPhotosVideosCtrlVm',
                 resolve: {
@@ -489,7 +489,7 @@
             })
             .state('station.cams-and-photos.photos', {
                 url: '/photos',
-                templateUrl: '/static/partials/station/station-cams-and-photos-photos.html',
+                templateUrl: 'station/station-cams-and-photos-photos.html',
                 controller: 'StationCamsAndPhotosPhotosCtrl',
                 controllerAs: 'stationCamsAndPhotosPhotosCtrlVm',
                 resolve: {

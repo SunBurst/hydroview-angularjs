@@ -8,7 +8,7 @@
     function stationDataParameter() {
         var directive = {
             restrict: 'EA',
-            templateUrl: 'static/partials/station/station-data-parameter.directive.html',
+            templateUrl: 'station/station-data-parameter.directive.html',
             scope: {
                 station: '=',
                 parameter: '='
@@ -201,7 +201,7 @@
                         for (var k = 0; k < data.length; k++) {
                             if (sensorId in data[k]) {
                                 var dataQcLevel = data[k][sensorId].qc_level;
-                                if (qcLevel == dataQcLevel) {
+                                if (qcLevel === dataQcLevel) {
                                     qcLevelDataFound = true;
                                     averageSeries.setData(data[k][sensorId].averages);
                                     rangeSeries.setData(data[k][sensorId].ranges);
@@ -238,10 +238,10 @@
                             for (var k = 0; k < data.length; k++) {
                                 if (sensorId in data[k]) {
                                     var dataQcLevel = data[k][sensorId].qc_level;
-                                    if (qcLevel == dataQcLevel) {
+                                    if (qcLevel === dataQcLevel) {
                                         qcLevelDataFound = true;
                                         for (var l = 0; l < data[k][sensorId].data.length; l++) {
-                                            if (vertPos == data[k][sensorId].data[l].vertical_position) {
+                                            if (vertPos === data[k][sensorId].data[l].vertical_position) {
                                                 averageSeries.setData(data[k][sensorId].data[l].averages);
                                                 rangeSeries.setData(data[k][sensorId].data[l].ranges);
                                             }
@@ -267,7 +267,7 @@
         }
         
         function afterSetExtremes(e) {
-            if (e.trigger != undefined) {
+            if (e.trigger !== undefined) {
                 var min = Math.round(e.min);
                 var max = Math.round(e.max);
                 chart.showLoading('Loading data from server...');

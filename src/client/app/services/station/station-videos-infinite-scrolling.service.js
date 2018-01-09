@@ -19,14 +19,11 @@
         };
 
         stationVideosInifiniteScrolling.prototype.loadVideos = function() {
-            console.log("loadVideos");
-            console.log("this.busy is ", this.busy);
-            if (this.busy) return;
+            if (this.busy) { return; }
             this.busy = true;
-
             var tempFromDate = this.toDate.clone().subtract(30, 'days');
             if (tempFromDate.isBefore(this.startDate)) {
-                this.fromDate = startDate.clone();
+                this.fromDate = this.startDate.clone();
             }
             else {
                 this.fromDate = tempFromDate;
@@ -35,12 +32,11 @@
             this.getVideoUrls().then(function(data) {
                 this.videoUrls.push.apply(this.videoUrls, data);
                 this.busy = false;
-                console.log("this.busy is ", this.busy);
             }.bind(this));
         };
         
         stationVideosInifiniteScrolling.prototype.noVideos = function() {
-            if (this.videoUrls.length == 0) {
+            if (this.videoUrls.length === 0) {
                 return true;
             }
             return false;
@@ -58,14 +54,12 @@
         };
         
         stationVideosInifiniteScrolling.prototype.isBusy = function() {
-            if (this.busy) return true;
+            if (this.busy) { return true; }
             return false;
         };
         
         stationVideosInifiniteScrolling.prototype.initVideosTimeRange = function() {
-            console.log("init");
-            console.log("this.busy is ", this.busy);
-            if (this.busy) return;
+            if (this.busy) { return; }
             this.busy = true;
             return this.getVideosTimeRange().then(function(response) {
                 if (Array.isArray(response.firstRowResource.data) || response.firstRowResource.data.length) {
@@ -77,15 +71,12 @@
                     this.toDate = moment(this.endDate);
                 }
                 this.busy = false;
-                console.log("this.busy is ", this.busy);
                 return response;
             }.bind(this));
         };
         
         stationVideosInifiniteScrolling.prototype.appendVideoUrls = function() {
-            console.log("append");
-            console.log("this.busy is ", this.busy);
-            if (this.busy) return;
+            if (this.busy) { return; }
             this.busy = true;
             var tempFromDate = this.toDate.clone().subtract(30, 'days');
             if (tempFromDate.isBefore(this.startDate)) {
@@ -98,7 +89,6 @@
             return this.getVideoUrls().then(function(data) {
                 this.videoUrls.push.apply(this.videoUrls, data);
                 this.busy = false;
-                console.log("this.busy is ", this.busy);
                 return data;
             }.bind(this));
         };
