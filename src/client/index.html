@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Erken Laboratory Monitoring</title>
+    
+    <link href="/src/client/content/images/favicon.ico" rel="shortcut icon">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+    <link href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highcharts-ng/1.1.0/highcharts-ng.css" rel="stylesheet">
+    <link href="/src/client/content/style.css" rel="stylesheet">
+</head>
+    
+<body layout="column" layout-fill ng-controller="Shell as shellVm" ng-cloak>
+    
+    <md-toolbar class="md-hue-2" layout="row">
+        <div class="md-toolbar-tools">
+            <md-button class="menu" ng-click="shellVm.toggleList()" aria-label="Show app navigation menu">
+                <md-icon md-svg-src="/src/client/content/images/svg/menu.svg"></md-icon>
+            </md-button>
+            <md-button ui-sref="start">HydroView</md-button>
+        </div>
+    </md-toolbar>
+    
+    <div layout="row" flex>
+        
+        <div layout="row" ng-controller="Sidebar as sidebarVm">
+            <md-sidenav layout="column" class="md-sidenav-left" 
+                md-component-id="left" md-whiteframe="4">
+                    <!-- <md-toolbar class="md-tall md-hue-2"></md-toolbar> -->
+                <md-list>
+                    <!-- <md-subheader>Networks</md-subheader>
+                    <md-list-item ng-show="sidebarVm.loadingNetworks" class="layout-align-center-center" layout-align="center center">
+                        <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+                    </md-list-item>
+                    <md-list-item ng-repeat="network in sidebarVm.networks" class="md-2-line" ui-sref="network({ network_id: network.id })" layout-align="start center">
+                        <img ng-if="sidebarVm.isImage(network.image)" data-ng-src="data:image/png;base64, {[ network.image ]}" class="md-avatar" alt="{[ network.name ]}"/>
+                        <ng-md-icon ng-if="!sidebarVm.isImage(network.image)" class="md-avatar" icon="public" size="40"></ng-md-icon> 
+                        <div class="md-list-item-text" layout="column">
+                            <h3>{[ network.name ]}</h3>
+                            <h4>{[ network.type ]}</h4>
+                        </div>
+                    </md-list-item>
+                    <md-divider></md-divider> -->
+                    <md-subheader>Stations</md-subheader>
+                    <md-list-item ng-show="sidebarVm.loadingStations">
+                        <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+                    </md-list-item>
+                    <md-list-item ng-repeat="station in sidebarVm.stations" class="md-3-line" ui-sref="station.overview({ station_id: station.id })" layout-align="start center">
+                        <img ng-if="sidebarVm.isImage(station.thumbnails.xl)" data-ng-src="data:image/png;base64, {[ station.thumbnails.xl ]}" class="md-avatar" alt="{[ station.name ]}"/>
+                        <ng-md-icon ng-if="!sidebarVm.isImage(station.thumbnails.xl)" class="md-avatar" icon="place" size="40"></ng-md-icon> 
+                        <div class="md-list-item-text" layout="column">
+                            <h3>{[ station.name ]}</h3>
+                            <h4>{[ station.environment_category ]}</h4>
+                            <p>{[ station.position.latitude ]}, {[ station.position.longitude ]}</p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-sidenav>
+
+        </div>
+
+        <div layout="column" flex id="content">
+            <ui-view></ui-view>
+        </div>
+        
+    </div>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN193fgB-M7MdBiaxqwi2h9i_-2_MAWsk"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.1/angular-sanitize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-csv/0.3.6/ng-csv.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-aria.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.js"></script>
+    <script src="/bower_components/gmap-clusterer/markerclusterer/src/markerclusterer.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts-ng/1.0.1/highcharts-ng.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-simple-logger/0.1.7/angular-simple-logger.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-maps/2.4.1/angular-google-maps.js"></script>
+    <script src="/bower_components/angular-material-data-table/dist/md-data-table.js"></script>
+    <script src="/bower_components/angular-material-icons/angular-material-icons.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/ng-youtube-embed@1.7.11/build/ng-youtube-embed.min.js"></script>
+    
+    <script src="/src/client/app/app.js"></script>
+    <script src="/src/client/app/envconfig.js"></script>    
+
+    <script src="/src/client/app/services/services.module.js"></script>
+    <script src="/src/client/app/services/stations.service.js"></script>
+    <script src="/src/client/app/services/sensors/sensors.service.js"></script>
+    <script src="/src/client/app/services/station/station.service.js"></script>
+    <script src="/src/client/app/services/station/station-groups.service.js"></script>
+    <script src="/src/client/app/services/station/station-groups-measurements.service.js"></script>
+    <script src="/src/client/app/services/station/station-parameters.service.js"></script>
+    <script src="/src/client/app/services/station/station-profile-measurements.service.js"></script>
+    <script src="/src/client/app/services/station/station-sensors.service.js"></script>
+    <script src="/src/client/app/services/station/station-single-parameter-measurements.service.js"></script>
+    <script src="/src/client/app/services/station/station-videos.service.js"></script>
+    <script src="/src/client/app/services/station/station-videos-infinite-scrolling.service.js"></script>
+    <script src="/src/client/app/services/station/station-webcams.service.js"></script>
+    
+    <script src="/src/client/app/core/core.module.js"></script>
+    <script src="/src/client/app/core/core.config.js"></script>
+    <script src="/src/client/app/core/core.fallbacksrc.directive.js"></script>
+    <script src="/src/client/app/core/core.rootscopebinder.service.js"></script>
+    <script src="/src/client/app/core/core.constants.js"></script>
+    <script src="/src/client/app/core/core.service.js"></script>
+    <script src="/src/client/app/core/core.trustasresourceurl.filter.js"></script>
+    
+    <script src="/src/client/app/layout/layout.module.js"></script>
+    <script src="/src/client/app/layout/shell.controller.js"></script>
+    <script src="/src/client/app/layout/sidebar.controller.js"></script>
+    
+    <script src="/src/client/app/station/station.module.js"></script>
+    <script src="/src/client/app/station/station.config.js"></script>
+    <script src="/src/client/app/station/station.config.route.js"></script>
+    <script src="/src/client/app/station/station.controller.js"></script>
+    <script src="/src/client/app/station/station-storage.service.js"></script>
+    <script src="/src/client/app/station/cams-and-photos/station-cams-and-photos.controller.js"></script>
+    <script src="/src/client/app/station/cams-and-photos/station-cams-and-photos-livewebcams.controller.js"></script>
+    <script src="/src/client/app/station/cams-and-photos/station-cams-and-photos-photos.controller.js"></script>
+    <script src="/src/client/app/station/cams-and-photos/station-cams-and-photos-videos.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-groups.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-parameters.controller.js"></script>
+    <script src="/src/client/app/station/data/station-data-group-item.directive.js"></script>
+    <script src="/src/client/app/station/data/station-data-parameter-item.directive.js"></script>
+    <script src="/src/client/app/station/overview/station-overview.controller.js"></script>
+    <script src="/src/client/app/station/overview/station-overview-download-item.dialog.controller.js"></script>
+    <script src="/src/client/app/station/overview/station-overview-sensor-info.dialog.controller.js"></script>
+    
+    <script src="/src/client/app/start/start.module.js"></script>
+    <script src="/src/client/app/start/start.config.route.js"></script>
+    <script src="/src/client/app/start/start.controller.js"></script>
+    <script src="/src/client/app/start/start-map.controller.js"></script>
+    <script src="/src/client/app/start/start-storage.service.js"></script>
+
+</body>
+
+</html>
+
+

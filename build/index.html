@@ -8,14 +8,14 @@
     <meta name="author" content="">
     <title>Erken Laboratory Monitoring</title>
     
-    <link href="/images/favicon.ico" rel="shortcut icon">
+    <link href="/src/client/content/images/favicon.ico" rel="shortcut icon">
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
     <link href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highcharts-ng/1.1.0/highcharts-ng.css" rel="stylesheet">
-    <link href="/content/style.css" rel="stylesheet">
+    <link href="/src/client/content/style.css" rel="stylesheet">
 </head>
     
 <body layout="column" layout-fill ng-controller="Shell as shellVm" ng-cloak>
@@ -23,7 +23,7 @@
     <md-toolbar class="md-hue-2" layout="row">
         <div class="md-toolbar-tools">
             <md-button class="menu" ng-click="shellVm.toggleList()" aria-label="Show app navigation menu">
-                <md-icon md-svg-src="/images/svg/menu.svg"></md-icon>
+                <md-icon md-svg-src="/src/client/content/images/svg/menu.svg"></md-icon>
             </md-button>
             <md-button ui-sref="start">HydroView</md-button>
         </div>
@@ -98,7 +98,7 @@
     <script src="/bower_components/angular-material-icons/angular-material-icons.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/ng-youtube-embed@1.7.11/build/ng-youtube-embed.min.js"></script>
     
-    <script src="/src/client/app/src/client/app.js"></script>
+    <script src="/src/client/app/app.js"></script>
     <script src="/src/client/app/envconfig.js"></script>    
 
     <script src="/src/client/app/services/services.module.js"></script>

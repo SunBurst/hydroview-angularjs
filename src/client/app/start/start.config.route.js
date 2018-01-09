@@ -11,7 +11,7 @@
         $stateProvider
             .state('start', {
                 url: '/start',
-                templateUrl: 'start/start.html',
+                templateUrl: 'app/start/start.html',
                 controller: 'StartCtrl',
                 controllerAs: 'startVm',
                 resolve: {

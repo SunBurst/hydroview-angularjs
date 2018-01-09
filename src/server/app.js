@@ -25,17 +25,10 @@ routes = require('./routes/index')(app);
 
 console.log('About to crank up node');
 console.log('PORT=' + port);
-console.log('NODE_ENV=' + environment);
 
 var source = '';
 
 switch (environment){
-    case 'production':
-        console.log('** PRODUCTION **');
-        console.log('serving from ' + './build/');
-        process.chdir('./../../');
-        app.use('/', express.static('./build/'));
-        break;
     case 'stage':
     case 'build':
         console.log('** BUILD **');
@@ -45,7 +38,7 @@ switch (environment){
     default:
         console.log('** DEV **');
         console.log('serving from ' + './src/client/ and ./');
-        app.use('/', express.static(__dirname + '/../client'));
+        app.use('/', express.static('./src/client/'));
         app.use('/', express.static('./'));
         break;
 }

@@ -18,6 +18,7 @@ var log = gulputil.log;
 var port = process.env.PORT || 7203;
 
 var paths = {
+  "client": "./src/client/",
   "server": "./src/server/",
   "html": "./src/client/**/*.html",
   "htmltemplates": "./src/client/app/**/*.html",
