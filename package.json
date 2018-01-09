@@ -27,15 +27,7 @@
     "express": "^4.9.3",
     "method-override": "^1.0.0",
     "morgan": "^1.1.1",
-    "serve-favicon": "^2.0.1"
-  },
-  "author": "Marcus Enderskog",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SunBurst/hydroview-angularjs/issues"
-  },
-  "homepage": "https://github.com/SunBurst/hydroview-angularjs#readme",
-  "devDependencies": {
+    "serve-favicon": "^2.0.1",
     "browser-sync": "^2.23.3",
     "chai": "^1.9.1",
     "chai-as-promised": "^4.1.1",
@@ -82,5 +74,14 @@
     "q": "^1.0.1",
     "sinon": "^1.10.3",
     "sinon-chai": "^2.5.0"
+  },
+  "author": "Marcus Enderskog",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SunBurst/hydroview-angularjs/issues"
+  },
+  "homepage": "https://github.com/SunBurst/hydroview-angularjs#readme",
+  "devDependencies": {
+    
   }
 }
