@@ -4,7 +4,7 @@
         
         <div flex-xs flex-gt-xs="50" layout="column">
             <md-card>
-                <img data-ng-src="data:image/png;base64, {[ stationOverviewVm.station.image ]}" class="md-card-image" alt="{[ stationOverviewVm.station.image ]}">
+                <img data-ng-src="data:image/png;base64, {{ stationOverviewVm.station.image }}" class="md-card-image" alt="{{ stationOverviewVm.station.image }}">
             </md-card>
             <md-card>
                 <md-toolbar class="md-hue-2">
@@ -20,12 +20,12 @@
                 </md-toolbar>
                 <md-card-content>
                     <div layout="row" layout-xs="column" layout-align="space-between center">
-                        <p class="md-body-2">Environment Category: </p><p class="md-body-2">{[ stationOverviewVm.station.environment_category ]}</p>
+                        <p class="md-body-2">Environment Category: </p><p class="md-body-2">{{ stationOverviewVm.station.environment_category }}</p>
                     </div>
                     <div layout="row"  layout-xs="column" layout-align="space-between center">
-                        <p class="md-body-2">Position (WGS84): </p><p class="md-body-2">{[ stationOverviewVm.station.position.latitude ]}, {[ stationOverviewVm.station.position.longitude ]}</p>
+                        <p class="md-body-2">Position (WGS84): </p><p class="md-body-2">{{ stationOverviewVm.station.position.latitude }}, {{ stationOverviewVm.station.position.longitude }}</p>
                     </div>
-                    <h4 class="title">Description </h4><p class="md-body-2">{[ stationOverviewVm.station.description.long_description ]}</p>
+                    <h4 class="title">Description </h4><p class="md-body-2">{{ stationOverviewVm.station.description.long_description }}</p>
                 </md-card-content>
             </md-card>
         </div>
@@ -62,11 +62,11 @@
                 <md-card-content>
                     <md-list flex>
                         <md-list-item class="md-2-line md-long-text" ng-repeat="sensor in stationOverviewVm.sensors" ng-click="stationOverviewVm.showSensorInfoDialog($event, sensor)">
-                            <img ng-if="stationOverviewVm.isImage(sensor.sensor_image)" data-ng-src="data:image/png;base64, {[ sensor.sensor_image ]}" class="md-avatar" alt="{[ sensor.sensor_name ]}"/>
+                            <img ng-if="stationOverviewVm.isImage(sensor.sensor_image)" data-ng-src="data:image/png;base64, {{ sensor.sensor_image }}" class="md-avatar" alt="{{ sensor.sensor_name }}"/>
                             <ng-md-icon ng-if="!stationOverviewVm.isImage(sensor.sensor_image)" class="md-avatar" icon="developer_dashboard" size="40"></ng-md-icon> 
                             <div class="md-list-item-text" layout="column">
-                                <h3>{[ sensor.sensor_name ]}</h3>
-                                <p>{[ sensor.sensor_description.short_description ]}</p>
+                                <h3>{{ sensor.sensor_name }}</h3>
+                                <p>{{ sensor.sensor_description.short_description }}</p>
                             </div>
                             <md-button class="md-secondary" hide show-gt-xs ng-click="stationOverviewVm.showSensorInfoDialog($event, sensor)">More Info</md-button>
                             <!-- <ng-md-icon class="md-secondary" icon="info" size="24"></ng-md-icon> -->
@@ -92,14 +92,14 @@
                             <md-list-item class="md-2-line" ng-repeat="group in stationOverviewVm.groups" ng-click="null">
                                 <ng-md-icon class="md-avatar" icon="multiline_chart" size="40"></ng-md-icon> 
                                 <div class="md-list-item-text" layout="column">
-                                    <h3>{[ group.group_name ]}</h3>
-                                    <p>{[ group.group_description.short_description ]}.</p>
+                                    <h3>{{ group.group_name }}</h3>
+                                    <p>{{ group.group_description.short_description }}.</p>
                                 </div>
-                                <!--<img ng-if="stationOverviewVm.isImage(sensor.sensor_image)" data-ng-src="data:image/png;base64, {[ sensor.sensor_image ]}" class="md-avatar" alt="{[ sensor.sensor_name ]}"/>
+                                <!--<img ng-if="stationOverviewVm.isImage(sensor.sensor_image)" data-ng-src="data:image/png;base64, {{ sensor.sensor_image }}" class="md-avatar" alt="{{ sensor.sensor_name }}"/>
                                 <ng-md-icon ng-if="!stationOverviewVm.isImage(sensor.sensor_image)" class="md-avatar" icon="developer_dashboard" size="40"></ng-md-icon> 
                                 <div class="md-list-item-text" layout="column">
-                                    <h3>{[ sensor.sensor_name ]}</h3>
-                                    <p>{[ sensor.sensor_description.short_description ]}</p>
+                                    <h3>{{ sensor.sensor_name }}</h3>
+                                    <p>{{ sensor.sensor_description.short_description }}</p>
                                 </div>-->
                             </md-list-item>
                             <md-divider ></md-divider>
@@ -107,8 +107,8 @@
                             <md-list-item class="md-2-line" ng-repeat="parameter in stationOverviewVm.parameters" ng-click="null">
                                 <ng-md-icon class="md-avatar" icon="show_chart" size="40"></ng-md-icon> 
                                 <div class="md-list-item-text" layout="column">
-                                    <h3>{[ parameter.parameter_name ]}</h3>
-                                    <p>{[ parameter.parameter_description.short_description ]}</p>
+                                    <h3>{{ parameter.parameter_name }}</h3>
+                                    <p>{{ parameter.parameter_description.short_description }}</p>
                                 </div>
                             </md-list-item>
                         </md-list>

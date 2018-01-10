@@ -9,9 +9,6 @@
 
         $qProvider.errorOnUnhandledRejections(false);
         
-        $interpolateProvider.startSymbol('{['); // Required in order to work with Jinja2
-        $interpolateProvider.endSymbol(']}');   // Required in order to work with Jinja2
-        
         $locationProvider.html5Mode(false);
         $locationProvider.hashPrefix('!');
         

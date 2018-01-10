@@ -9,7 +9,7 @@
                 </div>
                 <div md-virtual-repeat="videoUrl in stationCamsAndPhotosVideosCtrlVm.videos" md-on-demand>
                     <div>
-                        <iframe width="100%" height="350" ng-src="{[ videoUrl.video_url | trustAsResourceUrl ]}" 
+                        <iframe width="100%" height="350" ng-src="{{ videoUrl.video_url | trustAsResourceUrl }}" 
                             frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>

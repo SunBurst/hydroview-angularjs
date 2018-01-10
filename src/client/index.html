@@ -8,14 +8,22 @@
     <meta name="author" content="">
     <title>Erken Laboratory Monitoring</title>
     
-    <link href="/src/client/content/images/favicon.ico" rel="shortcut icon">
+    <link href="content/images/favicon.ico" rel="shortcut icon">
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
     <link href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highcharts-ng/1.1.0/highcharts-ng.css" rel="stylesheet">
+    
+    <!-- inject-vendor:css -->
+    
+    <!-- endinject -->
+    
+    <!-- inject:css -->
     <link href="/src/client/content/style.css" rel="stylesheet">
+    <!-- endinject -->
+    
 </head>
     
 <body layout="column" layout-fill ng-controller="Shell as shellVm" ng-cloak>
@@ -23,7 +31,7 @@
     <md-toolbar class="md-hue-2" layout="row">
         <div class="md-toolbar-tools">
             <md-button class="menu" ng-click="shellVm.toggleList()" aria-label="Show app navigation menu">
-                <md-icon md-svg-src="/src/client/content/images/svg/menu.svg"></md-icon>
+                <md-icon md-svg-src="content/images/svg/menu.svg"></md-icon>
             </md-button>
             <md-button ui-sref="start">HydroView</md-button>
         </div>
@@ -41,11 +49,11 @@
                         <md-progress-linear md-mode="indeterminate"></md-progress-linear>
                     </md-list-item>
                     <md-list-item ng-repeat="network in sidebarVm.networks" class="md-2-line" ui-sref="network({ network_id: network.id })" layout-align="start center">
-                        <img ng-if="sidebarVm.isImage(network.image)" data-ng-src="data:image/png;base64, {[ network.image ]}" class="md-avatar" alt="{[ network.name ]}"/>
+                        <img ng-if="sidebarVm.isImage(network.image)" data-ng-src="data:image/png;base64, {{ network.image }}" class="md-avatar" alt="{{ network.name }}"/>
                         <ng-md-icon ng-if="!sidebarVm.isImage(network.image)" class="md-avatar" icon="public" size="40"></ng-md-icon> 
                         <div class="md-list-item-text" layout="column">
-                            <h3>{[ network.name ]}</h3>
-                            <h4>{[ network.type ]}</h4>
+                            <h3>{{ network.name }}</h3>
+                            <h4>{{ network.type }}</h4>
                         </div>
                     </md-list-item>
                     <md-divider></md-divider> -->
@@ -54,12 +62,12 @@
                         <md-progress-linear md-mode="indeterminate"></md-progress-linear>
                     </md-list-item>
                     <md-list-item ng-repeat="station in sidebarVm.stations" class="md-3-line" ui-sref="station.overview({ station_id: station.id })" layout-align="start center">
-                        <img ng-if="sidebarVm.isImage(station.thumbnails.xl)" data-ng-src="data:image/png;base64, {[ station.thumbnails.xl ]}" class="md-avatar" alt="{[ station.name ]}"/>
+                        <img ng-if="sidebarVm.isImage(station.thumbnails.xl)" data-ng-src="data:image/png;base64, {{ station.thumbnails.xl }}" class="md-avatar" alt="{{ station.name }}"/>
                         <ng-md-icon ng-if="!sidebarVm.isImage(station.thumbnails.xl)" class="md-avatar" icon="place" size="40"></ng-md-icon> 
                         <div class="md-list-item-text" layout="column">
-                            <h3>{[ station.name ]}</h3>
-                            <h4>{[ station.environment_category ]}</h4>
-                            <p>{[ station.position.latitude ]}, {[ station.position.longitude ]}</p>
+                            <h3>{{ station.name }}</h3>
+                            <h4>{{ station.environment_category }}</h4>
+                            <p>{{ station.position.latitude }}, {{ station.position.longitude }}</p>
                         </div>
                     </md-list-item>
                 </md-list>
@@ -84,7 +92,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.js"></script>
-    <script src="/bower_components/gmap-clusterer/markerclusterer/src/markerclusterer.js "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -94,9 +101,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-simple-logger/0.1.7/angular-simple-logger.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-maps/2.4.1/angular-google-maps.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ng-youtube-embed@1.7.11/build/ng-youtube-embed.min.js"></script>
+    
+    <!-- inject-vendor:js -->
+    
+    <script src="/bower_components/gmap-clusterer/markerclusterer/src/markerclusterer.js "></script>
     <script src="/bower_components/angular-material-data-table/dist/md-data-table.js"></script>
     <script src="/bower_components/angular-material-icons/angular-material-icons.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/ng-youtube-embed@1.7.11/build/ng-youtube-embed.min.js"></script>
+    
+    <!-- endinject -->
+    
+    <!-- inject:js -->
     
     <script src="/src/client/app/app.js"></script>
     <script src="/src/client/app/envconfig.js"></script>    
@@ -150,6 +165,8 @@
     <script src="/src/client/app/start/start.controller.js"></script>
     <script src="/src/client/app/start/start-map.controller.js"></script>
     <script src="/src/client/app/start/start-storage.service.js"></script>
+    
+    <!-- endinject -->
 
 </body>
 

@@ -27,7 +27,7 @@
                         <md-checkbox 
                             ng-checked="infoFieldObj.selected" 
                                 ng-model="infoFieldObj.selected">
-                                    {[ infoField ]}
+                                    {{ infoField }}
                         </md-checkbox>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
             <md-button ng-csv="StationDownloadInfoDialogControllerVm.prepareCSVExport()"
                 csv-header="StationDownloadInfoDialogControllerVm.getHeader()"
                     aria-label="Export and download station info as CSV" 
-                        filename="{[ StationDownloadInfoDialogControllerVm.station.name ]} Info.csv" 
+                        filename="{{ StationDownloadInfoDialogControllerVm.station.name }} Info.csv" 
                             lazy-load="true">
                                 Download
             </md-button>

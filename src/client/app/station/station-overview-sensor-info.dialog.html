@@ -3,7 +3,7 @@
         
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
-                <h2>{[ StationSensorInfoDialogControllerVm.sensor.sensor_name ]}</h2>
+                <h2>{{ StationSensorInfoDialogControllerVm.sensor.sensor_name }}</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="StationSensorInfoDialogControllerVm.cancel()">
                     <ng-md-icon icon="close" style="fill: #ffffff" aria-label="Close dialog"></ng-md-icon>
@@ -27,16 +27,16 @@
                             </div>
                         </md-toolbar> -->
                         <div layout="row" layout-xs="column" layout-align-gt-xs="space-between center">
-                            <p class="md-body-2">Sensor Name: </p><p class="md-body-2">{[ StationSensorInfoDialogControllerVm.sensor.sensor_name ]}</p>
+                            <p class="md-body-2">Sensor Name: </p><p class="md-body-2">{{ StationSensorInfoDialogControllerVm.sensor.sensor_name }}</p>
                         </div>
                         <div layout="row" layout-xs="column" layout-align-gt-xs="space-between center">
-                            <p class="md-body-2">Sensor ID: </p><p class="md-body-2">{[ StationSensorInfoDialogControllerVm.sensor.sensor_id ]}</p>
+                            <p class="md-body-2">Sensor ID: </p><p class="md-body-2">{{ StationSensorInfoDialogControllerVm.sensor.sensor_id }}</p>
                         </div>
                         <h4 class="title">Sensor Description</h4>
-                        <p class="md-body-2">{[ StationSensorInfoDialogControllerVm.sensor.sensor_description.long_description ]}</p>
+                        <p class="md-body-2">{{ StationSensorInfoDialogControllerVm.sensor.sensor_description.long_description }}</p>
                     </div>
                     <div flex-xs flex-gt-xs="20" layout="column">
-                        <img class="md-padding" style="height: 152px; width: 152px;" data-ng-src="data:image/png;base64, {[ StationSensorInfoDialogControllerVm.sensor.sensor_image ]}" fallback-src="https://via.placeholder.com/152x152?text=No%20image" alt="{[ StationSensorInfoDialogControllerVm.sensor.sensor_name ]}"/>
+                        <img class="md-padding" style="height: 152px; width: 152px;" data-ng-src="data:image/png;base64, {{ StationSensorInfoDialogControllerVm.sensor.sensor_image }}" fallback-src="https://via.placeholder.com/152x152?text=No%20image" alt="{{ StationSensorInfoDialogControllerVm.sensor.sensor_name }}"/>
                     </div>
                 </div>
             </div>
@@ -51,8 +51,8 @@
                     <md-list-item class="md-2-line" ng-repeat="group in StationSensorInfoDialogControllerVm.sensorGroups" ng-click="null">
                       <ng-md-icon class="md-avatar" icon="multiline_chart" size="40"></ng-md-icon> 
                       <div class="md-list-item-text" layout="column">
-                        <h3>{[ group.group_name ]}</h3>
-                        <p>{[ group.group_description.short_description ]}</p>
+                        <h3>{{ group.group_name }}</h3>
+                        <p>{{ group.group_description.short_description }}</p>
                       </div>
                     </md-list-item>
                     <md-divider ></md-divider>
@@ -60,8 +60,8 @@
                     <md-list-item class="md-2-line" ng-repeat="parameter in StationSensorInfoDialogControllerVm.sensorParameters" ng-click="null">
                         <ng-md-icon class="md-avatar" icon="show_chart" size="40"></ng-md-icon> 
                         <div class="md-list-item-text" layout="column">
-                            <h3>{[ parameter.parameter_name ]}</h3>
-                            <p>{[ parameter.parameter_description.short_description ]}</p>
+                            <h3>{{ parameter.parameter_name }}</h3>
+                            <p>{{ parameter.parameter_description.short_description }}</p>
                       </div>
                     </md-list-item>
                 </md-list>

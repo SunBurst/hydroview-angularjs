@@ -1,2 +1,2 @@
 angular.module("app.envconfig", [])
-.constant("EnvironmentConfig", {"API":"http://localhost:5000"});
+.constant("EnvironmentConfig", {"API":"https://hydroview-flaskrestapi.herokuapp.com"});

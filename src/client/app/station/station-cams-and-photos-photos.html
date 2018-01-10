@@ -29,9 +29,9 @@
                     
                     <md-grid-tile class="darkBlue" ng-repeat="webcamPhoto in stationCamsAndPhotosPhotosCtrlVm.webcamPhotos" 
                       ng-click="stationCamsAndPhotosPhotosCtrlVm.showPhoto($event, $index)">
-                        <img data-ng-src="data:image/png;base64, {[ webcamPhoto.photo ]}" alt="{[ webcamPhoto.timestamp ]}" layout-fill>
+                        <img data-ng-src="data:image/png;base64, {{ webcamPhoto.photo }}" alt="{{ webcamPhoto.timestamp }}" layout-fill>
                             <md-grid-tile-footer>
-                                <h3>{[ webcamPhoto.timestamp | date: 'yyyy-MM-dd HH:mm:ss Z' ]}</h3>
+                                <h3>{{ webcamPhoto.timestamp | date: 'yyyy-MM-dd HH:mm:ss Z' }}</h3>
                             </md-grid-tile-footer>
                     </md-grid-tile>
 

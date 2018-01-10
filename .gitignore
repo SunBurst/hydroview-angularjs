@@ -1,13 +1,12 @@
 # Ignore Node & Bower
 ###################
 node_modules
-/app/client/build
-/app/build
+build
 bower_components
 **/test/coverage
 /report
 envconfig.json
-/app/client/envconfig.js
+src/client/app/envconfig.js
 
 # Compiled source #
 ###################
