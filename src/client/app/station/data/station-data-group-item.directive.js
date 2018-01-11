@@ -8,7 +8,7 @@
     function stationDataGroup() {
         var directive = {
             restrict: 'EA',
-            templateUrl: 'station/station-data-group.directive.html',
+            templateUrl: 'app/station/station-data-group.directive.html',
             scope: {
                 station: '=',
                 group: '='

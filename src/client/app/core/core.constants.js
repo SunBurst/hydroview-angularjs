@@ -3,33 +3,6 @@
     
     angular
         .module('app.core')
-        .constant('DataTableParameterOptions', function getDataTableParameterOptions(dataSource) {
-            var dataSourcesOptions = {
-                'Daily': {
-                    query: {
-                        order: 'date',
-                        limit: 5,
-                        page: 1
-                    }
-                },
-                'Hourly': {
-                    query: {
-                        order: 'date_hour',
-                        limit: 5,
-                        page: 1
-                    }
-                },
-                'High Frequency': {
-                    query: {
-                        order: 'timestamp',
-                        limit: 5,
-                        page: 1
-                    }
-                }
-            };
-            
-            return dataSourcesOptions[dataSource];
-        })
         .constant('DatePickerOptions', getDatePickerOptions())
         .constant('GoogleMapClusterOptions', getGoogleMapClusterOptions())
         .constant('GoogleMapDefaultOptions', getDefaultMapOptions())
@@ -63,7 +36,7 @@
     
     function getGoogleMapClusterOptions() {
         return {
-            imagePath: '/images/google-maps/cluster/m'
+            imagePath: 'content/images/google-maps/cluster/m'
         };
     }
     
@@ -162,9 +135,9 @@
     
     function getGoogleMapIcons() {
         return {
-            blueicon: '/images/google-maps/icons/blue-dot.png',
-            greenicon: '/images/google-maps/icons/green-dot.png',
-            redicon: '/images/google-maps/icons/red-dot.png'
+            blueicon: 'content/images/google-maps/icons/blue-dot.png',
+            greenicon: 'content/images/google-maps/icons/green-dot.png',
+            redicon: 'content/images/google-maps/icons/red-dot.png'
         };
     }
     

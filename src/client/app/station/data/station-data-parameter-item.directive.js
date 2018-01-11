@@ -8,7 +8,7 @@
     function stationDataParameter() {
         var directive = {
             restrict: 'EA',
-            templateUrl: 'station/station-data-parameter.directive.html',
+            templateUrl: 'app/station/station-data-parameter.directive.html',
             scope: {
                 station: '=',
                 parameter: '='

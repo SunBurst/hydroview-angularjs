@@ -51,7 +51,7 @@
         function showPhoto(ev, index) {
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
             $mdDialog.show({
-                templateUrl: 'station/station-cams-and-photos-dialog.html',
+                templateUrl: 'app/station/station-cams-and-photos-dialog.html',
                 locals: {photoData: vm.webcamPhotos[index]},   
                 targetEvent: ev,
                 clickOutsideToClose: true,
