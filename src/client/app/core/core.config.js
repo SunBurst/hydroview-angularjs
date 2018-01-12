@@ -1,11 +1,28 @@
 (function() {
     'use strict';
     
-    angular
-        .module('app.core')
-        .config(config);
-
-    function config($qProvider, $interpolateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+    var core = angular.module('app.core');
+    
+    core.config(toastrConfig);
+    
+    /* @ngInject */
+    function toastrConfig(toastr) {
+        toastr.options.timeOut = 4000;
+        toastr.options.positionClass = 'toast-bottom-right';
+    }
+    
+    var config = {
+        appErrorPrefix: '[NG-HydroView Error] ', //Configure the exceptionHandler decorator
+        appTitle: 'HydroView-angularjs',
+        version: '1.0.0'
+    };
+    
+    core.value('config', config);
+    
+    core.config(configure);
+    
+    /* @ngInject */
+    function configure($qProvider, $interpolateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
 
         $qProvider.errorOnUnhandledRejections(false);
         

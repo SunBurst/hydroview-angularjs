@@ -2,20 +2,18 @@
     'use strict';
 
     angular.module('app.core', [
-        'app.envconfig',
-        'ui.router',
-        'ngMaterial',
-        'ngResource',
-        'ngRoute',
-        'highcharts-ng',
-        'uiGmapgoogle-maps',
-        //'ui-rangeSlider',
-        //'ngMaterialDatePicker',
-        'ngSanitize', 
-        'ngCsv',
-        'md.data.table',
-        'ngMdIcons',
-        'ngYoutubeEmbed'
+        /*
+         * Angular modules
+         */
+        'ngResource', 'ngRoute', 'ngSanitize', 
+        /*
+         * Our reusable cross app code modules
+         */
+        'app.envconfig', 
+        /*
+         * 3rd Party modules
+         */
+        'md.data.table', 'ngCsv', 'ngMaterial', 'ngMdIcons', 'ngYoutubeEmbed', 'uiGmapgoogle-maps', 'ui.router',
     ]);
     
 })();

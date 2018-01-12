@@ -1,38 +1,16 @@
+/* global toastr:false, moment:false */
 (function() {
     'use strict';
     
     angular
         .module('app.core')
-        .constant('DatePickerOptions', getDatePickerOptions())
+        .constant('toastr', toastr)
+        .constant('moment', moment)
+        .constant('Highcharts', Highcharts)
         .constant('GoogleMapClusterOptions', getGoogleMapClusterOptions())
         .constant('GoogleMapDefaultOptions', getDefaultMapOptions())
         .constant('GoogleMapIcons', getGoogleMapIcons())
-        .constant('GroupHighChartOptions', getGroupHighChartOptions())
-        .constant('HeatMapOptions', getHeatMapOptions())
-        .constant('HighChartOptions', getHighChartOptions())
         .constant('HighchartsDefaultOptions', getHighchartsDefaultOptions());
-
-    function getHighchartsDefaultOptions() {
-        return Highcharts.setOptions({
-            global: {
-                useUTC: false
-            }
-        });
-    }
-    
-    function getDatePickerOptions() {
-        return {
-            applyClass: 'btn-success',
-            locale: {
-                applyLabel: 'Apply',
-                fromLabel: 'From',
-                format: 'YYYY-MM-DD HH:mm:ss',
-                toLabel: 'To',
-                cancelLabel: 'Cancel',
-                customRangeLabel: 'Custom Range'
-            }
-        };
-    }
     
     function getGoogleMapClusterOptions() {
         return {
@@ -141,183 +119,12 @@
         };
     }
     
-    function getHeatMapOptions() {
-        return {
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            chart: {
-                type: 'heatmap'
-            },
-            boost: {
-                useGPUTranslations: true
-            },
-            xAxis: {
-                type: 'datetime',
-                events: {
-                    setExtremes: function(e) {
-                        console.log(this);
-                        if (typeof(e.rangeSelectorButton)!== 'undefined') {
-                            alert('count: '+e.rangeSelectorButton.count + 'text: ' + e.rangeSelectorButton.text + ' type:' + e.rangeSelectorButton.type);
-                        }
-                    }
-                }
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                reversed: true,
-                labels: {
-                    format: '{value:.2f}'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            colorAxis: {
-                stops: [
-                    [0, '#3060cf'],
-                    [0.5, '#fffbbc'],
-                    [0.9, '#c4463a'],
-                    [1, '#c4463a']
-                ],
-            },
-            series: [],
-        };
-    }
-    
-    function getGroupHighChartOptions() {
-        return {
-            
-            title: {
-                text: ''
-            },
-            
-            charts: {
-                type: 'spline',
-                zoomType: 'xy'
-            },
-            
-            navigator: {
-                adaptToUpdatedData: false
-            },
-            
-            rangeSelector: {
-                buttons: [{
-                    type: 'week',
-                    count: 1,
-                    text: '1w'
-                }, {
-                    type: 'month',
-                    count: 1,
-                    text: '1m'
-                }, {
-                    type: 'month',
-                    count: 6,
-                    text: '6m'
-                }, {
-                    type: 'year',
-                    count: 1,
-                    text: '1y'
-                }, {
-                    type: 'all',
-                    text: 'All'
-                }],
-                selected: 1,
-                enabled: true
-            },
-
-            plotOptions: {
-                series: {
-                    showInNavigator: true
-                }
-            },
-            
-            scrollbar: {
-                liveRedraw: false
-            },
-            
-            xAxis: [{
-                events: {
-                    setExtremes: function(e) {
-                        console.log(e);
-                    }
-                },
-                type: 'datetime'
-            }],
-            
-            yAxis: [],
-            
-            series: []
-        
-        };
-
-    }
-    
-    function getHighChartOptions() {
-        return {
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            chart: {
-                type: 'spline'
-            },
-            boost: {
-                useGPUTranslations: true
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                labels: {
-                    format: '{value:.2f}'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            legend: {
-                layout: 'horizontal',
-                align: 'left',
-                verticalAlign: 'bottom',
-                borderWidth: 0
-            },
-            plotOptions: {
-                spline: {
-                    marker: {
-                        enabled: true
-                    },
-                }
-            },
-            tooltip: {
-                pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y:.2f} ' + '' + '</b><br/>',
-                shared: true
-            },
-            series: [],
-            credits: {
-                enabled: false
+    function getHighchartsDefaultOptions() {
+        return Highcharts.setOptions({
+            global: {
+                useUTC: false
             }
-        };
+        });
     }
 
 })();
