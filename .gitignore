@@ -5,7 +5,7 @@ build
 bower_components
 **/test/coverage
 /report
-envconfig.json
+envconfig.json*
 src/client/app/envconfig.js
 
 # Compiled source #
