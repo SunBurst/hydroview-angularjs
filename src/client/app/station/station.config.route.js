@@ -66,6 +66,12 @@
                 controller: 'StationDataCtrl',
                 controllerAs: 'stationDataVm'
             })
+            .state('station.dashboard', {
+                url: '/dashboard',
+                templateUrl: 'app/station/station-dashboard.html',
+                controller: 'StationDashboardCtrl',
+                controllerAs: 'stationDashboardVm'
+            })
             .state('station.data.groups', {
                 url: '/groups',
                 templateUrl: 'app/station/station-data-groups.html',
