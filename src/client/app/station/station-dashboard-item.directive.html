@@ -1,0 +1,92 @@
+<md-card ng-class="{{ stationDashboardItemVm.parameter.selected ? 'md-hue-1' : 'default' }}"> <!-- md-theme="{{ stationDashboardItemVm.parameter.selected ? 'dark-blue' : 'default' }}" md-theme-watch=""> -->
+    <md-card-header>
+      <md-card-header-text>
+        <span class="md-title">{{ stationDashboardItemVm.parameter.parameter_name }}</span>
+        <span class="md-subhead">{{ stationDashboardItemVm.parameter.parameter_type }}</span>
+      </md-card-header-text>
+    </md-card-header>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button ng-show="!stationDashboardItemVm.parameter.showOptions" class="md-icon-button" aria-label="toggle" ng-click="switchShowOptions($index)">
+        <ng-md-icon icon="keyboard_arrow_down"/>
+        </md-button>
+      </md-card-actions>
+    <md-card-content>
+      <div ng-show="stationDashboardItemVm.parameter.showOptions">
+        <fieldset class="standard">
+  <legend>Options</legend>
+  <div layout="column" layout-gt-xs="row">
+    <div flex="100" flex-gt-sm="50">
+      <div layout="column">
+      <p class="md-body-2">Chart Type</p>  
+      <md-radio-group ng-model="stationDashboardItemVm.parameter.selectedChartType" class="md-primary">
+        <md-radio-button ng-repeat="chartType in stationDashboardItemVm.parameter.chartTypes" ng-value="chartType">
+      {{ chartType }}
+        </md-radio-button>
+        </md-radio-group>
+        </div>
+    </div>
+    <div flex="100" flex-gt-sm="50">
+      <div layout="column">
+        <p class="md-body-2">Sensors</p>
+        <md-checkbox ng-repeat="sensor in stationDashboardItemVm.parameter.sensors" ng-model="sensor.toggled" aria-label="Checkbox 1">
+          {{ sensor.name }}
+        </md-checkbox>
+        </div>
+      </div>
+    <div flex="100" flex-gt-sm="50">
+    <div layout="column">
+      <p class="md-body-2">Data Sets</p>  
+      <md-checkbox ng-repeat="(dataSet, toggled) in stationDashboardItemVm.parameter.selectedDataSets" ng-model="toggled">{{ dataSet }}</md-checkbox>
+        </div>
+      </div>
+    <div ng-if="stationDashboardItemVm.parameter.verticalPositions" layout="row">
+      <md-input-container>
+        <label>Vertical Positions</label>
+        <md-select ng-model="stationDashboardItemVm.parameter.selectedVerticalPositions"
+                   md-on-close="clearSearchTerm()"
+                   data-md-container-class="selectdemoSelectHeader"
+                   multiple>
+          <md-select-header class="demo-select-header">
+            <input ng-model="searchTerm"
+                   type="search"
+                   placeholder="Search for a vertical position.."
+                   class="demo-header-searchbox md-text">
+          </md-select-header>
+          <md-optgroup label="Vertical Positions">
+            <md-option ng-value="verticalPosition" ng-repeat="verticalPosition in stationDashboardItemVm.parameter.verticalPositions |
+              filter:searchTerm">{{ verticalPosition }}</md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+    </div>
+    <md-button class="md-raised md-primary" ng-click="stationDashboardItemVm.parameter.updateChart()">Apply</md-button>
+          </div>
+    </fieldset>
+      <div layout="row" layout-align="end center">
+          <md-button ng-show="stationDashboardItemVm.parameter.showOptions" class="md-icon-button" aria-label="toggle" ng-click="switchShowOptions($index)">
+        <ng-md-icon icon="keyboard_arrow_up"/>
+        </md-button>
+          </div>
+      </div>
+      <div ng-if="isParameter(stationDashboardItemVm.parameter.type)">
+        <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" md-align-tabs="bottom">
+          <md-tab label="Chart">
+            <highchart id="avgchart{{ $index }}" config="stationDashboardItemVm.parameter.chartConfig" disable-change-detection="true"/>
+          </md-tab>
+          <md-tab label="Table">
+            <p>Not yet implemented</p>
+          </md-tab>
+        </md-tabs>
+      </div>
+      <div ng-if="isProfile(stationDashboardItemVm.parameter.type)">
+        <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" md-align-tabs="bottom">
+          <md-tab label="Chart">
+            <highchart id="heatmapchart{{ $index }}" config="chartConfig1" disable-change-detection="true"/>
+          </md-tab>
+          <md-tab label="Table">
+            <p>Not yet implemented</p>
+          </md-tab>
+        </md-tabs>
+      </div>
+    </md-card-content>
+  </md-card>
