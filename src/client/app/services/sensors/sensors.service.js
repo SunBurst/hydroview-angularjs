@@ -5,18 +5,20 @@
         .module('app.services')
         .factory('SensorsFactory', SensorsFactory);
     
-    SensorsFactory.$inject = ['$resource'];
+    SensorsFactory.$inject = ['$resource', 'EnvironmentConfig'];
     
-    function SensorsFactory($resource) {
+    function SensorsFactory($resource, EnvironmentConfig) {
 
-        var customInterceptor = {
-            response: function(response) {
-                return response;
-            }
-        };
+      var restApiBaseUrl = EnvironmentConfig.API;  
+      var customInterceptor = {
+          response: function(response) {
+              return response;
+          }
+      };
         
         return {
-            getSensorParameters: getSensorParameters,
+          getMeasurementFrequenciesBySensorParameter: getMeasurementFrequenciesBySensorParameter,  
+          getSensorParameters: getSensorParameters,
         };
         
         function getSensorParameters(sensorId) {
@@ -41,6 +43,38 @@
             function getSensorParametersFailed(error) {
                 console.log(error);
             }
+        }
+      
+      function getMeasurementFrequenciesBySensorParameter(sensorId, parameterId, parameterType) {
+            
+          var resource = $resource(restApiBaseUrl + '/api/measurement_frequencies_by_sensor_parameter?sensor_id=:sensor_id&parameter_id=:parameter_id&parameter_type=:parameter_type', {}, {
+            query: {
+              method: 'GET', params: {
+                sensor_id: sensorId,
+                parameter_id: parameterId,
+                parameter_type: parameterType
+              },
+              isArray: true,
+              interceptor: customInterceptor
+            }
+          });
+          
+          return resource.query({
+            sensor_id: sensorId,
+            parameter_id: parameterId,
+            parameter_type: parameterType
+          }).$promise
+            .then(getMeasurementFrequenciesBySensorParameterComplete)
+            .catch(getMeasurementFrequenciesBySensorParameterFailed);
+                
+            function getMeasurementFrequenciesBySensorParameterComplete(response) {
+              return response;
+            }
+            
+            function getMeasurementFrequenciesBySensorParameterFailed(error) {
+                console.log(error);
+            }
+        
         }
         
     }

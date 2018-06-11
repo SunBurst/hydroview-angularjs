@@ -1,0 +1,13 @@
+<md-toolbar ng-hide="stationDashboardDirectiveVm.noneSelected()">
+  <div class="md-toolbar-tools">
+    <h2 flex md-truncate>{{ stationDashboardDirectiveVm.numOfSelected }} selected</h2>
+    <md-button class="md-raised" aria-label="Open" ng-click="stationDashboardDirectiveVm.showDataDialog($event)">
+        Open
+    </md-button>
+  </div>
+</md-toolbar>
+<md-content class="md-padding" layout="row" layout-wrap>
+  <div flex-xs="100" flex-gt-xs="50" flex-gt-md="33" ng-repeat="parameter in stationDashboardDirectiveVm.parameters">
+    <station-dashboard-item id="{{ $index }}" station="stationDashboardDirectiveVm.station" parameter="parameter" change-selected="stationDashboardDirectiveVm.changeSelected"/>
+  </div>
+</md-content>

@@ -3,11 +3,11 @@
     
   angular
     .module('app.station')
-    .controller('StationDataDialogController', StationDataDialogController);
+    .controller('StationDashboardDataDialogController', StationDashboardDataDialogController);
     
-    StationDataDialogController.$inject = [$mdDialog, parameters];
+    StationDashboardDataDialogController.$inject = [$mdDialog, parameters];
     
-    function StationDataDialogController($mdDialog, parameters) {
+    function StationDashboardDataDialogController($mdDialog, parameters) {
       var vm = this;
         
       vm.parameters = parameters;

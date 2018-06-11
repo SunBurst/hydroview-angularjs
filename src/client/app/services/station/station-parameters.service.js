@@ -25,7 +25,7 @@
         };
         
         function getParameterMeasurementFrequencies(stationId) {
-            var resource = $resource(restApiBaseUrl + '/api/parameter_measurement_frequencies_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/measurement_frequencies_by_station?station_id=:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId
@@ -75,7 +75,7 @@
         }
         
         function getParameters(stationId) {
-            var resource = $resource(restApiBaseUrl + '/api/parameters_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/parameters_by_station?station_id=:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId, 
@@ -100,7 +100,7 @@
         }
         
         function getParameterSensors(stationId) {
-            var resource = $resource(restApiBaseUrl + '/api/parameter_sensors_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/parameter_sensors_by_station?station_id=:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId
@@ -124,19 +124,18 @@
 
         }
         
-        function getProfileParameterVerticalPositions(stationId, parameterId) {
-            var resource = $resource(restApiBaseUrl + '/api/profile_vertical_positions_by_station_parameter/:station_id/:parameter_id', {}, {
+        function getProfileParameterVerticalPositions(stationId) {
+            var resource = $resource(restApiBaseUrl + '/api/profile_vertical_positions_by_station?station_id=:station_id', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
-                        parameter_id: parameterId
+                        station_id: stationId
                     },
                     isArray: true,
                     interceptor: customInterceptor
                 }
             });
             
-            return resource.query({station_id: stationId, parameter_id: parameterId}).$promise
+            return resource.query({station_id: stationId}).$promise
                 .then(getProfileParameterVerticalPositionsComplete)
                 .catch(getProfileParameterVerticalPositionsFailed);
                 

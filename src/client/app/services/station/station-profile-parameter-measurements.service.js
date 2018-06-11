@@ -3,11 +3,11 @@
     
     angular
         .module('app.services')
-        .factory('stationProfileMeasurements', stationProfileMeasurements);
+        .factory('stationProfileParameterMeasurements', stationProfileParameterMeasurements);
     
-    stationProfileMeasurements.$inject = ['$resource', 'EnvironmentConfig'];
+    stationProfileParameterMeasurements.$inject = ['$resource', 'EnvironmentConfig'];
     
-    function stationProfileMeasurements($resource, EnvironmentConfig) {
+    function stationProfileParameterMeasurements($resource, EnvironmentConfig) {
 
         var restApiBaseUrl = EnvironmentConfig.API;
         var customInterceptor = {
@@ -18,8 +18,6 @@
         
         return {
             
-            getDynamicProfileMeasurements: getDynamicProfileMeasurements,
-            getDynamicProfileMeasurementsChart: getDynamicProfileMeasurementsChart,
             getDailyProfileMeasurements: getDailyProfileMeasurements,
             getDailyProfileMeasurementsChart: getDailyProfileMeasurementsChart,
             getHourlyProfileMeasurements: getHourlyProfileMeasurements,
@@ -28,8 +26,7 @@
             getThirtyMinProfileMeasurementsChart: getThirtyMinProfileMeasurementsChart,
             getTwentyMinProfileMeasurements: getTwentyMinProfileMeasurements,
             getTwentyMinProfileMeasurementsChart: getTwentyMinProfileMeasurementsChart,
-            getFifteenMinProfileMeasurements: getFifteenMinProfileMeasurements,
-            getFifteenMinProfileMeasurementsChart: getFifteenMinProfileMeasurementsChart,
+            getFifteenMinProfileParameterMeasurements: getFifteenMinProfileParameterMeasurements,
             getTenMinProfileMeasurements: getTenMinProfileMeasurements,
             getTenMinProfileMeasurementsChart: getTenMinProfileMeasurementsChart,
             getFiveMinProfileMeasurements: getFiveMinProfileMeasurements,
@@ -40,76 +37,6 @@
             getOneSecProfileMeasurementsChart: getOneSecProfileMeasurementsChart
             
         };
-        
-        function getDynamicProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/dynamic_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
-                query: {
-                    method: 'GET', params: {
-                        station_id: stationId,
-                        parameter_id: parameterId,
-                        qc_level: qcLevel,
-                        from_timestamp: fromTimestamp,
-                        to_timestamp: toTimestamp
-                    },
-                    isArray: true,
-                    interceptor: customInterceptor
-                }
-            });
-            
-            return resource.query({
-                station_id: stationId, 
-                parameter_id: parameterId, 
-                qc_level: qcLevel, 
-                from_timestamp: fromTimestamp, 
-                to_timestamp: toTimestamp
-            }).$promise
-                .then(getDynamicProfileMeasurementsComplete)
-                .catch(getDynamicProfileMeasurementsFailed);
-                
-            function getDynamicProfileMeasurementsComplete(response) {
-                return response;
-            }
-            
-            function getDynamicProfileMeasurementsFailed(error) {
-                console.log(error);
-            }
-        
-        }
-        
-        function getDynamicProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/dynamic_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
-                query: {
-                    method: 'GET', params: {
-                        station_id: stationId,
-                        parameter_id: parameterId,
-                        qc_level: qcLevel,
-                        from_timestamp: fromTimestamp,
-                        to_timestamp: toTimestamp
-                    },
-                    isArray: false,
-                    interceptor: customInterceptor
-                }
-            });
-            
-            return resource.query({
-                station_id: stationId, 
-                parameter_id: parameterId, 
-                qc_level: qcLevel, 
-                from_timestamp: fromTimestamp, 
-                to_timestamp: toTimestamp
-            }).$promise
-                .then(getDynamicProfileMeasurementsChartComplete)
-                .catch(getDynamicProfileMeasurementsChartFailed);
-                
-            function getDynamicProfileMeasurementsChartComplete(response) {
-                return response;
-            }
-            
-            function getDynamicProfileMeasurementsChartFailed(error) {
-                console.log(error);
-            }
-        
-        }
         
         function getDailyProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
             var resource = $resource(restApiBaseUrl + '/api/daily_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
@@ -391,15 +318,17 @@
         
         }
         
-        function getFifteenMinProfileMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/fifteen_min_profile_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getFifteenMinProfileParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
+            var resource = $resource(restApiBaseUrl + '/api/fifteen_min_profile_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&data_sets=:data_sets&order_by=:order_by', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
-                        to_timestamp: toTimestamp
+                        to_timestamp: toTimestamp,
+                        data_sets: dataSets,
+                        order_by: orderBy
                     },
                     isArray: true,
                     interceptor: customInterceptor
@@ -407,55 +336,22 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
-                to_timestamp: toTimestamp
+                to_timestamp: toTimestamp,
+                data_sets: dataSets,
+                order_by: orderBy
             }).$promise
-                .then(getFifteenMinProfileMeasurementsComplete)
-                .catch(getFifteenMinProfileMeasurementsFailed);
+                .then(getFifteenMinProfileParameterMeasurementsComplete)
+                .catch(getFifteenMinProfileParameterMeasurementsFailed);
                 
-            function getFifteenMinProfileMeasurementsComplete(response) {
+            function getFifteenMinProfileParameterMeasurementsComplete(response) {
                 return response;
             }
             
-            function getFifteenMinProfileMeasurementsFailed(error) {
-                console.log(error);
-            }
-        
-        }
-        
-        function getFifteenMinProfileMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/fifteen_min_profile_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
-                query: {
-                    method: 'GET', params: {
-                        station_id: stationId,
-                        parameter_id: parameterId,
-                        qc_level: qcLevel,
-                        from_timestamp: fromTimestamp,
-                        to_timestamp: toTimestamp
-                    },
-                    isArray: false,
-                    interceptor: customInterceptor
-                }
-            });
-            
-            return resource.query({
-                station_id: stationId, 
-                parameter_id: parameterId, 
-                qc_level: qcLevel, 
-                from_timestamp: fromTimestamp, 
-                to_timestamp: toTimestamp
-            }).$promise
-                .then(getFifteenMinProfileMeasurementsChartComplete)
-                .catch(getFifteenMinProfileMeasurementsChartFailed);
-                
-            function getFifteenMinProfileMeasurementsChartComplete(response) {
-                return response;
-            }
-            
-            function getFifteenMinProfileMeasurementsChartFailed(error) {
+            function getFifteenMinProfileParameterMeasurementsFailed(error) {
                 console.log(error);
             }
         

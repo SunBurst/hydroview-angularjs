@@ -17,9 +17,7 @@
         };
         
         return {
-
-            getDynamicSingleParameterMeasurementsChart: getDynamicSingleParameterMeasurementsChart,
-            getDynamicSingleParameterMeasurements: getDynamicSingleParameterMeasurements,
+          
             getDailySingleParameterMeasurements: getDailySingleParameterMeasurements,
             getDailySingleParameterMeasurementsChart: getDailySingleParameterMeasurementsChart,
             getHourlySingleParameterMeasurements: getHourlySingleParameterMeasurements,
@@ -33,7 +31,6 @@
             getTenMinSingleParameterMeasurements: getTenMinSingleParameterMeasurements,
             getTenMinSingleParameterMeasurementsChart: getTenMinSingleParameterMeasurementsChart,
             getFiveMinSingleParameterMeasurements: getFiveMinSingleParameterMeasurements,
-            getFiveMinSingleParameterMeasurementsChart: getFiveMinSingleParameterMeasurementsChart,
             getOneMinSingleParameterMeasurements: getOneMinSingleParameterMeasurements,
             getOneMinSingleParameterMeasurementsChart: getOneMinSingleParameterMeasurementsChart,
             getOneSecSingleParameterMeasurements: getOneSecSingleParameterMeasurements,
@@ -41,46 +38,11 @@
             
         };
         
-        function getDynamicSingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/dynamic_single_parameter_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getDailySingleParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/daily_single_parameter_measurements_by_sensor?sensor_id=:station_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
-                        parameter_id: parameterId,
-                        qc_level: qcLevel,
-                        from_timestamp: fromTimestamp,
-                        to_timestamp: toTimestamp
-                    },
-                    isArray: false,
-                    interceptor: customInterceptor
-                }
-            });
-            
-            return resource.query({
-                station_id: stationId, 
-                parameter_id: parameterId, 
-                qc_level: qcLevel, 
-                from_timestamp: fromTimestamp, 
-                to_timestamp: toTimestamp
-            }).$promise
-                .then(getDynamicSingleParameterMeasurementsChartComplete)
-                .catch(getDynamicSingleParameterMeasurementsChartFailed);
-                
-            function getDynamicSingleParameterMeasurementsChartComplete(response) {
-                return response;
-            }
-            
-            function getDynamicSingleParameterMeasurementsChartFailed(error) {
-                console.log(error);
-            }
-        
-        }
-        
-        function getDynamicSingleParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/dynamic_single_parameter_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
-                query: {
-                    method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -92,42 +54,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
-                parameter_id: parameterId, 
-                qc_level: qcLevel, 
-                from_timestamp: fromTimestamp, 
-                to_timestamp: toTimestamp
-            }).$promise
-                .then(getDynamicSingleParameterMeasurementsComplete)
-                .catch(getDynamicSingleParameterMeasurementsFailed);
-                
-            function getDynamicSingleParameterMeasurementsComplete(response) {
-                return response;
-            }
-            
-            function getDynamicSingleParameterMeasurementsFailed(error) {
-                console.log(error);
-            }
-        
-        }
-        
-        function getDailySingleParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/daily_single_parameter_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
-                query: {
-                    method: 'GET', params: {
-                        station_id: stationId,
-                        parameter_id: parameterId,
-                        qc_level: qcLevel,
-                        from_timestamp: fromTimestamp,
-                        to_timestamp: toTimestamp
-                    },
-                    isArray: true,
-                    interceptor: customInterceptor
-                }
-            });
-            
-            return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -147,7 +74,7 @@
         }
         
         function getDailySingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/daily_single_parameter_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/daily_single_parameter_measurements_by_sensor?sensor_id=:station_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
@@ -182,10 +109,10 @@
         }
         
         function getDailySingleParameterMeasurementsTimeGrouped(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/daily_single_parameter_measurements_by_station_time_grouped/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/daily_single_parameter_measurements_by_sensor_time_grouped?sensor_id=:sensor_id&parameter=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -197,7 +124,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -216,11 +143,11 @@
         
         }
         
-        function getHourlySingleParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/hourly_single_parameter_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getHourlySingleParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/hourly_single_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -232,7 +159,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -251,11 +178,11 @@
         
         }
         
-        function getHourlySingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/hourly_single_parameter_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getHourlySingleParameterMeasurementsChart(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/hourly_single_parameter_measurements_by_sensor_chart?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -267,7 +194,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -286,11 +213,11 @@
         
         }
         
-        function getThirtyMinSingleParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/thirty_min_single_parameter_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getThirtyMinSingleParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/thirty_min_single_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -302,7 +229,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -321,11 +248,11 @@
         
         }
         
-        function getThirtyMinSingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/thirty_min_single_parameter_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getThirtyMinSingleParameterMeasurementsChart(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/thirty_min_single_parameter_measurements_by_sensor_chart?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -337,7 +264,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -356,11 +283,11 @@
         
         }
         
-        function getTwentyMinSingleParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/twenty_min_single_parameter_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getTwentyMinSingleParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/twenty_min_single_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -372,7 +299,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -391,11 +318,11 @@
         
         }
         
-        function getTwentyMinSingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/twenty_min_single_parameter_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getTwentyMinSingleParameterMeasurementsChart(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/twenty_min_single_parameter_measurements_by_sensor_chart?sensor_id=:station_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -407,7 +334,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -426,11 +353,11 @@
         
         }
         
-        function getFifteenMinSingleParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/fifteen_min_single_parameter_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getFifteenMinSingleParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/fifteen_min_single_parameter_measurements_by_sensor/?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -442,7 +369,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -462,10 +389,10 @@
         }
         
         function getFifteenMinSingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/fifteen_min_single_parameter_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/fifteen_min_single_parameter_measurements_by_sensor_chart?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -477,7 +404,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -496,11 +423,11 @@
         
         }
         
-        function getTenMinSingleParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/ten_min_single_parameter_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getTenMinSingleParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/ten_min_single_parameter_measurements_by_sensor/:sensor_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -512,7 +439,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -531,11 +458,11 @@
         
         }
         
-        function getTenMinSingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/ten_min_single_parameter_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getTenMinSingleParameterMeasurementsChart(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/ten_min_single_parameter_measurements_by_sensor_chart/:sensor_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -547,7 +474,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -566,15 +493,17 @@
         
         }
         
-        function getFiveMinSingleParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/five_min_single_parameter_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getFiveMinSingleParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
+            var resource = $resource(restApiBaseUrl + '/api/five_min_single_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&data_sets=:data_sets&order_by=:order_by', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
-                        to_timestamp: toTimestamp
+                        to_timestamp: toTimestamp,
+                        data_sets: dataSets,
+                        order_by: orderBy
                     },
                     isArray: true,
                     interceptor: customInterceptor
@@ -582,11 +511,13 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
-                to_timestamp: toTimestamp
+                to_timestamp: toTimestamp,
+                data_sets: dataSets,
+                order_by: orderBy
             }).$promise
                 .then(getFiveMinSingleParameterMeasurementsComplete)
                 .catch(getFiveMinSingleParameterMeasurementsFailed);
@@ -601,46 +532,11 @@
         
         }
         
-        function getFiveMinSingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/five_min_single_parameter_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getOneMinSingleParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/one_min_single_parameter_measurements_by_station?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
-                        parameter_id: parameterId,
-                        qc_level: qcLevel,
-                        from_timestamp: fromTimestamp,
-                        to_timestamp: toTimestamp
-                    },
-                    isArray: false,
-                    interceptor: customInterceptor
-                }
-            });
-            
-            return resource.query({
-                station_id: stationId, 
-                parameter_id: parameterId, 
-                qc_level: qcLevel, 
-                from_timestamp: fromTimestamp, 
-                to_timestamp: toTimestamp
-            }).$promise
-                .then(getFiveMinSingleParameterMeasurementsChartComplete)
-                .catch(getFiveMinSingleParameterMeasurementsChartFailed);
-                
-            function getFiveMinSingleParameterMeasurementsChartComplete(response) {
-                return response;
-            }
-            
-            function getFiveMinSingleParameterMeasurementsChartFailed(error) {
-                console.log(error);
-            }
-        
-        }
-        
-        function getOneMinSingleParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/one_min_single_parameter_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
-                query: {
-                    method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -652,7 +548,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId,
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -671,11 +567,11 @@
         
         }
         
-        function getOneMinSingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/one_min_single_parameter_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getOneMinSingleParameterMeasurementsChart(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/one_min_single_parameter_measurements_by_sensor_chart?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -687,7 +583,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId,
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -706,11 +602,11 @@
         
         }
         
-        function getOneSecSingleParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/one_sec_single_parameter_measurements_by_station/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getOneSecSingleParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/one_sec_single_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -722,7 +618,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -741,11 +637,11 @@
         
         }
         
-        function getOneSecSingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/one_sec_single_parameter_measurements_by_station_chart/:station_id/:parameter_id/:qc_level/:from_timestamp/:to_timestamp', {}, {
+        function getOneSecSingleParameterMeasurementsChart(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/one_sec_single_parameter_measurements_by_sensor_chart?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -757,7 +653,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
