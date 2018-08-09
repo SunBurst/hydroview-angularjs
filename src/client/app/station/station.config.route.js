@@ -66,6 +66,447 @@
                 controller: 'StationDataCtrl',
                 controllerAs: 'stationDataVm'
             })
+            .state('station.dashboard', {
+                url: '/dashboard',
+                template: '<station-dashboard station="stationDashboardVm.station" parameters="stationDashboardVm.parameters"/>',
+                controller: 'StationDashboardCtrl',
+                controllerAs: 'stationDashboardVm',
+                resolve: {
+                        
+                  _station: function(stationStorage) {
+                    var station = stationStorage.getStation();
+                    return station;
+                  }, 
+                       
+                  _parameterList: ['$stateParams', 'StationParametersFactory', 
+                    function($stateParams, StationParametersFactory) {
+                      var stationId = $stateParams.station_id;
+                      return StationParametersFactory.getParameters(stationId)
+                        .then(function(response) {
+                          var data = response.data;
+                          var parameters = [];
+                          for (var i = 0; i < data.length; i++){
+                            var parameter = data[i];
+                            parameters.push(parameter);
+                          }  
+                          return parameters;
+                        });
+                  }],
+                        
+                  _parameterQCLevelList: ['$stateParams', 'StationParametersFactory', 
+                    function($stateParams, StationParametersFactory) {
+                      var stationId = $stateParams.station_id;
+                      return StationParametersFactory.getParameterQCLevels(stationId)
+                        .then(function(response) {
+                          return response.data;
+                        });
+                  }],
+                        
+                  _parameterQCLevels: ['_parameterQCLevelList', function(_parameterQCLevelList) {
+                    var parameterQCLevels = {};
+                    for (var i = 0; i < _parameterQCLevelList.length; i++) {
+                      var parameterId = _parameterQCLevelList[i].parameter_id;
+                      var parameterType = _parameterQCLevelList[i].parameter_type;
+                      var parameterNotInObject = !(parameterId in parameterQCLevels);
+                      if (parameterNotInObject) {
+                        parameterQCLevels[parameterId] = {};
+                      }
+                      var parameterTypeNotInObject = !(parameterType in parameterQCLevels[parameterId]);
+                      if (parameterTypeNotInObject) {
+                        parameterQCLevels[parameterId][parameterType] = [];
+                      }
+                      parameterQCLevels[parameterId][parameterType].push(_parameterQCLevelList[i]);
+                    }
+                    return parameterQCLevels;
+                  }],
+                        
+                  _parameterSensorList: ['$stateParams', 'StationParametersFactory',
+                    function($stateParams, StationParametersFactory) {
+                      var stationId = $stateParams.station_id;
+                      return StationParametersFactory.getParameterSensors(stationId)
+                        .then(function(response) {
+                          return response.data;
+                        });
+                  }],
+                        
+                  _sensorParameterMeasurementFrequencies: ['$q', '$stateParams', 'StationParametersFactory', 
+                    function($q, $stateParams, StationParametersFactory) {
+                      var stationId = $stateParams.station_id;
+                      return StationParametersFactory.getParameterMeasurementFrequencies(stationId)
+                        .then(function(response) {
+                          return response.data;
+                        });
+                  }],
+                        
+                  _parameterSensors: ['$q', '_parameterSensorList', 'SensorsFactory', function($q, _parameterSensorList, SensorsFactory) {
+                      var parameterSensors = {};
+
+                      for (var i = 0; i < _parameterSensorList.length; i++) {
+                        var parameterId = _parameterSensorList[i].parameter_id;
+                        var parameterType = _parameterSensorList[i].parameter_type;
+                        var parameterNotInObject = !(parameterId in parameterSensors);
+                        if (parameterNotInObject) {
+                          parameterSensors[parameterId] = {};
+                        }
+                        var parameterTypeNotInObject = !(parameterType in parameterSensors[parameterId]);
+                        if (parameterTypeNotInObject) {
+                          parameterSensors[parameterId][parameterType] = {};
+                        }
+                        parameterSensors[parameterId][parameterType] = angular.copy(_parameterSensorList[i]); 
+                        for (var sensorId in _parameterSensorList[i].sensors) {
+                          if (_parameterSensorList[i].sensors.hasOwnProperty(sensorId)) {
+                            parameterSensors[parameterId][parameterType].sensors[sensorId] = {
+                              'name': _parameterSensorList[i].sensors[sensorId]
+                            };
+                          }
+                        }
+                      }
+
+                      return parameterSensors;
+
+                  }],
+                        
+                  _profileParameterVerticalPositions: ['$q', '$stateParams', 'StationParametersFactory', '_parameterList', 
+                    function($q, $stateParams, StationParametersFactory, _parameterList) {
+
+                      var stationId = $stateParams.station_id;
+                      var profileVerticalPositions = {};
+                      var promiseArray = [];
+
+                      for (var i = 0; i < _parameterList.length; i++) {
+                        var parameterId = _parameterList[i].parameter_id;
+                        var parameterType = _parameterList[i].parameter_type;
+                        if (parameterType === 'profile') {
+                          var resource = StationParametersFactory.getProfileParameterVerticalPositions(stationId, parameterId);
+                          promiseArray.push(resource);
+                        }
+
+                      }
+
+                      return $q.all(promiseArray).then(function(response) {
+                        for (var i = 0; i < response.length; i++) {
+                          for (var j = 0; j < response[i].data.length; j++) {
+                            var parameterId = response[i].data[j].parameter_id;
+                            var parameterVerticalPositionUnit = response[i].data[j].vertical_position_unit;
+                            var parameterNotInObject = !(parameterId in profileVerticalPositions);
+                            if (parameterNotInObject) {
+                              profileVerticalPositions[parameterId] = {
+                                'vertical_position_unit': parameterVerticalPositionUnit
+                              };
+                            }
+                            var sensorId = response[i].data[j].sensor_id;
+                            var sensorNotInObject = !(sensorId in profileVerticalPositions[parameterId]);
+                            if (sensorNotInObject) {
+                              profileVerticalPositions[parameterId][sensorId] = {
+                                'vertical_positions': []
+                              };
+                            }
+                            
+                            //var verticalPosition = response[i].data[j].vertical_position;
+                            //var verticalPositionUnit = response[i].data[j].vertical_position_unit;
+                            //profileVerticalPositions[parameterId][sensorId]['vertical_positions'].push({
+                            //  'vertical_position': verticalPosition,
+                            //  'vertical_position_unit': verticalPositionUnit
+                            //});
+                          }
+                        }
+                        return profileVerticalPositions;       
+                      });
+
+                  }],
+                       
+                  _parameters: ['_parameterList', '_sensorParameterMeasurementFrequencies', '_parameterQCLevels', '_parameterSensors', '_profileParameterVerticalPositions',
+                            function(_parameterList, _sensorParameterMeasurementFrequencies, _parameterQCLevels, _parameterSensors, _profileParameterVerticalPositions) {
+                              var parameters = [];
+
+                              for (var i = 0; i < _parameterList.length; i++) {
+                                var parameter = _parameterList[i];
+                                parameter.measurement_frequencies = [];
+                                parameter.qcLevels = [];
+                                parameter.selectedQCLevel = 0;
+                                parameter.selectedFrequency = "Dynamic";
+                                parameter.selected = false;
+                                parameter.showOptions = false;
+                                parameter.selectedChartType = "line";
+                                parameter.selectedDataSet = "avg";
+                                parameter.selectedSensor = "";
+                                parameter.sensors = [];
+                                parameter.chartTypes = [];
+                                parameter.chartConfig = {};
+                                parameter.selectedDataSets = [
+                                  {
+                                    id: "min",
+                                    label: "Min",
+                                    toggled: false
+                                  }, {
+                                    id: "avg",
+                                    label: "Average",
+                                    toggled: true
+                                  }, {
+                                    id: "max",
+                                    label: "Max",
+                                    toggled: false
+                                  }
+                                ];
+                                
+                                var parameterInSensors = (parameter.parameter_id in _parameterSensors);
+                                if (parameterInSensors) {
+                                  var parameterTypeInSensors = (parameter.parameter_type in _parameterSensors[parameter.parameter_id]);
+                                  if (parameterTypeInSensors) {
+                                    var sensorsObj = _parameterSensors[parameter.parameter_id][parameter.parameter_type].sensors;
+                                    var firstSensorToggled = false;
+                                    for (var sensorId in sensorsObj) {
+                                      if (sensorsObj.hasOwnProperty(sensorId)) {
+                                        var sensor = {
+                                          sensor_id: sensorId,
+                                          sensor_name: sensorsObj[sensorId].name,
+                                          measurement_frequencies: [],
+                                          toggled: false
+                                        };
+                                        for (var j = 0; j < _sensorParameterMeasurementFrequencies.length; j++) {
+                                          if (parameter.parameter_id === _sensorParameterMeasurementFrequencies[j].parameter_id) {
+                                            if (sensorId === _sensorParameterMeasurementFrequencies[j].sensor_id) {
+                                              sensor.measurement_frequencies = _sensorParameterMeasurementFrequencies[j].measurement_frequencies;
+                                            }
+                                          }
+                                        }
+                                        if (parameter.parameter_type === 'profile') {
+                                          sensor['vertical_positions'] = [];
+                                          sensor['selectedVerticalPositions'] = [];
+                                          sensor['searchTerm'] = "";
+                                          var parameterInVerticalPositions = (parameter.parameter_id in _profileParameterVerticalPositions);
+                                          if (parameterInVerticalPositions) {
+                                            var sensorInParameterVerticalPositions = (sensorId in _profileParameterVerticalPositions[parameter.parameter_id]);
+                                            if (sensorInParameterVerticalPositions) {
+                                              sensor['vertical_positions'] = _profileParameterVerticalPositions[parameter.parameter_id][sensorId].vertical_positions;
+                                            }
+                                          }
+                                        }
+                                        
+                                        if (firstSensorToggled) {
+                                          sensor.toggled = false;  
+                                        }
+                                        else {
+                                          sensor.toggled = true;
+                                          parameter.selectedSensor = sensorId;
+                                          firstSensorToggled = true;
+                                        }
+                                        
+                                        parameter.sensors.push(sensor);
+                                      }
+                                    }
+                                  }
+                                }
+                                
+                                var parameterInQCLevels = (parameter.parameter_id in _parameterQCLevels);
+                                if (parameterInQCLevels) {
+                                  var parameterTypeInQCLevels = (parameter.parameter_type in _parameterQCLevels[parameter.parameter_id]);
+                                  if (parameterTypeInQCLevels) {
+                                    var qcLevels = _parameterQCLevels[parameter.parameter_id][parameter.parameter_type];
+                                    var highestQCLevelToggled = false;
+                                    for (var j = qcLevels.length; j-- > 0; ) {
+                                      var qcLevel = {
+                                        qc_level: qcLevels[j].qc_level,
+                                        qc_description: qcLevels[j].qc_description
+                                      };
+                                      if (highestQCLevelToggled) {
+                                        qcLevel['toggled'] = false;  
+                                      }
+                                      else {
+                                        qcLevel['toggled'] = true;
+                                        parameter.selectedQCLevel = qcLevel.qc_level;
+                                        highestQCLevelToggled = true;
+                                      }
+                                      parameter.qcLevels.push(qcLevel);
+                                    }
+                                  }
+                                }
+
+                                if (parameter.parameter_type === "single" || parameter.parameter_type === "group") {
+                                  parameter.chartTypes.push({
+                                    value: "line", 
+                                    label: "Line"
+                                  });
+                                  parameter.chartTypes.push({
+                                    value: "column",
+                                    label: "Column"
+                                  });
+                                }
+                                else if (parameter.parameter_type === "profile") {
+                                  parameter.chartTypes.push({
+                                    value: "heatmap",
+                                    label: "Heatmap"
+                                  });
+                                  parameter.selectedChartType = "heatmap";
+                                }
+                                
+                                if (parameter.selectedChartType === "line") {
+                                  parameter.chartConfig = {
+                                    chartType: 'stock',
+                                    chart: {
+                                      style: {
+                                        fontFamily: 'Roboto'
+                                      },
+                                      type: parameter.selectedChartType
+                                    },
+
+                                    credits: {
+                                      enabled: false
+                                    },
+
+                                    lang: {
+                                      noData: 'No data to display'
+                                    },
+
+                                    tooltip: {
+                                      valueSuffix: ' ' + (parameter.parameter_unit ? parameter.parameter_unit : ''),
+                                      split: true,
+                                      distance: 30,
+                                      padding: 5
+                                    },
+
+                                    legend: {
+                                      enabled: true,
+                                      margin: 30,
+                                      layout: 'horizontal',
+                                      verticalAlign: 'bottom',
+                                      maxHeight: 100,
+                                      navigation: {
+                                        activeColor: '#3E576F',
+                                        animation: true,
+                                        arrowSize: 12,
+                                        inactiveColor: '#CCC',
+                                        style: {
+                                          fontWeight: 'bold',
+                                          color: '#333'
+                                        }
+                                      }
+                                    },
+                                    
+                                    title: {
+                                      text: parameter.parameter_name
+                                    },
+
+                                    noData: {
+                                      style: {
+                                        fontWeight: 'bold',
+                                        fontSize: '15px',
+                                        color: '#303030'
+                                      }
+                                    },
+                                    
+                                    rangeSelector: {
+                                      enabled: false
+                                    },
+
+                                    xAxis: [{
+                                      type: 'datetime',
+                                      minRange: 3600 * 1000 * 24 * 3
+                                    }],
+
+                                    yAxis: [{
+                                      labels: {
+                                        format: '{value} ' + (parameter.parameter_unit ? parameter.parameter_unit : '')
+                                      },
+                                      title: {
+                                        text: parameter.parameter_name + ' (' + parameter.parameter_unit + ')'
+                                      },
+                                    }],
+
+                                    series: [],
+
+                                  }
+                                }
+                                else if (parameter.selectedChartType === "heatmap") {
+                                  parameter.chartConfig = {
+                                    
+                                    chart: {
+                                      type: 'heatmap',
+                                      style: {
+                                        fontFamily: 'Roboto'
+                                      },
+                                    },
+                                    
+                                    boost: {
+                                      useGPUTranslations: true
+                                    },
+                                    
+                                    credits: {
+                                      enabled: false
+                                    },
+                                    
+                                    lang: {
+                                      noData: 'No data to display'
+                                    },
+                                    
+                                    colorAxis: {
+                                      stops: [
+                                        [0, '#3060cf'],
+                                        [0.5, '#fffbbc'],
+                                        [0.9, '#c4463a'],
+                                        [1, '#c4463a']
+                                      ],
+                                    },
+
+                                    title: {
+                                      text: parameter.parameter_name
+                                    },
+
+                                    xAxis: {
+                                      type: 'datetime'
+                                    },                                                                                                                     
+                                    
+                                    yAxis: {
+                                      title: {
+                                        text: 'Vertical Position'
+                                      },
+                                      minPadding: 0,
+                                      maxPadding: 0,
+                                      reversed: true,
+                                      labels: {
+                                        format: '{value} ' + (parameter.parameter_unit ? parameter.parameter_unit : '')
+                                      }
+                                    },
+
+                                    legend: {
+                                      enabled: true,
+                                      margin: 30,
+                                      layout: 'horizontal',
+                                      verticalAlign: 'bottom',
+                                      maxHeight: 100,
+                                      navigation: {
+                                        activeColor: '#3E576F',
+                                        animation: true,
+                                        arrowSize: 12,
+                                        inactiveColor: '#CCC',
+                                        style: {
+                                          fontWeight: 'bold',
+                                          color: '#333'
+                                        }
+                                      }
+                                    },
+                                    
+                                    noData: {
+                                      style: {
+                                        fontWeight: 'bold',
+                                        fontSize: '15px',
+                                        color: '#303030'
+                                      }
+                                    },
+
+                                    series: []
+                                  }
+                                         
+                                }
+                                
+                                parameters.push(parameter);
+
+                              }
+
+                          return parameters;
+                        }],
+                    }
+            })
             .state('station.data.groups', {
                 url: '/groups',
                 templateUrl: 'app/station/station-data-groups.html',
@@ -456,8 +897,7 @@
                 abstract: true,
                 controller: 'StationCamsAndPhotosCtrl',
                 controllerAs: 'stationCamsAndPhotosVm',
-                resolve: {
-                }
+                resolve: {}
                 
             })
             .state('station.cams-and-photos.livewebcams', {

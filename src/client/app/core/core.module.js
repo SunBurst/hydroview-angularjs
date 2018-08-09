@@ -13,7 +13,7 @@
         /*
          * 3rd Party modules
          */
-        'md.data.table', 'ngCsv', 'ngMaterial', 'ngMdIcons', 'ngYoutubeEmbed', 'uiGmapgoogle-maps', 'ui.router',
+        'highcharts-ng', 'md.data.table', 'ngCsv', 'ngMaterial', 'ngMdIcons', 'ngYoutubeEmbed', 'uiGmapgoogle-maps', 'ui.router',
     ]);
     
 })();

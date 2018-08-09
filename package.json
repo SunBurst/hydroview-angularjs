@@ -9,9 +9,6 @@
     "test": "gulp test",
     "postinstall": "bower install && gulp build"
   },
-  "engines": {
-    "node": "8.9.1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SunBurst/hydroview-angularjs.git"
@@ -21,17 +18,26 @@
   ],
   "dependencies": {
     "body-parser": "^1.8.2",
-    "bower": "^1.8.0",
-    "browser-sync": "^2.23.3",
-    "chai": "^1.9.1",
-    "chai-as-promised": "^4.1.1",
-    "chalk": "^0.5.1",
     "compression": "^1.1.0",
     "cors": "^2.2.0",
+    "express": "^4.9.3",
+    "method-override": "^1.0.0",
+    "morgan": "^1.1.1"
+  },
+  "author": "Marcus Enderskog",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SunBurst/hydroview-angularjs/issues"
+  },
+  "homepage": "https://github.com/SunBurst/hydroview-angularjs#readme",
+  "devDependencies": {
+    "browser-sync": "^2.23.3",    
+    "chai": "^1.9.1",
+    "chai-as-promised": "^4.1.1",
+    "chalk": "^0.5.1",    
     "dateformat": "^1.0.8-1.2.3",
     "debug": "^0.8.1",
-    "del": "^3.0.0",
-    "express": "^4.9.3",
+    "del": "^3.0.0",    
     "gifsicle": "^3.0.4",
     "glob": "^4.0.5",
     "gulp": "^3.9.1",
@@ -61,29 +67,7 @@
     "gulp-sourcemaps": "^1.1.5",
     "gulp-task-listing": "^0.3.0",
     "gulp-uglify": "^1.0.1",
-    "gulp-util": "^3.0.1",
-    "jshint-stylish": "^2.2.1",
-    "merge-stream": "^0.1.5",
-    "method-override": "^1.0.0",
-    "minimist": "^1.1.0",
-    "mocha": "^1.20.1",
-    "morgan": "^1.1.1",
-    "ng-midway-tester": "^2.0.5",
-    "optipng-bin": "^4.0.0",
-    "phantomjs": "^1.9.7-14",
-    "plato": "^1.2.2",
-    "q": "^1.0.1",
-    "serve-favicon": "^2.0.1",
-    "sinon": "^1.10.3",
-    "sinon-chai": "^2.5.0"
-  },
-  "author": "Marcus Enderskog",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SunBurst/hydroview-angularjs/issues"
-  },
-  "homepage": "https://github.com/SunBurst/hydroview-angularjs#readme",
-  "devDependencies": {
+    "gulp-util": "^3.0.1",    
     "gulp-angular-templatecache": "^1.9.1",
     "gulp-autoprefixer": "0.0.10",
     "gulp-bytediff": "^0.2.1",
@@ -100,6 +84,18 @@
     "gulp-rev-replace": "^0.3.4",
     "gulp-sourcemaps": "^1.12.0",
     "gulp-uglify": "^1.5.4",
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "jshint-stylish": "^2.2.1",
+    "merge-stream": "^0.1.5",
+    "minimist": "^1.1.0",
+    "mocha": "^1.20.1",
+    "sinon": "^1.10.3",
+    "sinon-chai": "^2.5.0",
+    "ng-midway-tester": "^2.0.5",
+    "optipng-bin": "^4.0.0",
+    "phantomjs": "^1.9.7-14",
+    "plato": "^1.2.2",
+    "q": "^1.0.1",
+    "serve-favicon": "^2.0.1"
   }
 }

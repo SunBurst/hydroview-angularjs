@@ -46,6 +46,8 @@
             })
             .accentPalette('pink');
         
+        $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+        
         $mdThemingProvider.theme('input', 'default')
             .primaryPalette('grey');
         

@@ -8,11 +8,16 @@
     function CoreFactory() {
         
         return {
-            stringToDashLowerCase: stringToDashLowerCase
+          arrayContains: arrayContains,  
+          stringToDashLowerCase: stringToDashLowerCase
         };
         
         function stringToDashLowerCase(str) {
-            return str.replace(/\s+/g, '-').toLowerCase();
+          return str.replace(/\s+/g, '-').toLowerCase();
+        }
+      
+        function arrayContains(elem, arr) {
+          return (arr.indexOf(elem) > -1);
         }
     }
     

@@ -1,0 +1,114 @@
+<md-card md-theme="{{ stationDashboardItemVm.parameter.selected ? 'dark-blue' : 'default' }}" md-theme-watch>
+  <md-card-header ng-click="stationDashboardItemVm.updateSelected()">
+    <md-card-header-text>
+      <span class="md-title">{{ stationDashboardItemVm.parameter.parameter_name }}</span>
+      <span class="md-subhead">{{ stationDashboardItemVm.parameter.parameter_type | uppercase }} PARAMETER</span>
+    </md-card-header-text>
+  </md-card-header>
+  <md-card-actions layout="row" layout-align="end center">
+    <md-button ng-show="!stationDashboardItemVm.parameter.showOptions" class="md-icon-button" aria-label="toggle" ng-click="stationDashboardItemVm.switchShowOptions()">
+      <ng-md-icon icon="keyboard_arrow_down"/>
+    </md-button>
+  </md-card-actions>
+  <md-card-content>
+    <div ng-show="stationDashboardItemVm.parameter.showOptions">
+      <fieldset class="standard">
+        <legend>Options</legend>
+        <div layout="column" layout-gt-xs="row">
+          <div flex="100" flex-gt-sm="50">
+            <div layout="column">
+              <p class="md-body-2">Chart Type</p>  
+              <md-radio-group ng-model="stationDashboardItemVm.parameter.selectedChartType" class="md-primary" ng-change="stationDashboardItemVm.changeChartType()">
+                <md-radio-button ng-repeat="chartType in stationDashboardItemVm.parameter.chartTypes" ng-value="chartType.value">
+                  {{ chartType.label }}
+                </md-radio-button>
+              </md-radio-group>
+            </div>
+          </div>
+          <div flex="100" flex-gt-sm="50">
+            <div layout="column">
+              <p class="md-body-2">Sensor(s)</p>
+                <div ng-if="stationDashboardItemVm.heatmapIsSelected()">
+                  <md-radio-group ng-model="stationDashboardItemVm.parameter.selectedSensor" class="md-primary">
+                    <md-radio-button ng-repeat="sensor in stationDashboardItemVm.parameter.sensors" ng-value="sensor.sensor_id">
+                      {{ sensor.sensor_name }}
+                    </md-radio-button>
+                  </md-radio-group>
+                  <!-- <md-input-container ng-repeat="sensor in stationDashboardItemVm.parameter.sensors">
+                    <label>Vertical Positions</label>
+                      <md-select ng-model="sensor.selectedVerticalPositions" md-on-close="stationDashboardItemVm.clearSearchTerm({{ $index }})"
+                        data-md-container-class="selectdemoSelectHeader" multiple>
+                      <md-select-header class="demo-select-header">
+                        <input ng-model="sensor.searchTerm"
+                          type="search"
+                          placeholder="Search for a vertical position.."
+                          class="demo-header-searchbox md-text">
+                      </md-select-header>
+                      <md-optgroup label="Vertical Positions">
+                        <md-option ng-value="verticalPosition" ng-repeat="verticalPosition in sensor.vertical_positions | filter:sensor.searchTerm">
+                          {{ verticalPosition }}
+                        </md-option>
+                      </md-optgroup>
+                      </md-select>
+                  </md-input-container> -->
+                </div>
+                <div ng-if="!stationDashboardItemVm.heatmapIsSelected()">
+                  <md-checkbox ng-repeat="sensor in stationDashboardItemVm.parameter.sensors" ng-model="sensor.toggled">
+                    {{ sensor.sensor_name }}
+                  </md-checkbox>
+                </div>
+            </div>
+          </div>
+          <div flex="100" flex-gt-sm="50">
+            <div layout="column">
+              <p class="md-body-2">Data Set(s)</p>
+              <div ng-if="stationDashboardItemVm.heatmapIsSelected()">
+                <md-radio-group ng-model="stationDashboardItemVm.parameter.selectedDataSet" class="md-primary">
+                  <md-radio-button ng-repeat="dataSet in stationDashboardItemVm.parameter.selectedDataSets" ng-value="dataSet.id">
+                    {{ dataSet.label }}
+                  </md-radio-button>
+                </md-radio-group>
+              </div>
+              <div ng-if="!stationDashboardItemVm.heatmapIsSelected()">      
+                <md-checkbox ng-repeat="dataSet in stationDashboardItemVm.parameter.selectedDataSets" ng-model="dataSet.toggled">
+                  {{ dataSet.label }}
+                </md-checkbox>
+              </div>
+            </div>
+          </div>
+          <md-button class="md-primary" ng-click="stationDashboardItemVm.applyOptions()">
+            Apply
+          </md-button>
+      </div>
+      </fieldset>
+      <div layout="row" layout-align="end center">
+        <md-button ng-show="stationDashboardItemVm.parameter.showOptions" class="md-icon-button" aria-label="toggle" ng-click="stationDashboardItemVm.switchShowOptions()">
+          <ng-md-icon icon="keyboard_arrow_up"/>
+        </md-button>
+      </div>
+    </div>
+
+    <div ng-if="stationDashboardItemVm.isSingleParameter()">
+      <highchart id="stockchart" config="stationDashboardItemVm.parameter.chartConfig" disable-change-detection="true"/>
+      <!-- <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" md-align-tabs="bottom">
+        <md-tab label="Chart">
+          <highchart id="avgchart" config="stationDashboardItemVm.parameter.chartConfig" disable-change-detection="true"/>
+        </md-tab>
+        <md-tab label="Table">
+          <p>Not yet implemented</p>
+        </md-tab>
+      </md-tabs> -->
+    </div>
+    <div ng-if="stationDashboardItemVm.isProfile()">
+      <highchart id="heatmapchart" config="stationDashboardItemVm.parameter.chartConfig" disable-change-detection="true"/>
+      <!-- <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" md-align-tabs="bottom">
+        <md-tab label="Chart">
+          <highchart id="heatmapchart" config="stationDashboardItemVm.parameter.chartConfig" disable-change-detection="true"/>
+        </md-tab> 
+        <md-tab label="Table">
+          <p>Not yet implemented</p>
+        </md-tab>
+      </md-tabs> -->
+    </div>
+  </md-card-content>
+</md-card>

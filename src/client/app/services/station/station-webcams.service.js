@@ -17,14 +17,13 @@
         };
         
         return {
-            getLiveWebcams: getLiveWebcams,
-            getHourlyWebcamPhotos: getHourlyWebcamPhotos,
-            getHourlyWebcamPhotosByLimit: getHourlyWebcamPhotosByLimit,
-            getHourlyWebcamPhotosOnDate: getHourlyWebcamPhotosOnDate
+          getLiveWebcams: getLiveWebcams,
+          getHourlyWebcamPhotos: getHourlyWebcamPhotos,
+          getHourlyWebcamPhotosOnTimestamp: getHourlyWebcamPhotosOnTimestamp,  
         };
         
         function getLiveWebcams(stationId) {
-            var resource = $resource(restApiBaseUrl + '/api/webcam_live_urls_by_station/:station_id', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/webcam_live_urls_by_station?station_id=:station_id', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId, 
@@ -47,12 +46,14 @@
             }
         }
         
-        function getHourlyWebcamPhotosOnDate(stationId, onDate) {
-            var resource = $resource(restApiBaseUrl + '/api/hourly_webcam_photos_by_station/:station_id/:on_date', {}, {
+        function getHourlyWebcamPhotosOnTimestamp(stationId, onTimestamp, orderBy='DESC', limit=0) {
+            var resource = $resource(restApiBaseUrl + '/api/hourly_webcam_photos_by_station?station_id=:station_id&on_timestamp=:on_timestamp&order_by=:order_by&limit=:limit', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
-                        on_date: onDate
+                        on_timestamp: onTimestamp,
+                        order_by: orderBy,
+                        limit: limit
                     },
                     isArray: true,
                     interceptor: customInterceptor
@@ -61,7 +62,9 @@
             
             return resource.query({
                     station_id: stationId, 
-                    on_date: onDate
+                    on_timestamp: onTimestamp,
+                    order_by: orderBy,
+                    limit: limit
                 }).$promise
                 .then(getWebcamPhotosOnDateComplete)
                 .catch(getWebcamPhotosOnDateFailed);
@@ -75,14 +78,15 @@
             }
         }
         
-        function getHourlyWebcamPhotos(stationId, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/hourly_webcam_photos_by_station/:station_id/:from_timestamp/:to_timestamp', {}, {
+        function getHourlyWebcamPhotos(stationId, fromTimestamp, toTimestamp, orderBy='DESC', limit=0) {
+            var resource = $resource(restApiBaseUrl + '/api/hourly_webcam_photos_by_station?station_id=:station_id&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&order_by=:order_by&limit=:limit', {}, {
                 query: {
                     method: 'GET', params: {
                         station_id: stationId,
                         from_timestamp: fromTimestamp,
-                        to_timestamp: toTimestamp
-                        
+                        to_timestamp: toTimestamp,
+                        order_by: orderBy,
+                        limit: limit
                     },
                     isArray: true,
                     interceptor: customInterceptor
@@ -92,7 +96,9 @@
             return resource.query({
                     station_id: stationId, 
                     from_timestamp: fromTimestamp, 
-                    to_timestamp: toTimestamp
+                    to_timestamp: toTimestamp,
+                    order_by: orderBy,
+                    limit: limit
                 }).$promise
                 .then(getWebcamPhotosComplete)
                 .catch(getWebcamPhotosFailed);
@@ -102,31 +108,6 @@
             }
             
             function getWebcamPhotosFailed(error) {
-                console.log(error);
-            }
-        }
-        
-        function getHourlyWebcamPhotosByLimit(stationId, limit) {
-            var resource = $resource(restApiBaseUrl + '/api/hourly_webcam_photos_by_station_by_limit/:station_id/:limit/', {}, {
-                query: {
-                    method: 'GET', params: {
-                        station_id: stationId,
-                        limit: limit,
-                    },
-                    isArray: true,
-                    interceptor: customInterceptor
-                }
-            });
-            
-            return resource.query({station_id: stationId, limit: limit}).$promise
-                .then(getWebcamPhotosByLimitComplete)
-                .catch(getWebcamPhotosByLimitFailed);
-                
-            function getWebcamPhotosByLimitComplete(response) {
-                return response;
-            }
-            
-            function getWebcamPhotosByLimitFailed(error) {
                 console.log(error);
             }
         }

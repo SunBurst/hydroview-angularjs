@@ -21,7 +21,7 @@
         };
         
         function getStations() {
-            var resource = $resource(restApiBaseUrl + '/api/stations/:bucket', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/stations?bucket=:bucket', {}, {
                 query: {
                     method: 'GET', params: {bucket: 0}, isArray: true, 
                     interceptor: customInterceptor
