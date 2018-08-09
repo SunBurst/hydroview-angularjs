@@ -72,148 +72,150 @@
                 controller: 'StationDashboardCtrl',
                 controllerAs: 'stationDashboardVm',
                 resolve: {
-                        _station: function(stationStorage) {
-                            var station = stationStorage.getStation();
-                            return station;
-                        }, 
-                        _parameterList: ['$stateParams', 'StationParametersFactory', 
-                            function($stateParams, StationParametersFactory) {
-                                var stationId = $stateParams.station_id;
-                                return StationParametersFactory.getParameters(stationId)
-                                    .then(function(response) {
-                                      var data = response.data;
-                                      var parameters = [];
-                                      for (var i = 0; i < data.length; i++){
-                                        var parameter = data[i];
-                                        parameters.push(parameter);
-                                      }  
-                                      return parameters;
-                                    });
-                        }],
-                        _parameterQCLevelList: ['$stateParams', 'StationParametersFactory', 
-                            function($stateParams, StationParametersFactory) {
-                                var stationId = $stateParams.station_id;
-                                return StationParametersFactory.getParameterQCLevels(stationId)
-                                    .then(function(response) {
-                                        return response.data;
-                                    });
-                        }],
-                        _parameterQCLevels: ['_parameterQCLevelList', function(_parameterQCLevelList) {
-                            var parameterQCLevels = {};
-                            for (var i = 0; i < _parameterQCLevelList.length; i++) {
-                                var parameterId = _parameterQCLevelList[i].parameter_id;
-                                var parameterType = _parameterQCLevelList[i].parameter_type;
-                                var parameterNotInObject = !(parameterId in parameterQCLevels);
-                                if (parameterNotInObject) {
-                                    parameterQCLevels[parameterId] = {};
-                                }
-                                var parameterTypeNotInObject = !(parameterType in parameterQCLevels[parameterId]);
-                                if (parameterTypeNotInObject) {
-                                    parameterQCLevels[parameterId][parameterType] = [];
-                                }
-                                parameterQCLevels[parameterId][parameterType].push(_parameterQCLevelList[i]);
+                        
+                  _station: function(stationStorage) {
+                    var station = stationStorage.getStation();
+                    return station;
+                  }, 
+                       
+                  _parameterList: ['$stateParams', 'StationParametersFactory', 
+                    function($stateParams, StationParametersFactory) {
+                      var stationId = $stateParams.station_id;
+                      return StationParametersFactory.getParameters(stationId)
+                        .then(function(response) {
+                          var data = response.data;
+                          var parameters = [];
+                          for (var i = 0; i < data.length; i++){
+                            var parameter = data[i];
+                            parameters.push(parameter);
+                          }  
+                          return parameters;
+                        });
+                  }],
+                        
+                  _parameterQCLevelList: ['$stateParams', 'StationParametersFactory', 
+                    function($stateParams, StationParametersFactory) {
+                      var stationId = $stateParams.station_id;
+                      return StationParametersFactory.getParameterQCLevels(stationId)
+                        .then(function(response) {
+                          return response.data;
+                        });
+                  }],
+                        
+                  _parameterQCLevels: ['_parameterQCLevelList', function(_parameterQCLevelList) {
+                    var parameterQCLevels = {};
+                    for (var i = 0; i < _parameterQCLevelList.length; i++) {
+                      var parameterId = _parameterQCLevelList[i].parameter_id;
+                      var parameterType = _parameterQCLevelList[i].parameter_type;
+                      var parameterNotInObject = !(parameterId in parameterQCLevels);
+                      if (parameterNotInObject) {
+                        parameterQCLevels[parameterId] = {};
+                      }
+                      var parameterTypeNotInObject = !(parameterType in parameterQCLevels[parameterId]);
+                      if (parameterTypeNotInObject) {
+                        parameterQCLevels[parameterId][parameterType] = [];
+                      }
+                      parameterQCLevels[parameterId][parameterType].push(_parameterQCLevelList[i]);
+                    }
+                    return parameterQCLevels;
+                  }],
+                        
+                  _parameterSensorList: ['$stateParams', 'StationParametersFactory',
+                    function($stateParams, StationParametersFactory) {
+                      var stationId = $stateParams.station_id;
+                      return StationParametersFactory.getParameterSensors(stationId)
+                        .then(function(response) {
+                          return response.data;
+                        });
+                  }],
+                        
+                  _sensorParameterMeasurementFrequencies: ['$q', '$stateParams', 'StationParametersFactory', 
+                    function($q, $stateParams, StationParametersFactory) {
+                      var stationId = $stateParams.station_id;
+                      return StationParametersFactory.getParameterMeasurementFrequencies(stationId)
+                        .then(function(response) {
+                          return response.data;
+                        });
+                  }],
+                        
+                  _parameterSensors: ['$q', '_parameterSensorList', 'SensorsFactory', function($q, _parameterSensorList, SensorsFactory) {
+                      var parameterSensors = {};
+
+                      for (var i = 0; i < _parameterSensorList.length; i++) {
+                        var parameterId = _parameterSensorList[i].parameter_id;
+                        var parameterType = _parameterSensorList[i].parameter_type;
+                        var parameterNotInObject = !(parameterId in parameterSensors);
+                        if (parameterNotInObject) {
+                          parameterSensors[parameterId] = {};
+                        }
+                        var parameterTypeNotInObject = !(parameterType in parameterSensors[parameterId]);
+                        if (parameterTypeNotInObject) {
+                          parameterSensors[parameterId][parameterType] = {};
+                        }
+                        parameterSensors[parameterId][parameterType] = angular.copy(_parameterSensorList[i]); 
+                        for (var sensorId in _parameterSensorList[i].sensors) {
+                          if (_parameterSensorList[i].sensors.hasOwnProperty(sensorId)) {
+                            parameterSensors[parameterId][parameterType].sensors[sensorId] = {
+                              'name': _parameterSensorList[i].sensors[sensorId]
+                            };
+                          }
+                        }
+                      }
+
+                      return parameterSensors;
+
+                  }],
+                        
+                  _profileParameterVerticalPositions: ['$q', '$stateParams', 'StationParametersFactory', '_parameterList', 
+                    function($q, $stateParams, StationParametersFactory, _parameterList) {
+
+                      var stationId = $stateParams.station_id;
+                      var profileVerticalPositions = {};
+                      var promiseArray = [];
+
+                      for (var i = 0; i < _parameterList.length; i++) {
+                        var parameterId = _parameterList[i].parameter_id;
+                        var parameterType = _parameterList[i].parameter_type;
+                        if (parameterType === 'profile') {
+                          var resource = StationParametersFactory.getProfileParameterVerticalPositions(stationId, parameterId);
+                          promiseArray.push(resource);
+                        }
+
+                      }
+
+                      return $q.all(promiseArray).then(function(response) {
+                        for (var i = 0; i < response.length; i++) {
+                          for (var j = 0; j < response[i].data.length; j++) {
+                            var parameterId = response[i].data[j].parameter_id;
+                            var parameterVerticalPositionUnit = response[i].data[j].vertical_position_unit;
+                            var parameterNotInObject = !(parameterId in profileVerticalPositions);
+                            if (parameterNotInObject) {
+                              profileVerticalPositions[parameterId] = {
+                                'vertical_position_unit': parameterVerticalPositionUnit
+                              };
                             }
-                            return parameterQCLevels;
-                        }],
-                        _parameterSensorList: ['$stateParams', 'StationParametersFactory',
-                          function($stateParams, StationParametersFactory) {
-                            var stationId = $stateParams.station_id;
-                            return StationParametersFactory.getParameterSensors(stationId)
-                              .then(function(response) {
-                                return response.data;
-                              });
-                        }],
-                        _sensorParameterMeasurementFrequencies: ['$q', '$stateParams', 'StationParametersFactory', 
-                          function($q, $stateParams, StationParametersFactory) {
-                            var stationId = $stateParams.station_id;
-                            return StationParametersFactory.getParameterMeasurementFrequencies(stationId)
-                              .then(function(response) {
-                                return response.data;
-                              });
-                        }],
-                        _parameterSensors: ['$q', '_parameterSensorList', 'SensorsFactory', function($q, _parameterSensorList, SensorsFactory) {
-                            var parameterSensors = {};
-                          
-                            for (var i = 0; i < _parameterSensorList.length; i++) {
-                                var parameterId = _parameterSensorList[i].parameter_id;
-                                var parameterType = _parameterSensorList[i].parameter_type;
-                                var parameterNotInObject = !(parameterId in parameterSensors);
-                                if (parameterNotInObject) {
-                                    parameterSensors[parameterId] = {};
-                                }
-                                var parameterTypeNotInObject = !(parameterType in parameterSensors[parameterId]);
-                                if (parameterTypeNotInObject) {
-                                    parameterSensors[parameterId][parameterType] = {};
-                                }
-                                parameterSensors[parameterId][parameterType] = angular.copy(_parameterSensorList[i]); 
-                                for (var sensorId in _parameterSensorList[i].sensors) {
-                                  if (_parameterSensorList[i].sensors.hasOwnProperty(sensorId)) {
-                                    parameterSensors[parameterId][parameterType].sensors[sensorId] = {
-                                      'name': _parameterSensorList[i].sensors[sensorId]
-                                    };
-                                  }
-                                }
-                                //var sensorsObj = parameterSensors[parameterId][parameterType].sensors;
-                                //for (var sensorId in sensorsObj) {
-                                //  if (sensorsObj.hasOwnProperty(sensorId)) {
-                                //    var resource = SensorsFactory.getMeasurementFrequenciesBySensorParameter(sensorId, parameterId, parameterType);
-                                //    promiseArray.push(resource);
-                                //  }
-                                //}
+                            var sensorId = response[i].data[j].sensor_id;
+                            var sensorNotInObject = !(sensorId in profileVerticalPositions[parameterId]);
+                            if (sensorNotInObject) {
+                              profileVerticalPositions[parameterId][sensorId] = {
+                                'vertical_positions': []
+                              };
                             }
                             
-                            //return $q.all(promiseArray).then(function(response) {
-                            //  for (var i = 0; i < response.length; i++) {
-                            //    var data = response[i].data;
-                            //    for (var j = 0; j < data.length; j++) {
-                            //      var parameterId = data[j].parameter_id;
-                            //      var parameterType = data[j].parameter_type;
-                            //      var sensorId = data[j].sensor_id;
-                            //      var parameterSensorMeasurementFrequencies = data[j].measurement_frequencies;
-                            //      var sensorName = parameterSensors[parameterId][parameterType].sensors[sensorId]; //workaround
-                            //      parameterSensors[parameterId][parameterType].sensors[sensorId] = {
-                            //        'name': sensorName,
-                            //        'measurement_frequencies': parameterSensorMeasurementFrequencies
-                            //      };
-                            //    }
-                            //  }
-                            return parameterSensors;
+                            //var verticalPosition = response[i].data[j].vertical_position;
+                            //var verticalPositionUnit = response[i].data[j].vertical_position_unit;
+                            //profileVerticalPositions[parameterId][sensorId]['vertical_positions'].push({
+                            //  'vertical_position': verticalPosition,
+                            //  'vertical_position_unit': verticalPositionUnit
                             //});
-                            
-                        }],
-                        _profileParameterVerticalPositions: ['$q', '$stateParams', 'StationParametersFactory', '_parameterList', 
-                            function($q, $stateParams, StationParametersFactory, _parameterList) {
+                          }
+                        }
+                        return profileVerticalPositions;       
+                      });
 
-                                var stationId = $stateParams.station_id;
-                                var profileVerticalPositions = {};
-                                var promiseArray = [];
-
-                                for (var i = 0; i < _parameterList.length; i++) {
-                                    var parameterId = _parameterList[i].parameter_id;
-                                    var parameterType = _parameterList[i].parameter_type;
-                                    if (parameterType === 'profile') {
-                                        var resource = StationParametersFactory.getProfileParameterVerticalPositions(stationId, parameterId);
-                                        promiseArray.push(resource);
-                                    }
-
-                                }
-
-                                return $q.all(promiseArray).then(function(response) {
-                                    for (var i = 0; i < response.length; i++) {
-                                        for (var j = 0; j < response[i].data.length; j++) {
-                                            var parameterId = response[i].data[j].parameter_id;
-                                            var parameterNotInObject = !(parameterId in profileVerticalPositions);
-                                            if (parameterNotInObject) {
-                                                profileVerticalPositions[parameterId] = response[i].data;
-                                            }
-
-                                        }
-                                    }
-                                    return profileVerticalPositions;       
-                                });
-
-                        }],
-                        _parameters: ['_parameterList', '_sensorParameterMeasurementFrequencies', '_parameterQCLevels', '_parameterSensors', '_profileParameterVerticalPositions',
+                  }],
+                       
+                  _parameters: ['_parameterList', '_sensorParameterMeasurementFrequencies', '_parameterQCLevels', '_parameterSensors', '_profileParameterVerticalPositions',
                             function(_parameterList, _sensorParameterMeasurementFrequencies, _parameterQCLevels, _parameterSensors, _profileParameterVerticalPositions) {
                               var parameters = [];
 
@@ -268,6 +270,19 @@
                                             }
                                           }
                                         }
+                                        if (parameter.parameter_type === 'profile') {
+                                          sensor['vertical_positions'] = [];
+                                          sensor['selectedVerticalPositions'] = [];
+                                          sensor['searchTerm'] = "";
+                                          var parameterInVerticalPositions = (parameter.parameter_id in _profileParameterVerticalPositions);
+                                          if (parameterInVerticalPositions) {
+                                            var sensorInParameterVerticalPositions = (sensorId in _profileParameterVerticalPositions[parameter.parameter_id]);
+                                            if (sensorInParameterVerticalPositions) {
+                                              sensor['vertical_positions'] = _profileParameterVerticalPositions[parameter.parameter_id][sensorId].vertical_positions;
+                                            }
+                                          }
+                                        }
+                                        
                                         if (firstSensorToggled) {
                                           sensor.toggled = false;  
                                         }
@@ -276,6 +291,7 @@
                                           parameter.selectedSensor = sensorId;
                                           firstSensorToggled = true;
                                         }
+                                        
                                         parameter.sensors.push(sensor);
                                       }
                                     }
@@ -322,13 +338,6 @@
                                     label: "Heatmap"
                                   });
                                   parameter.selectedChartType = "heatmap";
-                                  parameter.verticalPositions = [];
-                                  parameter.selectedVerticalPositions = [];
-                                  
-                                  var parameterInProfileVerticalPositions = (parameter.parameter_id in _profileParameterVerticalPositions);
-                                  if (parameterInProfileVerticalPositions) {
-                                      parameter.verticalPositions = _profileParameterVerticalPositions[parameterId];
-                                  }
                                 }
                                 
                                 if (parameter.selectedChartType === "line") {
@@ -445,11 +454,11 @@
 
                                     xAxis: {
                                       type: 'datetime'
-                                    },
-
+                                    },                                                                                                                     
+                                    
                                     yAxis: {
                                       title: {
-                                        text: parameter.parameter_name + ' (' + parameter.parameter_unit + ')'
+                                        text: 'Vertical Position'
                                       },
                                       minPadding: 0,
                                       maxPadding: 0,
@@ -888,8 +897,7 @@
                 abstract: true,
                 controller: 'StationCamsAndPhotosCtrl',
                 controllerAs: 'stationCamsAndPhotosVm',
-                resolve: {
-                }
+                resolve: {}
                 
             })
             .state('station.cams-and-photos.livewebcams', {

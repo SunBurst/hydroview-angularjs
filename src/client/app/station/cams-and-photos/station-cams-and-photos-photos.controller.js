@@ -31,7 +31,7 @@
         function getWebcamPhotosOnDate() {
             var stationId = vm.station.id;
             var onDate = Number(vm.datePickerModel.date);
-            return StationWebcamsFactory.getHourlyWebcamPhotos(stationId, onDate)
+            return StationWebcamsFactory.getHourlyWebcamPhotosOnTimestamp(stationId, onDate)
                 .then(function(response) {
                     return response.data;
                 });
