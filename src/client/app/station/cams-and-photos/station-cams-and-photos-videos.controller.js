@@ -15,9 +15,13 @@
         
         function getVideosTimeRange() {
             var limit = 1;
+            var orderByAsc = "ASC";
+            var orderByDesc = "DESC";
+            var fromTimestamp = moment(0).valueOf();
+            var toTimestamp = moment().valueOf();
             var promises = {
-                firstRowResource: stationVideos.getVideoUrlsAscendingByLimit(vm.station.id, limit),
-                lastRowResource: stationVideos.getVideoUrlsDescendingByLimit(vm.station.id, limit)
+                firstRowResource: stationVideos.getVideoUrls(vm.station.id, fromTimestamp, toTimestamp, orderByAsc, limit),
+                lastRowResource: stationVideos.getVideoUrls(vm.station.id, fromTimestamp, toTimestamp, orderByDesc, limit)
             };
             return $q.all(promises).then(function(response) {
                 return response;

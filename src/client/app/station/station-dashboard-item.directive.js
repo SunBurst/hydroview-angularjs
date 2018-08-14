@@ -28,7 +28,6 @@
     var vm = this;
 
     vm.station = stationStorage.getStation();
-    vm.searchTerm;
     vm.applyOptions = applyOptions;
     vm.clearSearchTerm = clearSearchTerm;
     vm.heatmapIsSelected = heatmapIsSelected;
@@ -39,95 +38,127 @@
     vm.updateSelected = updateSelected;
     vm.$onInit = onInit;
 
-    function getDailyChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp) {
-      var orderBy = 'ASC';
-      return stationSingleParameterMeasurements.getDailySingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, orderBy)
+    function getDailyChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationSingleParameterMeasurements.getDailySingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
     }
     
-    function getHourlyChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp) {
-      var orderBy = 'ASC';
-      return stationSingleParameterMeasurements.getHourlySingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, orderBy)
+    function getDailyProfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationProfileParameterMeasurements.getDailyProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
     }
     
-    function getThirtyMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp) {
-      var orderBy = 'ASC';
-      return stationSingleParameterMeasurements.getThirtyMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, orderBy)
+    function getHourlyChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationSingleParameterMeasurements.getHourlySingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
     }
     
-    function getTwentyMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp) {
-      var orderBy = 'ASC';
-      return stationSingleParameterMeasurements.getTwentyMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, orderBy)
+    function getHourlyProfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationProflieParameterMeasurements.getHourlyProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
     }
     
-    function getFifteenMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp) {
-      var orderBy = 'ASC';
-      return stationSingleParameterMeasurements.getFifteenMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, orderBy)
+    function getThirtyMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationSingleParameterMeasurements.getThirtyMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
     }
     
-    function getFifteenMinProfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp) {
-      var orderBy = 'ASC';
-      var _selectedDataSets = [];
-      for (var i = 0; i < vm.parameter.selectedDataSets.length; i++) {
-        var dataSet = vm.parameter.selectedDataSets[i];
-        if (dataSet.toggled) {
-          _selectedDataSets.push(dataSet.id);
-        }
-      }
-      return stationProfileParameterMeasurements.getFifteenMinProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, _selectedDataSets, orderBy)
+    function getThirtyMinProfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationProfileParameterMeasurements.getThirtyMinProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
     }
     
-    function getTenMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp) {
-      var orderBy = 'ASC';
-      return stationSingleParameterMeasurements.getTenMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp)
+    function getTwentyMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationSingleParameterMeasurements.getTwentyMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
     }
     
-    function getFiveMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp) {
-      var orderBy = 'ASC';
-      var _selectedDataSets = [];
-      for (var i = 0; i < vm.parameter.selectedDataSets.length; i++) {
-        var dataSet = vm.parameter.selectedDataSets[i];
-        if (dataSet.toggled) {
-          _selectedDataSets.push(dataSet.id);
-        }
-      }
-      return stationSingleParameterMeasurements.getFiveMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, _selectedDataSets, orderBy)
+    function getTwentyMinPorfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationProfileParameterMeasurements.getTwentyMinProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
     }
     
-    function getOneMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp) {
-      var orderBy = 'ASC';
-      return stationSingleParameterMeasurements.getOneMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, orderBy)
+    function getFifteenMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationSingleParameterMeasurements.getFifteenMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
     }
     
-    function getOneSecChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp) {
-      var orderBy = 'ASC';
-      return stationSingleParameterMeasurements.getOneSecSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, orderBy)
+    function getFifteenMinProfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationProfileParameterMeasurements.getFifteenMinProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
+        .then(function(response) {
+          return response.data;
+        });
+    }
+    
+    function getTenMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationSingleParameterMeasurements.getTenMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
+        .then(function(response) {
+          return response.data;
+        });
+    }
+    
+    function getTenMinProfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationProfileParameterMeasurements.getTenMinProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
+        .then(function(response) {
+          return response.data;
+        });
+    }
+    
+    function getFiveMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationSingleParameterMeasurements.getFiveMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
+        .then(function(response) {
+          return response.data;
+        });
+    }
+    
+    function getFiveMinProfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationProfileParameterMeasurements.getFiveMinProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
+        .then(function(response) {
+          return response.data;
+        });
+    }
+    
+    function getOneMinChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationSingleParameterMeasurements.getOneMinSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
+        .then(function(response) {
+          return response.data;
+        });
+    }
+    
+    function getOneMinProfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationProfileParameterMeasurements.getOneMinProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
+        .then(function(response) {
+          return response.data;
+        });
+    }
+    
+    function getOneSecChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationSingleParameterMeasurements.getOneSecSingleParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
+        .then(function(response) {
+          return response.data;
+        });
+    }
+    
+    function getOneSecProfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
+      return stationProfileParameterMeasurements.getOneSecProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
@@ -144,44 +175,92 @@
             if (qcLevel.toggled) {
               var resource;
               if (sensor.measurement_frequencies) {
+                var orderBy = 'ASC';
+                var _selectedDataSets = [];
+                for (var i = 0; i < vm.parameter.selectedDataSets.length; i++) {
+                  var dataSet = vm.parameter.selectedDataSets[i];
+                  if (dataSet.toggled) {
+                    _selectedDataSets.push(dataSet.id);
+                  }
+                }
                 if (CoreFactory.arrayContains('15 Min', sensor.measurement_frequencies)) {
                   if (vm.isSingleParameter()) {
-                    resource = getFifteenMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp);
+                    resource = getFifteenMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
                   }
                   else if (vm.isProfile()) {
-                    resource = getFifteenMinProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp);
+                    resource = getFifteenMinProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
                   }
                 }
                 else if (CoreFactory.arrayContains('10 Min', sensor.measurement_frequencies)) {
-                  resource = getTenMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp);
+                  if (vm.isSingleParameter()) {
+                    resource = getTenMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
+                  else if (vm.isProfile()) {
+                    resource = getTenMinProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
                 }
 
                 else if (CoreFactory.arrayContains('5 Min', sensor.measurement_frequencies)) {
-                  resource = getFiveMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp);
+                  if (vm.isSingleParameter()) {
+                    resource = getFiveMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
+                  else if (vm.isProfile()) {
+                    resource = getFiveMinProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
                 }
 
                 else if (CoreFactory.arrayContains('1 Min', sensor.measurement_frequencies)) {
-                  resource = getOneMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp);
+                  if (vm.isSingleParameter()) {
+                    resource = getOneMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
+                  else if (vm.isProfile()) {
+                    resource = getOneMinProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
                 }
 
                 else if (CoreFactory.arrayContains('1 Sec', sensor.measurement_frequencies)) {
-                  resource = getOneSecChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp);
+                  if (vm.isSingleParameter()) {
+                    resource = getOneSecChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
+                  else if (vm.isProfile()) {
+                    resource = getOneSecProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
                 }
 
                 else if (CoreFactory.arrayContains('20 Min', sensor.measurement_frequencies)) {
-                  resource = getTwentyMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp);
+                  if (vm.isSingleParameter()) {
+                    resource = getTwentyMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
+                  else if (vm.isProfile()) {
+                    resource = getTwentyMinProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
                 }
 
                 else if (CoreFactory.arrayContains('30 Min', sensor.measurement_frequencies)) {
-                  resource = getThirtyMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp);
+                  if (vm.isSingleParameter()) {
+                    resource = getThirtyMinChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
+                  else if (vm.isProfile()) {
+                    resource = getThirtyMinProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
                 }
 
                 else if (CoreFactory.arrayContains('Hourly', sensor.measurement_frequencies)) {
-                  resource = getHourlyChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp);
+                  if (vm.isSingleParameter()) {
+                    resource = getHourlyChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
+                  else if (vm.isProfile()) {
+                    resource = getHourlyMinProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
                 }
 
                 else if (CoreFactory.arrayContains('Daily', sensor.measurement_frequencies)) {
-                  resource = getDailyChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp);
+                  if (vm.isSingleParameter()) {
+                    resource = getDailyChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
+                  else if (vm.isProfile()) {
+                    resource = getDailyMinProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                  }
                 }
               }
               if (resource) {
@@ -206,7 +285,7 @@
     } 
     
     function applyOptions() {
-
+      initChart();
     }
     
     function initChart() {
@@ -214,33 +293,39 @@
         if (vm.isSingleParameter()) {
           getDynamicChartData((moment().subtract(7, 'day')).valueOf(), moment().valueOf())
             .then(function(data) {
+              vm.parameter.chartConfig.series = [];  
               for (var sensorId in data) {
                 if (data.hasOwnProperty(sensorId)) {
                   for (var qcLevel in data[sensorId]) {
                     if (data[sensorId].hasOwnProperty(qcLevel)) {
                       data[sensorId][qcLevel].then(function(qcData) {
                         if (vm.parameter.selectedChartType === 'line' || vm.parameter.selectedChartType === 'column') {
-                          var seriesId = vm.parameter.parameter_id + "-" + sensorId + "-" + qcLevel;
-                          var sensor = getSensor(sensorId);
-                          var seriesName = sensor.sensor_name + ' (QC Level: ' + qcLevel +')';
-                          var series = {
-                            id: seriesId,
-                            name: seriesName,
-                            data: []
-                          };
-                          for (var i = 0; i < qcData.length; i++) {
-                            series.data.push([qcData[i].timestamp, qcData[i].avg_value]);
+                          for (var i = 0; i < vm.parameter.selectedDataSets.length; i++) {
+                            var dataSet = vm.parameter.selectedDataSets[i];
+                            if (dataSet.toggled) {
+                              var dataSetColumnName = dataSet.id + "_value";
+                              var seriesId = vm.parameter.parameter_id + "-" + sensorId + "-" + qcLevel + "-" + dataSet.id;
+                              var sensor = getSensor(sensorId);
+                              var seriesName = sensor.sensor_name + " (" + dataSet.label + " , QC Level: " + qcLevel + ")";
+                              var series = {
+                                id: seriesId,
+                                name: seriesName,
+                                data: []
+                              };
+                              for (var j = 0; j < qcData.length; j++) {
+                                series.data.push([qcData[j].timestamp, qcData[j][dataSetColumnName]]);
+                              }
+                              vm.parameter.chartConfig.series.push(series);
+                            }
                           }
-                            vm.parameter.chartConfig.series = [];
-                            vm.parameter.chartConfig.series.push(series);
-                            vm.parameter.chartConfig = angular.copy(vm.parameter.chartConfig);
                         }
-                        
+                        vm.parameter.chartConfig = angular.copy(vm.parameter.chartConfig);
                       });
                     }
                   }
                 }
               }
+            vm.parameter.chartConfig = angular.copy(vm.parameter.chartConfig);
           });
         }
         else if (vm.isProfile()) {
@@ -255,7 +340,6 @@
                             var seriesId = vm.parameter.parameter_id + "-" + sensorId + "-" + qcLevel;
                             var sensor = getSensor(sensorId);
                             var seriesName = sensor.sensor_name + ' (QC Level: ' + qcLevel +')';
-                            console.log(vm.parameter);
                             var series = {
                               id: seriesId,
                               name: seriesName,
@@ -272,6 +356,8 @@
                             for (var i = 0; i < qcData.length; i++) {
                               series.data.push([qcData[i].timestamp, qcData[i].vertical_position, qcData[i].avg_value]);
                             }
+                            console.log(sensor);
+                            //vm.parameter.chartConfig.yAxis.title.text = 'Vertical Position ' + '(' +  + ')';
                             vm.parameter.chartConfig.series = [];
                             vm.parameter.chartConfig.series.push(series);
                             vm.parameter.chartConfig = angular.copy(vm.parameter.chartConfig);
@@ -290,8 +376,6 @@
     function onInit() {
       initChart();
     }
-
-
 
     function changeChartType() {
       if (vm.heatmapIsSelected()) {
@@ -343,9 +427,9 @@
       ev.stopPropagation();
     });
 
-    function clearSearchTerm() {
-      vm.searchTerm = '';
-    };
+    function clearSearchTerm(sensorIndex) {
+      vm.parameter.sensors[sensorIndex].searchTerm = "";
+    }
 
     function isSingleParameter() {
       return vm.parameter.parameter_type === "single";

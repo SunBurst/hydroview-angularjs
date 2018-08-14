@@ -2,7 +2,7 @@
   <md-card-header ng-click="stationDashboardItemVm.updateSelected()">
     <md-card-header-text>
       <span class="md-title">{{ stationDashboardItemVm.parameter.parameter_name }}</span>
-      <span class="md-subhead">{{ stationDashboardItemVm.parameter.parameter_type }} parameter</span>
+      <span class="md-subhead">{{ stationDashboardItemVm.parameter.parameter_type | uppercase }} PARAMETER</span>
     </md-card-header-text>
   </md-card-header>
   <md-card-actions layout="row" layout-align="end center">
@@ -34,6 +34,23 @@
                       {{ sensor.sensor_name }}
                     </md-radio-button>
                   </md-radio-group>
+                  <!-- <md-input-container ng-repeat="sensor in stationDashboardItemVm.parameter.sensors">
+                    <label>Vertical Positions</label>
+                      <md-select ng-model="sensor.selectedVerticalPositions" md-on-close="stationDashboardItemVm.clearSearchTerm({{ $index }})"
+                        data-md-container-class="selectdemoSelectHeader" multiple>
+                      <md-select-header class="demo-select-header">
+                        <input ng-model="sensor.searchTerm"
+                          type="search"
+                          placeholder="Search for a vertical position.."
+                          class="demo-header-searchbox md-text">
+                      </md-select-header>
+                      <md-optgroup label="Vertical Positions">
+                        <md-option ng-value="verticalPosition" ng-repeat="verticalPosition in sensor.vertical_positions | filter:sensor.searchTerm">
+                          {{ verticalPosition }}
+                        </md-option>
+                      </md-optgroup>
+                      </md-select>
+                  </md-input-container> -->
                 </div>
                 <div ng-if="!stationDashboardItemVm.heatmapIsSelected()">
                   <md-checkbox ng-repeat="sensor in stationDashboardItemVm.parameter.sensors" ng-model="sensor.toggled">
@@ -47,37 +64,18 @@
               <p class="md-body-2">Data Set(s)</p>
               <div ng-if="stationDashboardItemVm.heatmapIsSelected()">
                 <md-radio-group ng-model="stationDashboardItemVm.parameter.selectedDataSet" class="md-primary">
-            <md-radio-button ng-repeat="dataSet in stationDashboardItemVm.parameter.selectedDataSets" ng-value="dataSet.id">
-              {{ dataSet.label }}
-          </md-radio-button>
-          </md-radio-group>
-            </div>
-            <div ng-if="!stationDashboardItemVm.heatmapIsSelected()">      
-             <md-checkbox ng-repeat="dataSet in stationDashboardItemVm.parameter.selectedDataSets" ng-model="dataSet.toggled">
-               {{ dataSet.label }}
-              </md-checkbox>
+                  <md-radio-button ng-repeat="dataSet in stationDashboardItemVm.parameter.selectedDataSets" ng-value="dataSet.id">
+                    {{ dataSet.label }}
+                  </md-radio-button>
+                </md-radio-group>
+              </div>
+              <div ng-if="!stationDashboardItemVm.heatmapIsSelected()">      
+                <md-checkbox ng-repeat="dataSet in stationDashboardItemVm.parameter.selectedDataSets" ng-model="dataSet.toggled">
+                  {{ dataSet.label }}
+                </md-checkbox>
+              </div>
             </div>
           </div>
-        </div>
-        <div ng-if="stationDashboardItemVm.parameter.verticalPositions" layout="row">
-          <md-input-container>
-            <label>Vertical Positions</label>
-              <md-select ng-model="stationDashboardItemVm.parameter.selectedVerticalPositions" md-on-close="stationDashboardItemVm.clearSearchTerm()"
-                data-md-container-class="selectdemoSelectHeader" multiple>
-              <md-select-header class="demo-select-header">
-                <input ng-model="stationDashboardItemVm.searchTerm"
-                  type="search"
-                  placeholder="Search for a vertical position.."
-                  class="demo-header-searchbox md-text">
-              </md-select-header>
-              <md-optgroup label="Vertical Positions">
-                <md-option ng-value="verticalPosition" ng-repeat="verticalPosition in stationDashboardItemVm.parameter.verticalPositions | filter:searchTerm">
-                  {{ verticalPosition }}
-                </md-option>
-              </md-optgroup>
-              </md-select>
-          </md-input-container>
-        </div>
           <md-button class="md-primary" ng-click="stationDashboardItemVm.applyOptions()">
             Apply
           </md-button>
@@ -91,7 +89,7 @@
     </div>
 
     <div ng-if="stationDashboardItemVm.isSingleParameter()">
-      <highchart id="avgchart" config="stationDashboardItemVm.parameter.chartConfig" disable-change-detection="true"/>
+      <highchart id="stockchart" config="stationDashboardItemVm.parameter.chartConfig" disable-change-detection="true"/>
       <!-- <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" md-align-tabs="bottom">
         <md-tab label="Chart">
           <highchart id="avgchart" config="stationDashboardItemVm.parameter.chartConfig" disable-change-detection="true"/>
