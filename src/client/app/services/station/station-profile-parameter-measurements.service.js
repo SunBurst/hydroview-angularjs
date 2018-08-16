@@ -30,7 +30,7 @@
             
         };
         
-        function getDailyProfileParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
+        function getDailyProfileParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
             var resource = $resource(restApiBaseUrl + '/api/daily_profile_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&data_sets=:data_sets&order_by=:order_by', {}, {
                 query: {
                     method: 'GET', params: {
@@ -69,7 +69,7 @@
         
         }
         
-        function getHourlyProfileParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
+        function getHourlyProfileParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
             var resource = $resource(restApiBaseUrl + '/api/hourly_profile_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&data_sets=:data_sets&order_by=:order_by', {}, {
                 query: {
                     method: 'GET', params: {
@@ -108,7 +108,7 @@
         
         }
         
-        function getThirtyMinProfileParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
+        function getThirtyMinProfileParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
             var resource = $resource(restApiBaseUrl + '/api/thirty_min_profile_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&data_sets=:data_sets&order_by=:order_by', {}, {
                 query: {
                     method: 'GET', params: {
@@ -147,7 +147,7 @@
         
         }
         
-        function getThirtyMinProfileParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
+        function getThirtyMinProfileParameterMeasurementsChart(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
             var resource = $resource(restApiBaseUrl + '/api/thirty_min_profile_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&data_sets=:data_sets&order_by=:order_by', {}, {
                 query: {
                     method: 'GET', params: {
@@ -186,7 +186,7 @@
         
         }
         
-        function getTwentyMinProfileParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
+        function getTwentyMinProfileParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
             var resource = $resource(restApiBaseUrl + '/api/twenty_min_profile_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&data_sets=:data_sets&order_by=:order_by', {}, {
                 query: {
                     method: 'GET', params: {
@@ -264,7 +264,7 @@
         
         }
         
-        function getTenMinProfileParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
+        function getTenMinProfileParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
             var resource = $resource(restApiBaseUrl + '/api/ten_min_profile_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&data_sets=:data_sets&order_by=:order_by', {}, {
                 query: {
                     method: 'GET', params: {
@@ -303,7 +303,7 @@
         
         }
         
-        function getFiveMinProfileParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
+        function getFiveMinProfileParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
             var resource = $resource(restApiBaseUrl + '/api/five_min_profile_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&data_sets=:data_sets&order_by=:order_by', {}, {
                 query: {
                     method: 'GET', params: {
@@ -342,7 +342,7 @@
         
         }
         
-        function getOneMinProfileParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
+        function getOneMinProfileParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
             var resource = $resource(restApiBaseUrl + '/api/one_min_profile_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&data_sets=:data_sets&order_by=:order_by', {}, {
                 query: {
                     method: 'GET', params: {
@@ -381,7 +381,7 @@
         
         }
         
-        function getOneSecProfileParameterMeasurements(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
+        function getOneSecProfileParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp, dataSets, orderBy) {
             var resource = $resource(restApiBaseUrl + '/api/one_sec_profile_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp&data_sets=:data_sets&order_by=:order_by', {}, {
                 query: {
                     method: 'GET', params: {
