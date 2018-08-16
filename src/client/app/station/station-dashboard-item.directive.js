@@ -60,7 +60,7 @@
     }
     
     function getHourlyProfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
-      return stationProflieParameterMeasurements.getHourlyProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
+      return stationProfileParameterMeasurements.getHourlyProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
@@ -250,7 +250,7 @@
                     resource = getHourlyChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
                   }
                   else if (vm.isProfile()) {
-                    resource = getHourlyMinProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                    resource = getHourlyProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
                   }
                 }
 
