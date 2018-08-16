@@ -39,7 +39,7 @@
         };
         
         function getDailySingleParameterMeasurements(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/daily_single_parameter_measurements_by_sensor?sensor_id=:station_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/daily_single_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         sensor_id: sensorId,
@@ -73,11 +73,11 @@
         
         }
         
-        function getDailySingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/daily_single_parameter_measurements_by_sensor?sensor_id=:station_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
+        function getDailySingleParameterMeasurementsChart(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+            var resource = $resource(restApiBaseUrl + '/api/daily_single_parameter_measurements_by_sensor?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
-                        station_id: stationId,
+                        sensor_id: sensorId,
                         parameter_id: parameterId,
                         qc_level: qcLevel,
                         from_timestamp: fromTimestamp,
@@ -89,7 +89,7 @@
             });
             
             return resource.query({
-                station_id: stationId, 
+                sensor_id: sensorId, 
                 parameter_id: parameterId, 
                 qc_level: qcLevel, 
                 from_timestamp: fromTimestamp, 
@@ -108,7 +108,7 @@
         
         }
         
-        function getDailySingleParameterMeasurementsTimeGrouped(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+        function getDailySingleParameterMeasurementsTimeGrouped(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
             var resource = $resource(restApiBaseUrl + '/api/daily_single_parameter_measurements_by_sensor_time_grouped?sensor_id=:sensor_id&parameter=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
@@ -319,7 +319,7 @@
         }
         
         function getTwentyMinSingleParameterMeasurementsChart(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
-            var resource = $resource(restApiBaseUrl + '/api/twenty_min_single_parameter_measurements_by_sensor_chart?sensor_id=:station_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
+            var resource = $resource(restApiBaseUrl + '/api/twenty_min_single_parameter_measurements_by_sensor_chart?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
                         sensor_id: sensorId,
@@ -388,7 +388,7 @@
         
         }
         
-        function getFifteenMinSingleParameterMeasurementsChart(stationId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
+        function getFifteenMinSingleParameterMeasurementsChart(sensorId, parameterId, qcLevel, fromTimestamp, toTimestamp) {
             var resource = $resource(restApiBaseUrl + '/api/fifteen_min_single_parameter_measurements_by_sensor_chart?sensor_id=:sensor_id&parameter_id=:parameter_id&qc_level=:qc_level&from_timestamp=:from_timestamp&to_timestamp=:to_timestamp', {}, {
                 query: {
                     method: 'GET', params: {
