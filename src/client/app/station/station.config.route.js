@@ -462,6 +462,7 @@
                                     
                                     yAxis: {
                                       title: {
+                                        align: 'middle',
                                         text: 'Vertical Position'
                                       },
                                       minPadding: 0,
