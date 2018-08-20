@@ -329,7 +329,7 @@
           });
         }
         else if (vm.isProfile()) {
-           getDynamicChartData((moment().subtract(7, 'day')).valueOf(), moment().valueOf())
+           getDynamicChartData((moment().subtract(2, 'day')).valueOf(), moment().valueOf())
             .then(function(data) {
                for (var sensorId in data) {
                   if (data.hasOwnProperty(sensorId)) {
