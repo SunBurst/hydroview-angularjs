@@ -354,10 +354,11 @@
                                 pointFormat: '{point.x:%Y-%m-%d %H:%M:%S} {point.y} <b>{point.value} ' + vm.parameter.parameter_unit + '</b>'
                               }
                             };
+
                             for (var i = 0; i < qcData.length; i++) {
                               series.data.push([qcData[i].timestamp, qcData[i].vertical_position, qcData[i].avg_value]);
                             }
-                            //vm.parameter.chartConfig.yAxis.title.text = 'Vertical Position ' + '(' +  + ')';
+
                             vm.parameter.chartConfig.series = [];
                             vm.parameter.chartConfig.series.push(series);
                             vm.parameter.chartConfig = angular.copy(vm.parameter.chartConfig);
