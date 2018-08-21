@@ -1,5 +1,6 @@
 /* jshint camelcase:false */
 var gulp = require('gulp');
+var babel = require('gulp-babel');
 var browserSync = require('browser-sync');
 var glob = require('glob');
 var gulpif = require('gulp-if');
@@ -169,10 +170,11 @@ gulp.task('js', ['config-build', 'analyze', 'templatecache'], function() {
     .src(source)
     // .pipe(gulpSourcemaps.init()) // get screwed up in the file rev process
     .pipe(gulpConcat('all.min.js'))
-    .pipe(gulpNgAnnotate({
-      add: true,
-      single_quotes: true
-    }))
+    //.pipe(gulpNgAnnotate({
+    //  add: true,
+    //  single_quotes: true
+    //}))
+    .pipe(babel())
     .pipe(gulpBytediff.start())
     .pipe(gulpUglify({
       mangle: true
