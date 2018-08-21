@@ -76,24 +76,15 @@
     "merge-stream": "^1.0.1",
     "method-override": "^3.0.0",
     "minimist": "^1.1.0",
-<<<<<<< HEAD
-    "mocha": "^1.20.1",
-=======
     "mocha": "^5.2.0",
     "morgan": "^1.1.1",
->>>>>>> fad743a4fc71af98b3262207c19c9e35eefb99c3
     "ng-midway-tester": "^2.0.5",
     "optipng-bin": "^4.0.0",
     "phantomjs": "^2.1.7",
     "plato": "^1.2.2",
     "q": "^1.0.1",
     "serve-favicon": "^2.0.1",
-<<<<<<< HEAD
-    "sinon": "^1.10.3",
-    "sinon-chai": "^2.5.0"
-=======
     "sinon": "^6.1.5",
     "sinon-chai": "^3.2.0"
->>>>>>> fad743a4fc71af98b3262207c19c9e35eefb99c3
   }
 }
