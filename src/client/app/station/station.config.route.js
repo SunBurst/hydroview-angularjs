@@ -40,6 +40,7 @@
                                 return response.data;
                             });
                     },
+                    /*
                     _groups: ['$stateParams', 'StationGroupsFactory', 
                         function($stateParams, StationGroupsFactory) {
                             var stationId = $stateParams.station_id;
@@ -48,6 +49,7 @@
                                     return response.data;
                                 });
                     }],
+                    */
                     _parameters: ['$stateParams', 'StationParametersFactory', 
                         function($stateParams, StationParametersFactory) {
                             var stationId = $stateParams.station_id;
@@ -59,6 +61,7 @@
                 }
                 
             })
+            /*
             .state('station.data', {
                 url: '/data',
                 templateUrl: 'app/station/station-data.html',
@@ -66,6 +69,7 @@
                 controller: 'StationDataCtrl',
                 controllerAs: 'stationDataVm'
             })
+            */
             .state('station.dashboard', {
                 url: '/dashboard',
                 template: '<station-dashboard station="stationDashboardVm.station" parameters="stationDashboardVm.parameters"/>',
@@ -458,13 +462,14 @@
                                     
                                     yAxis: {
                                       title: {
+                                        align: 'middle',
                                         text: 'Vertical Position'
                                       },
                                       minPadding: 0,
                                       maxPadding: 0,
                                       reversed: true,
                                       labels: {
-                                        format: '{value} ' + (parameter.parameter_unit ? parameter.parameter_unit : '')
+                                        format: '{value}' 
                                       }
                                     },
 
@@ -507,6 +512,7 @@
                         }],
                     }
             })
+            /*
             .state('station.data.groups', {
                 url: '/groups',
                 templateUrl: 'app/station/station-data-groups.html',
@@ -676,6 +682,8 @@
                     }]
                 }
             })
+            */
+            /*
             .state('station.data.parameters', {
                 url: '/parameters',
                 templateUrl: 'app/station/station-data-parameters.html',
@@ -891,6 +899,7 @@
                 }
                     
             })
+            */
             .state('station.cams-and-photos', {
                 url: '/cams-and-photos',
                 templateUrl: 'app/station/station-cams-and-photos.html',

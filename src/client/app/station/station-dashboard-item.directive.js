@@ -60,7 +60,7 @@
     }
     
     function getHourlyProfileChartDataByQCLevel(sensorId, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy) {
-      return stationProflieParameterMeasurements.getHourlyProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
+      return stationProfileParameterMeasurements.getHourlyProfileParameterMeasurements(sensorId, vm.parameter.parameter_id, qcLevel, fromTimestmap, toTimestamp, selectedDataSets, orderBy)
         .then(function(response) {
           return response.data;
         });
@@ -250,7 +250,7 @@
                     resource = getHourlyChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
                   }
                   else if (vm.isProfile()) {
-                    resource = getHourlyMinProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
+                    resource = getHourlyProfileChartDataByQCLevel(sensor.sensor_id, qcLevel.qc_level, fromTimestmap, toTimestamp, _selectedDataSets, orderBy);
                   }
                 }
 
@@ -329,7 +329,7 @@
           });
         }
         else if (vm.isProfile()) {
-           getDynamicChartData((moment().subtract(7, 'day')).valueOf(), moment().valueOf())
+           getDynamicChartData((moment().subtract(2, 'day')).valueOf(), moment().valueOf())
             .then(function(data) {
                for (var sensorId in data) {
                   if (data.hasOwnProperty(sensorId)) {
@@ -337,6 +337,7 @@
                       if (data[sensorId].hasOwnProperty(qcLevel)) {
                         data[sensorId][qcLevel].then(function(qcData) {
                           if (vm.parameter.selectedChartType === 'heatmap') {
+                            console.log(qcData.length);
                             var seriesId = vm.parameter.parameter_id + "-" + sensorId + "-" + qcLevel;
                             var sensor = getSensor(sensorId);
                             var seriesName = sensor.sensor_name + ' (QC Level: ' + qcLevel +')';
@@ -344,7 +345,7 @@
                               id: seriesId,
                               name: seriesName,
                               borderWidth: 0,
-                              turboThreshold: 100,
+                              turboThreshold: Number.MAX_VALUE,
                               nullColor: '#EFEFEF',
                               colsize: 24 * 36e5, // one day
                               data: [],
@@ -353,11 +354,11 @@
                                 pointFormat: '{point.x:%Y-%m-%d %H:%M:%S} {point.y} <b>{point.value} ' + vm.parameter.parameter_unit + '</b>'
                               }
                             };
+
                             for (var i = 0; i < qcData.length; i++) {
                               series.data.push([qcData[i].timestamp, qcData[i].vertical_position, qcData[i].avg_value]);
                             }
-                            console.log(sensor);
-                            //vm.parameter.chartConfig.yAxis.title.text = 'Vertical Position ' + '(' +  + ')';
+
                             vm.parameter.chartConfig.series = [];
                             vm.parameter.chartConfig.series.push(series);
                             vm.parameter.chartConfig = angular.copy(vm.parameter.chartConfig);
