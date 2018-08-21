@@ -46,6 +46,7 @@
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^1.9.1",
     "gulp-autoprefixer": "0.0.10",
+    "gulp-babel": "^7.0.1",
     "gulp-bytediff": "^0.2.1",
     "gulp-cache": "^0.2.10",
     "gulp-cdnizer": "^1.1.7",
@@ -75,13 +76,13 @@
     "merge-stream": "^0.1.5",
     "minimist": "^1.1.0",
     "mocha": "^1.20.1",
-    "sinon": "^1.10.3",
-    "sinon-chai": "^2.5.0",
     "ng-midway-tester": "^2.0.5",
     "optipng-bin": "^4.0.0",
     "phantomjs": "^1.9.7-14",
     "plato": "^1.2.2",
     "q": "^1.0.1",
-    "serve-favicon": "^2.0.1"
+    "serve-favicon": "^2.0.1",
+    "sinon": "^1.10.3",
+    "sinon-chai": "^2.5.0"
   }
 }
