@@ -469,7 +469,7 @@
                                       maxPadding: 0,
                                       reversed: true,
                                       labels: {
-                                        format: '{value} ' + (parameter.parameter_unit ? parameter.parameter_unit : '')
+                                        format: '{value}' 
                                       }
                                     },
 
