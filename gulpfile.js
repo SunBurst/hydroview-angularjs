@@ -1,4 +1,6 @@
 /* jshint camelcase:false */
+'use strict';
+
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 var browserSync = require('browser-sync');
@@ -18,7 +20,7 @@ var gulpInject = require('gulp-inject');
 var gulpUtil = require('gulp-util');
 var gulpAutoprefixer = require('gulp-autoprefixer');
 var gulpBytediff = require('gulp-bytediff');
-var gulpMinifyCss = require('gulp-minify-css');
+var gulpCleanCss = require('gulp-clean-css');
 var gulpMinifyHtml = require('gulp-minify-html');
 var gulpNotify = require('gulp-notify');
 var gulpCache = require('gulp-cache');
@@ -120,7 +122,7 @@ gulp.task('css', function() {
     .pipe(gulpConcat('all.min.css')) // Before bytediff or after
     .pipe(gulpAutoprefixer('last 2 version', '> 5%'))
     .pipe(gulpBytediff.start())
-    .pipe(gulpMinifyCss({}))
+    .pipe(gulpCleanCss({compability: 'ie8'}))
     .pipe(gulpBytediff.stop(bytediffFormatter))
     .pipe(gulp.dest(paths.build + 'content'));
 });
@@ -138,7 +140,6 @@ gulp.task('vendorcss', function() {
         .pipe(vendorFilter)
         .pipe(gulpConcat('vendor.min.css'))
         .pipe(gulpBytediff.start())
-        .pipe(gulpMinifyCss({}))
         .pipe(gulpBytediff.stop(bytediffFormatter))
         .pipe(gulp.dest(paths.build + 'content'));
 });
@@ -168,19 +169,21 @@ gulp.task('js', ['config-build', 'analyze', 'templatecache'], function() {
   var source = [].concat(paths.js, paths.build + 'templates.js');
   return gulp
     .src(source)
-    // .pipe(gulpSourcemaps.init()) // get screwed up in the file rev process
+    .pipe(gulpSourcemaps.init()) // get screwed up in the file rev process
     .pipe(gulpConcat('all.min.js'))
     //.pipe(gulpNgAnnotate({
     //  add: true,
     //  single_quotes: true
     //}))
-    .pipe(babel())
+    .pipe(babel({
+      presets: ['@babel/env']
+    }))
     .pipe(gulpBytediff.start())
     .pipe(gulpUglify({
       mangle: true
     }))
     .pipe(gulpBytediff.stop(bytediffFormatter))
-    // .pipe(gulpSourcemaps.write('./'))
+    .pipe(gulpSourcemaps.write('./'))
     .pipe(gulp.dest(paths.build));
 });
 
@@ -238,7 +241,7 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function() {
         .pipe(minFilter) // filter the stream to minified css and js
         .pipe(gulpRev()) // create files with rev's
         .pipe(gulp.dest(paths.build)) // write the rev files
-        .pipe(minFilter.restore()) // remove filter, back to original stream
+        //.pipe(minFilter.restore) // remove filter, back to original stream
 
     // inject the files into index.html
     .pipe(indexFilter) // filter to index.html
@@ -247,7 +250,7 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function() {
         .pipe(inject('vendor.min.js', 'inject-vendor'))
         .pipe(inject('all.min.js'))
         .pipe(gulp.dest(paths.build)) // write the rev files
-    .pipe(indexFilter.restore()) // remove filter, back to original stream
+//    .pipe(indexFilter.restore) // remove filter, back to original stream
 
     // replace the files referenced in index.html with the rev'd files
     .pipe(gulpRevReplace()) // Substitute in new filenames
@@ -258,8 +261,8 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function() {
     function inject(path, name) {
         var pathGlob = paths.build + path;
         var options = {
-            ignorePath: paths.build.substring(1),
-            read: false
+            ignorePath: paths.build.substring(1)
+            //read: false
         };
         if (name) {
             options.name = name;
