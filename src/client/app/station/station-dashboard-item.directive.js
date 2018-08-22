@@ -329,7 +329,7 @@
           });
         }
         else if (vm.isProfile()) {
-           getDynamicChartData((moment().subtract(2, 'day')).valueOf(), moment().valueOf())
+           getDynamicChartData((moment().subtract(1, 'day')).valueOf(), moment().valueOf())
             .then(function(data) {
                for (var sensorId in data) {
                   if (data.hasOwnProperty(sensorId)) {
@@ -337,17 +337,22 @@
                       if (data[sensorId].hasOwnProperty(qcLevel)) {
                         data[sensorId][qcLevel].then(function(qcData) {
                           if (vm.parameter.selectedChartType === 'heatmap') {
-                            console.log(qcData.length);
                             var seriesId = vm.parameter.parameter_id + "-" + sensorId + "-" + qcLevel;
                             var sensor = getSensor(sensorId);
                             var seriesName = sensor.sensor_name + ' (QC Level: ' + qcLevel +')';
+                            var dataLength = qcData.length;
+                            var numberOfProfiles = 0;
+                            if (vm.parameter.vertical_positions.length > 0) {
+                              numberOfProfiles = dataLength / vm.parameter.vertical_positions.length;
+                            }
+                            var colSize = (24 * 36e5) / numberOfProfiles;
                             var series = {
                               id: seriesId,
                               name: seriesName,
                               borderWidth: 0,
                               turboThreshold: Number.MAX_VALUE,
                               nullColor: '#EFEFEF',
-                              colsize: 24 * 36e5, // one day
+                              colsize: colSize,
                               data: [],
                               tooltip: {
                                 headerFormat: seriesName + '<br/>',
