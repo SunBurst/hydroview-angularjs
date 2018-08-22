@@ -345,7 +345,9 @@
                             if (vm.parameter.vertical_positions.length > 0) {
                               numberOfProfiles = dataLength / vm.parameter.vertical_positions.length;
                             }
+                            console.log(numberOfProfiles);
                             var colSize = (24 * 36e5) / numberOfProfiles;
+                            console.log(colSize);
                             var series = {
                               id: seriesId,
                               name: seriesName,
@@ -359,6 +361,7 @@
                                 pointFormat: '{point.x:%Y-%m-%d %H:%M:%S} {point.y} <b>{point.value} ' + vm.parameter.parameter_unit + '</b>'
                               }
                             };
+                            console.log(series.colsize);
 
                             for (var i = 0; i < qcData.length; i++) {
                               series.data.push([qcData[i].timestamp, qcData[i].vertical_position, qcData[i].avg_value]);
