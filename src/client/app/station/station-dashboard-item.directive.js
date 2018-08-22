@@ -342,11 +342,13 @@
                             var seriesName = sensor.sensor_name + ' (QC Level: ' + qcLevel +')';
                             var dataLength = qcData.length;
                             var numberOfProfiles = 0;
-                            if (sensor.vertical_positions.length > 0) {
+                            if (sensor.vertical_positions.length !== 0) {
                               numberOfProfiles = dataLength / sensor.vertical_positions.length;
                             }
-                            console.log(numberOfProfiles);
-                            var colSize = (24 * 36e5) / numberOfProfiles;
+                            var colSize = 24 * 36e5; 
+                            if (numberOfProfiles !== 0) {
+                              colSize = (24 * 36e5) / numberOfProfiles;
+                            }
                             console.log(colSize);
                             var series = {
                               id: seriesId,
