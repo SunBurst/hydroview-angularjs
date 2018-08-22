@@ -342,6 +342,7 @@
                             var seriesName = sensor.sensor_name + ' (QC Level: ' + qcLevel +')';
                             var dataLength = qcData.length;
                             var numberOfProfiles = 0;
+                            console.log(numberOfProfiles);
                             if (vm.parameter.vertical_positions.length > 0) {
                               numberOfProfiles = dataLength / vm.parameter.vertical_positions.length;
                             }
