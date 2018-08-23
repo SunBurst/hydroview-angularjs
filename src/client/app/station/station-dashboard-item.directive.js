@@ -337,19 +337,23 @@
                       if (data[sensorId].hasOwnProperty(qcLevel)) {
                         data[sensorId][qcLevel].then(function(qcData) {
                           if (vm.parameter.selectedChartType === 'heatmap') {
-                            var seriesId = vm.parameter.parameter_id + "-" + sensorId + "-" + qcLevel;
+                            var dataSet = vm.parameter.selectedDataSet;
+                            var dataSetColumnName = dataSet + "_value";
+                            var seriesId = vm.parameter.parameter_id + "-" + sensorId + "-" + qcLevel + "-" + dataSet;
                             var sensor = getSensor(sensorId);
                             var seriesName = sensor.sensor_name + ' (QC Level: ' + qcLevel +')';
                             var dataLength = qcData.length;
                             var numberOfProfiles = 0;
+                            var colSize = 24 * 36e5; 
+                            
                             if (sensor.vertical_positions.length !== 0) {
                               numberOfProfiles = dataLength / sensor.vertical_positions.length;
                             }
-                            var colSize = 24 * 36e5; 
+                            
                             if (numberOfProfiles !== 0) {
                               colSize = (24 * 36e5) / numberOfProfiles;
                             }
-                            console.log(colSize);
+
                             var series = {
                               id: seriesId,
                               name: seriesName,
@@ -359,16 +363,16 @@
                               colsize: colSize,
                               data: [],
                               tooltip: {
-                                headerFormat: seriesName + '<br/>',
-                                pointFormat: '{point.x:%Y-%m-%d %H:%M:%S} {point.y} <b>{point.value} ' + vm.parameter.parameter_unit + '</b>'
+                                headerFormat: '<b>' + seriesName + '</b><br/>',
+                                pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y} ' + sensor.vertical_position_unit + '<br/>{point.value} ' + vm.parameter.parameter_unit
                               }
                             };
-                            console.log(series.colsize);
 
                             for (var i = 0; i < qcData.length; i++) {
-                              series.data.push([qcData[i].timestamp, qcData[i].vertical_position, qcData[i].avg_value]);
+                              series.data.push([qcData[i].timestamp, qcData[i].vertical_position, qcData[i][dataSetColumnName]]);
                             }
 
+                            vm.parameter.chartConfig.yAxis.title.text = 'Vertical Position ' + '(' + sensor.vertical_position_unit + ')';
                             vm.parameter.chartConfig.series = [];
                             vm.parameter.chartConfig.series.push(series);
                             vm.parameter.chartConfig = angular.copy(vm.parameter.chartConfig);
