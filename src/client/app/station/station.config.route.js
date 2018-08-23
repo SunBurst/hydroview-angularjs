@@ -184,34 +184,31 @@
                           var resource = StationParametersFactory.getProfileParameterVerticalPositions(stationId, parameterId);
                           promiseArray.push(resource);
                         }
-
                       }
 
                       return $q.all(promiseArray).then(function(response) {
                         for (var i = 0; i < response.length; i++) {
                           for (var j = 0; j < response[i].data.length; j++) {
                             var parameterId = response[i].data[j].parameter_id;
-                            var parameterVerticalPositionUnit = response[i].data[j].vertical_position_unit;
+                            var sensorId = response[i].data[j].sensor_id;
+                            
                             var parameterNotInObject = !(parameterId in profileVerticalPositions);
                             if (parameterNotInObject) {
-                              profileVerticalPositions[parameterId] = {
-                                'vertical_position_unit': parameterVerticalPositionUnit
-                              };
+                              profileVerticalPositions[parameterId] = {};
                             }
-                            var sensorId = response[i].data[j].sensor_id;
+                            
                             var sensorNotInObject = !(sensorId in profileVerticalPositions[parameterId]);
                             if (sensorNotInObject) {
                               profileVerticalPositions[parameterId][sensorId] = {
-                                'vertical_positions': []
+                                'vertical_positions': [],
+                                'vertical_position_unit': ''
                               };
                             }
-                            
-                            //var verticalPosition = response[i].data[j].vertical_position;
-                            //var verticalPositionUnit = response[i].data[j].vertical_position_unit;
-                            //profileVerticalPositions[parameterId][sensorId]['vertical_positions'].push({
-                            //  'vertical_position': verticalPosition,
-                            //  'vertical_position_unit': verticalPositionUnit
-                            //});
+
+                            var verticalPositions = response[i].data[j].vertical_positions;
+                            var verticalPositionUnit = response[i].data[j].vertical_position_unit;
+                            profileVerticalPositions[parameterId][sensorId]['vertical_positions'] = verticalPositions;
+                            profileVerticalPositions[parameterId][sensorId]['vertical_position_unit'] = verticalPositionUnit;
                           }
                         }
                         return profileVerticalPositions;       
@@ -276,6 +273,7 @@
                                         }
                                         if (parameter.parameter_type === 'profile') {
                                           sensor['vertical_positions'] = [];
+                                          sensor['vertical_position_unit'] = '',
                                           sensor['selectedVerticalPositions'] = [];
                                           sensor['searchTerm'] = "";
                                           var parameterInVerticalPositions = (parameter.parameter_id in _profileParameterVerticalPositions);
@@ -283,6 +281,7 @@
                                             var sensorInParameterVerticalPositions = (sensorId in _profileParameterVerticalPositions[parameter.parameter_id]);
                                             if (sensorInParameterVerticalPositions) {
                                               sensor['vertical_positions'] = _profileParameterVerticalPositions[parameter.parameter_id][sensorId].vertical_positions;
+                                              sensor['vertical_position_unit'] = _profileParameterVerticalPositions[parameter.parameter_id][sensorId].vertical_position_unit;
                                             }
                                           }
                                         }
@@ -463,7 +462,7 @@
                                     yAxis: {
                                       title: {
                                         align: 'middle',
-                                        text: 'Vertical Position'
+                                        text: 'Vertical Position '
                                       },
                                       minPadding: 0,
                                       maxPadding: 0,
