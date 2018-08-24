@@ -385,10 +385,6 @@
                                         }
                                       }
                                     },
-                                    
-                                    title: {
-                                      text: parameter.parameter_name
-                                    },
 
                                     noData: {
                                       style: {
@@ -430,6 +426,10 @@
                                       },
                                     },
                                     
+                                    title: {
+                                      text: null
+                                    },
+                                    
                                     boost: {
                                       useGPUTranslations: true
                                     },
@@ -449,10 +449,6 @@
                                         [0.9, '#c4463a'],
                                         [1, '#c4463a']
                                       ],
-                                    },
-
-                                    title: {
-                                      text: parameter.parameter_name
                                     },
 
                                     xAxis: {
@@ -487,6 +483,12 @@
                                           fontWeight: 'bold',
                                           color: '#333'
                                         }
+                                      }
+                                    },
+                                    
+                                    navigation: {
+                                      buttonOptions: {
+                                        align: 'left'
                                       }
                                     },
                                     
