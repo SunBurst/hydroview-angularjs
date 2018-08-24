@@ -353,6 +353,13 @@
                             if (numberOfProfiles !== 0) {
                               colSize = (24 * 36e5) / numberOfProfiles;
                             }
+                            
+                            if (sensor.vertical_positions.length >= 2) {
+                              var yAxisMin = sensor.vertical_positions[0];
+                              var yAxisMax = sensor.vertical_positions[sensor.vertical_positions.length - 1];
+                              vm.parameter.chartConfig.yAxis['min'] = yAxisMin;
+                              vm.parameter.chartConfig.yAxis['max'] = yAxisMax;
+                            }
 
                             var series = {
                               id: seriesId,
